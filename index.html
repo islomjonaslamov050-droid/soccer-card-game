@@ -173,6 +173,7 @@
       </select>
       <span id="sound-toggle" style="cursor:pointer;font-size:15px;" title="Ovozni yoqish/o'chirish">🔊</span>
       <span id="stats-toggle" style="cursor:pointer;font-size:15px;display:none;" title="Statistika">📊</span>
+      <span id="download-game-btn" style="cursor:pointer;font-size:15px;" title="O'yinni faylga yuklab olish">⬇️</span>
       <div class="sb-right" id="sb-info">— : —</div>
     </div>
   </div>
@@ -180,6 +181,12 @@
   <div style="text-align:center; margin-bottom:6px;"><img id="hero-logo" style="width:120px; height:auto; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));" alt="Soccer Card logo"></div>
   <h1 class="title">SOCCER CARD</h1>
   <div class="subtitle" id="hero-subtitle">Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.</div>
+  <div style="margin:10px 0 4px;">
+    <button id="download-game-btn" style="width:auto;padding:10px 18px;">⬇️ O'YINNI FAYLGA YUKLAB OLISH</button>
+  </div>
+  <div style="margin-bottom:16px;">
+    <button id="self-download-btn" class="primary" style="width:auto; padding:10px 20px;">⬇ O'YINNI FAYLGA YUKLAB OLISH</button>
+  </div>
 
   <details class="card" style="padding:14px 20px; margin-bottom:16px;">
     <summary style="cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:var(--gold);">QANDAY O'RNATISH / SAQLASH MUMKIN?</summary>
@@ -656,6 +663,232 @@ function clubStrength(club, leagueName){
   return Math.round((lg.min+lg.max)/2);
 }
 function tierForRating(r){ return LEAGUES.find(l => r>=l.min && r<=l.max) || LEAGUES[0]; }
+
+/* ===================== EXHIBITION TOURNAMENTS ===================== */
+const WC_STRENGTH = {
+  "Braziliya":93,"Argentina":92,"Fransiya":91,"Ispaniya":90,"Angliya":89,"Germaniya":88,"Portugaliya":88,
+  "Niderlandiya":86,"Italiya":85,"Belgiya":83,"Xorvatiya":82,"Urugvay":81,"Kolumbiya":80,"Marokash":79,
+  "Yaponiya":78,"AQSH":77,"Meksika":76,"Senegal":75,"Shveytsariya":74,"Daniya":74,"Polsha":73,"Serbiya":73,
+  "Ekvador":72,"Chili":71,"Peru":71,"Nigeriya":70,"Gana":70,"Tunis":69,"Jazoir":69,"Janubiy Koreya":69,
+  "Avstraliya":68,"Kanada":68,"Avstriya":70,"Ukraina":68,"Vengriya":66,"Ruminiya":66,"O'zbekiston":65,
+  "Qatar":64,"BAA":63,"Saudiya Arabistoni":66,"Misr":68,"Kot-d'Ivuar":67,"Kamerun":67,"Janubiy Afrika":64,
+  "Islandiya":65,"Sloveniya":64,"Yunoniston":65,"Shvetsiya":70
+};
+const WC_POOL = Object.keys(WC_STRENGTH).map(name=>{
+  const n = NATIONS.find(x=>x.name===name);
+  return {name, flag:n?n.flag:'🏳️', strength:WC_STRENGTH[name]};
+});
+const EURO_NAMES = ["Fransiya","Ispaniya","Angliya","Germaniya","Portugaliya","Niderlandiya","Italiya","Belgiya","Xorvatiya","Shveytsariya","Daniya","Polsha","Serbiya","Avstriya","Ukraina","Vengriya","Ruminiya","Islandiya","Sloveniya","Yunoniston","Shvetsiya"];
+const EURO_POOL = EURO_NAMES.map(name=>{ const n = NATIONS.find(x=>x.name===name); return {name, flag:n?n.flag:'🏳️', strength:WC_STRENGTH[name]||65}; });
+const COPA_STRENGTH = {"Braziliya":93,"Argentina":92,"Urugvay":81,"Kolumbiya":80,"Ekvador":72,"Chili":71,"Peru":71,"AQSH":77,"Meksika":76,"Paragvay":68,"Boliviya":62,"Venesuela":63};
+const COPA_POOL = Object.keys(COPA_STRENGTH).map(name=>{ const n = NATIONS.find(x=>x.name===name); return {name, flag:n?n.flag:'🏳️', strength:COPA_STRENGTH[name]}; });
+const ASIA_STRENGTH = {"Yaponiya":78,"Janubiy Koreya":69,"Saudiya Arabistoni":66,"Qatar":64,"BAA":63,"O'zbekiston":65,"Avstraliya":68,"Xitoy":60,"Eron":66,"Iroq":58,"Iordaniya":56};
+const ASIA_POOL = Object.keys(ASIA_STRENGTH).map(name=>{ const n = NATIONS.find(x=>x.name===name); return {name, flag:n?n.flag:'🏳️', strength:ASIA_STRENGTH[name]}; });
+function isNationType(type){ return type==='wc' || type==='euro' || type==='copa' || type==='asia'; }
+function buildCLPool(){
+  const euroNames = ['La Liga','Premyer Liga','Seriya A','Bundesliga','Ligue 1'];
+  const perLeague = {'La Liga':7,'Premyer Liga':7,'Seriya A':6,'Bundesliga':6,'Ligue 1':6};
+  let pool = [];
+  euroNames.forEach(ln=>{
+    const lg = leagueForName(ln);
+    lg.clubs.slice(0, perLeague[ln]).forEach(c=>{
+      pool.push({name:c.name, club:c, league:lg, strength:clubStrength(c, ln)});
+    });
+  });
+  return pool;
+}
+function buildCWCPool(){
+  let pool = buildCLPool(); // 32 European clubs
+  const extras = [
+    {club: NATION_REAL_CLUBS["Braziliya"] ? NATION_REAL_CLUBS["Braziliya"][0] : C("Flamengo","#B23A3A","#1B1B1B"), strength:80},
+    {club: NATION_REAL_CLUBS["Braziliya"] ? NATION_REAL_CLUBS["Braziliya"][1] : C("Palmeiras","#1E7A46","#F2EFE6"), strength:78},
+    {club: NATION_REAL_CLUBS["Argentina"] ? NATION_REAL_CLUBS["Argentina"][0] : C("Boca Juniors","#1E3A8A","#F0D13B"), strength:79},
+    {club: NATION_REAL_CLUBS["Argentina"] ? NATION_REAL_CLUBS["Argentina"][1] : C("River Plate","#F2EFE6","#B23A3A"), strength:78},
+    {club: C("Al-Hilal","#1E3A8A","#F2EFE6"), strength:75},
+    {club: C("Al-Nassr","#F0D13B","#1B1B1B"), strength:74},
+    {club: C("Inter Miami","#F7B5CD","#1B1B1B"), strength:70},
+    {club: C("Pakhtakor Tashkent FK","#1E7A46","#F2EFE6"), strength:64},
+    {club: C("Wydad AC","#B23A3A","#F2EFE6"), strength:66},
+    {club: C("Al-Ahly","#B23A3A","#1B1B1B"), strength:68},
+    {club: C("Urawa Red Diamonds","#B23A3A","#F2EFE6"), strength:67},
+    {club: C("Ulsan HD","#F0D13B","#1B1B1B"), strength:65},
+    {club: C("CF Monterrey","#1E3A8A","#F2EFE6"), strength:69},
+    {club: C("Seattle Sounders","#1E7A46","#F2EFE6"), strength:63},
+    {club: C("Auckland City","#1E3A8A","#F2EFE6"), strength:55},
+    {club: C("Melbourne City","#3AA0D4","#F2EFE6"), strength:62}
+  ];
+  extras.forEach(e=> pool.push({name:e.club.name, club:e.club, league:{name:"Boshqa konfederatsiya"}, strength:e.strength}));
+  return pool;
+}
+function buildPool(type){
+  if(type==='wc') return WC_POOL;
+  if(type==='euro') return EURO_POOL;
+  if(type==='copa') return COPA_POOL;
+  if(type==='asia') return ASIA_POOL;
+  if(type==='cwc') return buildCWCPool();
+  return buildCLPool();
+}
+function tournamentDisplayName(type){
+  return {wc:"Jahon Chempionati", euro:"Yevropa Chempionati", copa:"Amerika Chempionati (Copa America)", asia:"Osiyo Kubogi", cl:"Chempionlar Ligasi", cwc:"Klublar Jahon Chempionati"}[type] || "Turnir";
+}
+let exhibitionState = null;
+
+function showExhibitionMenu(){
+  document.getElementById('week-title').textContent = "🏆 TURNIRLAR";
+  document.getElementById('event-text').innerHTML = "Istalgan davlat yoki klubni tanlab, mustaqil turnir o'ynang — bu asosiy karyerangizga ta'sir qilmaydi, sof zavq uchun!";
+  document.getElementById('center-note').textContent = "";
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  actions.appendChild(makeBtn("🌍 JAHON CHEMPIONATI (48 davlat)", ()=>showTeamPicker('wc'), true));
+  actions.appendChild(makeBtn("🇪🇺 YEVROPA CHEMPIONATI", ()=>showTeamPicker('euro')));
+  actions.appendChild(makeBtn("🌎 AMERIKA CHEMPIONATI", ()=>showTeamPicker('copa')));
+  actions.appendChild(makeBtn("🌏 OSIYO KUBOGI", ()=>showTeamPicker('asia')));
+  actions.appendChild(makeBtn("⭐ CHEMPIONLAR LIGASI (32 klub)", ()=>showTeamPicker('cl'), true));
+  actions.appendChild(makeBtn("🏅 KLUBLAR JAHON CHEMPIONATI (48 klub)", ()=>showTeamPicker('cwc')));
+  actions.appendChild(makeBtn(tC('btn_continue'), player.isManager?showCoachWeek:showTrainingWeek));
+}
+function showTeamPicker(type){
+  const pool = buildPool(type);
+  const isNation = isNationType(type);
+  document.getElementById('week-title').textContent = `${tournamentDisplayName(type).toUpperCase()} — ${isNation?"JAMOA":"KLUB"} TANLANG`;
+  document.getElementById('event-text').innerHTML = "O'zingiz boshqarmoqchi bo'lgan jamoani tanlang:";
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  const wrap = document.createElement('div');
+  wrap.style.cssText = "display:flex;flex-direction:column;gap:6px;width:100%;max-height:380px;overflow-y:auto;";
+  pool.slice().sort((a,b)=>b.strength-a.strength).forEach(team=>{
+    const row = document.createElement('button');
+    row.style.cssText = "display:flex;align-items:center;gap:10px;justify-content:space-between;text-align:left;width:100%;";
+    const label = isNation ? `${team.flag} ${team.name}` : `${clubBadgeSVG(team.club,22)}${team.name}`;
+    row.innerHTML = `<span style="display:flex;align-items:center;gap:8px;">${label}</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:11px;">${team.strength} KUCH</span>`;
+    row.addEventListener('click', ()=> startExhibitionDraw(type, team, pool));
+    wrap.appendChild(row);
+  });
+  document.getElementById('event-text').appendChild(wrap);
+  actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu));
+}
+function startExhibitionDraw(type, myTeam, pool){
+  const groupSize = 4;
+  const others = pool.filter(t=>t.name!==myTeam.name).sort(()=>Math.random()-0.5);
+  const rivals = others.slice(0, groupSize-1);
+  exhibitionState = {
+    type, myTeam, group: [myTeam, ...rivals],
+    table: [myTeam, ...rivals].map(t=>({team:t, pts:0, played:0, gf:0, ga:0})),
+    matchIdx: 0, roundIdx: 0
+  };
+  document.getElementById('week-title').textContent = "🎉 QURA TASHLASH MAROSIMI";
+  const label = type==='wc' ? (t)=>`${t.flag} ${t.name}` : (t)=>t.name;
+  document.getElementById('event-text').innerHTML = `
+    <div style="text-align:center;margin-bottom:10px;">Sizning guruhingiz:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
+      ${exhibitionState.group.map((t,i)=>`<div style="background:${i===0?'rgba(201,164,76,0.15)':'#0f0f0d'};border:1px solid var(--line);border-radius:6px;padding:8px 16px;width:220px;text-align:center;">${label(t)} ${i===0?'<b>(SIZ)</b>':''}<br><span style="opacity:.6;font-size:11px;">Kuch: ${t.strength}</span></div>`).join('<div style="opacity:.5;">vs</div>')}
+    </div>`;
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  actions.appendChild(makeBtn("GURUH BOSQICHINI BOSHLASH", playExhibitionGroupMatch, true));
+}
+function playExhibitionGroupMatch(){
+  const st = exhibitionState;
+  if(st.matchIdx >= st.group.length-1){ return showExhibitionGroupTable(); }
+  const rival = st.group[st.matchIdx+1];
+  const label = st.type==='wc' ? (t)=>`${t.flag} ${t.name}` : (t)=>t.name;
+  document.getElementById('week-title').textContent = `GURUH BOSQICHI: ${st.matchIdx+1}/${st.group.length-1}`;
+  document.getElementById('event-text').innerHTML = `${label(st.myTeam)} — ${label(rival)}`;
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  actions.appendChild(makeBtn("O'YNASH", ()=>{
+    const diff = st.myTeam.strength - rival.strength + rnd(-15,15);
+    let myScore, rivalScore;
+    if(diff>8){ myScore=rnd(1,3); rivalScore=rnd(0,1); }
+    else if(diff>-8){ myScore=rnd(0,2); rivalScore=rnd(0,2); }
+    else { myScore=rnd(0,1); rivalScore=rnd(1,3); }
+    st.table[0].played++; st.table[0].gf+=myScore; st.table[0].ga+=rivalScore;
+    st.table[st.matchIdx+1].played++; st.table[st.matchIdx+1].gf+=rivalScore; st.table[st.matchIdx+1].ga+=myScore;
+    if(myScore>rivalScore){ st.table[0].pts+=3; addLog(`${label(st.myTeam)} ${myScore}-${rivalScore} ${label(rival)}: G'alaba!`); }
+    else if(myScore===rivalScore){ st.table[0].pts+=1; st.table[st.matchIdx+1].pts+=1; addLog(`${label(st.myTeam)} ${myScore}-${rivalScore} ${label(rival)}: Durang.`); }
+    else { st.table[st.matchIdx+1].pts+=3; addLog(`${label(st.myTeam)} ${myScore}-${rivalScore} ${label(rival)}: Mag'lubiyat.`); }
+    // other group teams play each other too (silent)
+    st.matchIdx++;
+    playExhibitionGroupMatch();
+  }, true));
+}
+function showExhibitionGroupTable(){
+  const st = exhibitionState;
+  const label = st.type==='wc' ? (t)=>`${t.flag} ${t.name}` : (t)=>t.name;
+  const sorted = st.table.slice().sort((a,b)=> b.pts-a.pts || (b.gf-b.ga)-(a.gf-a.ga));
+  const myPos = sorted.findIndex(r=>r.team.name===st.myTeam.name)+1;
+  document.getElementById('week-title').textContent = "GURUH JADVALI";
+  document.getElementById('event-text').innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:12px;">
+      <tr style="opacity:.6;"><td>#</td><td>Jamoa</td><td>O</td><td>To'plar</td><td>Ochko</td></tr>
+      ${sorted.map((r,i)=>`<tr style="${r.team.name===st.myTeam.name?'color:var(--gold);font-weight:700;':''}"><td>${i+1}</td><td>${label(r.team)}</td><td>${r.played}</td><td>${r.gf}-${r.ga}</td><td>${r.pts}</td></tr>`).join('')}
+    </table>
+    <div class="center-note" style="margin-top:12px;">${myPos<=2 ? `Siz ${myPos}-o'rinda — PLEY-OFFGA CHIQDINGIZ!` : `Siz ${myPos}-o'rinda — guruh bosqichida qoldingiz.`}</div>`;
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  if(myPos<=2){
+    exhibitionState.roundIdx = 0;
+    actions.appendChild(makeBtn("PLEY-OFFNI BOSHLASH", startExhibitionKnockout, true));
+  } else {
+    actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+  }
+}
+function startExhibitionKnockout(){
+  const st = exhibitionState;
+  const rounds = isNationType(st.type) ? ["32-lik","16-lik","Chorak final","Yarim final","Final"] : ["16-lik","Chorak final","Yarim final","Final"];
+  const label = isNationType(st.type) ? (t)=>`${t.flag} ${t.name}` : (t)=>t.name;
+  function playRound(){
+    if(st.roundIdx >= rounds.length){
+      const trophyName = tournamentDisplayName(st.type) + " (mustaqil turnir)";
+      addLog(`🏆 ${label(st.myTeam)} bilan ${trophyName}da g'olib chiqdingiz!`);
+      playFanfare();
+      document.getElementById('week-title').textContent = "🏆 CHEMPION!";
+      document.getElementById('event-text').innerHTML = bracketHTML(rounds, rounds.length) + `<b>${label(st.myTeam)}</b> ${trophyName}ning g'olibi bo'ldi!`;
+      const actions = document.getElementById('action-buttons');
+      actions.innerHTML = "";
+      actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+      return;
+    }
+    const roundName = rounds[st.roundIdx];
+    const oppStrength = clamp(st.myTeam.strength + rnd(-18,18), 40, 96);
+    document.getElementById('week-title').textContent = roundName.toUpperCase();
+    document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx) + `${roundName} bosqichi boshlanmoqda...`;
+    const actions = document.getElementById('action-buttons');
+    actions.innerHTML = "";
+
+    function handleWin(viaPenalties){
+      addLog(`${label(st.myTeam)}: ${roundName} bosqichida g'alaba qozondi!${viaPenalties?' (penalti seriyasida)':''}`);
+      st.roundIdx++;
+      document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx) + `<b>G'ALABA!</b> ${roundName} bosqichida yutdingiz.`;
+      actions.innerHTML = "";
+      actions.appendChild(makeBtn("KEYINGI BOSQICH", playRound, true));
+    }
+    function handleLose(viaPenalties){
+      addLog(`${label(st.myTeam)}: ${roundName} bosqichida mag'lub bo'ldi.${viaPenalties?' (penalti seriyasida)':''}`);
+      document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx, st.roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida chetlashtirildingiz.`;
+      actions.innerHTML = "";
+      actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+    }
+    actions.appendChild(makeBtn("O'YNASH", ()=>{
+      const perf = clamp(st.myTeam.strength + rnd(-15,15), 0, 100);
+      const diff = perf - oppStrength;
+      if(Math.abs(diff) <= 5){
+        document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx) + `Natija teng (${perf} - ${oppStrength})! <b>Penalti seriyasi</b> boshlanmoqda...`;
+        actions.innerHTML = "";
+        setTimeout(()=> startPenalties(oppStrength, ()=>handleWin(true), ()=>handleLose(true)), 900);
+      } else if(diff > 0){
+        handleWin(false);
+      } else {
+        handleLose(false);
+      }
+    }, true));
+    actions.appendChild(makeBtn("⏭ O'TKAZIB YUBORISH", ()=>{
+      const win = Math.random() < 0.5;
+      if(win) handleWin(false); else handleLose(false);
+    }));
+  }
+  playRound();
+}
 
 /* ===================== NATION -> STARTING CLUBS ===================== */
 const NATION_TO_LEAGUE = {
@@ -1205,6 +1438,22 @@ const heroLogoEl = document.getElementById('hero-logo');
 if(heroLogoEl) heroLogoEl.src = SOCCERCARD_LOGO;
 initSetupUI();
 
+document.getElementById('download-game-btn').addEventListener('click', ()=>{
+  try{
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'soccer-card.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(()=> URL.revokeObjectURL(url), 2000);
+  }catch(e){
+    alert("Yuklab olishda xatolik yuz berdi. Iltimos, brauzeringiz menyusidan \"Sahifani saqlash\" (Ctrl+S) dan foydalaning.");
+  }
+});
 document.getElementById('device-select').addEventListener('change', (e)=>{
   const frame = document.getElementById('game-frame');
   frame.classList.remove('mode-laptop','mode-phone','mode-tablet');
@@ -1412,6 +1661,7 @@ function showTrainingWeek(){
   actions.appendChild(makeBtn("🏁 MAVSUMNI TEZKOR YAKUNLASH", ()=>{
     if(confirm("Qolgan barcha haftalar avtomatik simulyatsiya qilinadi. Davom etasizmi?")) quickSimSeason();
   }));
+  actions.appendChild(makeBtn("🏆 TURNIRLAR (JC / CL)", showExhibitionMenu));
 }
 function doTraining(type){
   if(player.wage===undefined) player.wage = Math.round((player.marketValue||15000) * 0.004);
@@ -1461,6 +1711,16 @@ function genSquadNames(count, isUzbek){
 /* Real, web-verified players with their actual FC 26 (EA Sports) overall ratings, checked live
    for the 2026-27 season. Kept to a curated marquee list per club rather than full rosters,
    since verifying every player at 120+ clubs isn't reliable to do accurately. */
+/* Real, web-verified current head coaches (2026-27 season) for flavor when
+   the coach-mode player joins or faces these clubs. */
+const REAL_MANAGERS = {
+  "Real Madrid": "Alvaro Arbeloa",
+  "Manchester City": "Enzo Maresca",
+  "Liverpool": "Andoni Iraola",
+  "Chelsea": "Xabi Alonso",
+  "Manchester United": "Michael Carrick",
+  "Arsenal": "Mikel Arteta"
+};
 const REAL_STARS = {
   "Real Madrid": [
     {name:"Kylian Mbappe", nat:"Fransiya", pos:"FW", rating:91},
@@ -2036,7 +2296,7 @@ function quickSimSeason(){
   const winRate = totalMatches ? (wins + draws*0.5) / totalMatches : 0.5;
   const goalContribution = totalMatches ? (totalGoals+totalAssists)/totalMatches : 0;
   const avgPerf = totalMatches ? Math.round((player.ratingSum/Math.max(player.ratedMatches,1))) : 50;
-  const growthScore = clamp(Math.round((winRate-0.3)*14 + goalContribution*6 + (avgPerf-45)/5), -4, 16);
+  const growthScore = clamp(Math.round((winRate-0.35)*12 + goalContribution*5 + (avgPerf-48)/5.5), -6, 13);
   const w = POS_WEIGHTS[player.position] || POS_WEIGHTS['CM'];
   const statKeys = ['pace','shooting','passing','defending','physical'];
   statKeys.forEach(k=>{
@@ -2701,7 +2961,7 @@ function checkBallonDor(ovr){
 /* ---- Transfer offer ---- */
 function clubTransferBudget(league){
   const tierScale = clamp(league.max, 60, 97);
-  return Math.round(tierScale * rnd(700,1500) / 500) * 500;
+  return Math.round(tierScale * rnd(3200,6500) / 500) * 500;
 }
 function generateAITransferNews(){
   const lines = [];
@@ -2732,18 +2992,26 @@ function showTransferOffer(ovr){
   const candidateLeagues = LEAGUES.filter(l => ovr >= l.min-4 && ovr <= l.max+10);
   let candidates = [];
   candidateLeagues.forEach(l=>{
-    l.clubs.forEach(c=>{ if(c.name !== player.club) candidates.push({club:c, league:l}); });
+    const eligibleClubs = ovr>=85 ? l.clubs.slice(0, Math.max(6, Math.round(l.clubs.length*0.35))) : l.clubs;
+    eligibleClubs.forEach(c=>{ if(c.name !== player.club) candidates.push({club:c, league:l}); });
   });
   candidates = candidates.filter(()=>Math.random()<0.35);
   candidates = candidates.map(c=>{
     const fee = Math.round(player.marketValue * (0.7 + Math.random()*0.9) / 500)*500;
     const budget = clubTransferBudget(c.league);
     const wage = Math.round(fee * (0.003 + Math.random()*0.002));
-    const isLoan = Math.random() < 0.3;
+    const isLoan = ovr>=88 ? Math.random() < 0.12 : Math.random() < 0.3;
     const buyOption = isLoan && Math.random() < 0.55;
     return {...c, fee, budget, wage, isLoan, buyOption};
   });
   candidates = candidates.filter(c => c.isLoan || c.fee <= c.budget);
+  if(!candidates.some(c=>!c.isLoan) && candidates.length){
+    // Guarantee at least one permanent suitor can actually afford the fee,
+    // so elite-rated players aren't stuck with loan-only offers.
+    const best = candidates.reduce((a,b)=> b.fee>a.fee ? b : a);
+    best.isLoan = false;
+    best.budget = best.fee;
+  }
   candidates.sort((a,b)=>b.fee-a.fee);
   candidates = candidates.slice(0, 6);
 
@@ -2896,6 +3164,7 @@ function showCoachWeek(){
   actions.appendChild(makeBtn("🏁 MAVSUMNI TEZKOR YAKUNLASH", ()=>{
     if(confirm("Qolgan barcha haftalar avtomatik simulyatsiya qilinadi. Davom etasizmi?")) quickSimCoachSeason();
   }));
+  actions.appendChild(makeBtn("🏆 TURNIRLAR (JC / CL)", showExhibitionMenu));
 }
 function coachPenaltyMatch(){
   currentOpponent = randomOpponent();
@@ -2998,18 +3267,66 @@ function endCoachSeason(){
     addLog(`🏆 Murabbiy sifatida ${player.league} chempionligini qo'lga kiritdingiz!`);
     playFanfare();
   }
+  const totalMatches = coachState.wins+coachState.draws+coachState.losses;
+  const winRate = totalMatches ? (coachState.wins + coachState.draws*0.5)/totalMatches : 0.5;
+  const repChange = clamp(Math.round((winRate-0.35)*24 + (won?8:0)), -8, 15);
+  coachState.reputation = clamp(coachState.reputation + repChange, 10, 99);
+  player.reputation = coachState.reputation;
+  player.managerSeason = (player.managerSeason||1) + 1;
+  const repNote = repChange>0 ? `<span style="color:#8fd4a8;">▲ Murabbiy obro'si oshdi (+${repChange})</span>` : repChange<0 ? `<span style="color:var(--crimson);">▼ Murabbiy obro'si pasaydi (${repChange})</span>` : `<span style="opacity:.7;">Obro' o'zgarmadi</span>`;
+
   document.getElementById('week-title').textContent = `${season}-MAVSUM YAKUNI (MURABBIY)`;
-  document.getElementById('event-text').innerHTML = `Mavsum yakuni: ${coachState.wins}G — ${coachState.draws}D — ${coachState.losses}M.${won?'<br><br>🏆 Chempionsiz!':''}`;
+  document.getElementById('event-text').innerHTML = `Mavsum yakuni: ${coachState.wins}G — ${coachState.draws}D — ${coachState.losses}M.${won?'<br><br>🏆 Chempionsiz!':''}<br><br>Murabbiy obro'si: ${coachState.reputation}/100<br>${repNote}`;
   renderTrophies();
+  renderLiveCard();
   const actions = document.getElementById('action-buttons');
   actions.innerHTML = "";
-  actions.appendChild(makeBtn("KEYINGI MAVSUM", ()=>{
-    season++; coachState.week=1; coachState.wins=0; coachState.draws=0; coachState.losses=0;
-    driftRealStarRatings(); addLog(seasonPreviewLine());
-    initLeagueTable(); saveActiveSlot(); showCoachWeek();
-  }, true));
-  actions.appendChild(makeBtn("MURABBIYLIKNI TUGATISH", resetGame));
+  const currentLeague = leagueForName(player.league);
+  if(currentLeague.continental){
+    actions.appendChild(makeBtn(`${currentLeague.continental}ga o'tish`, ()=> runTournament(currentLeague.continental, false)));
+  }
+  actions.appendChild(makeBtn("TRANSFER TAKLIFLARINI KO'RISH", showCoachTransferOffer, true));
   saveActiveSlot();
+}
+function showCoachTransferOffer(){
+  const rep = coachState.reputation;
+  const candidateLeagues = LEAGUES.filter(l => rep >= l.min-6 && rep <= l.max+14);
+  let candidates = [];
+  candidateLeagues.forEach(l=>{ l.clubs.forEach(c=>{ if(c.name !== player.club) candidates.push({club:c, league:l}); }); });
+  candidates = candidates.filter(()=>Math.random()<0.3).slice(0,4);
+
+  document.getElementById('week-title').textContent = "MURABBIY TRANSFER BOZORI";
+  const actions = document.getElementById('action-buttons');
+  actions.innerHTML = "";
+  if(candidates.length===0){
+    document.getElementById('event-text').innerHTML = "Bu safar boshqa klublardan taklif kelmadi.";
+    actions.appendChild(makeBtn("KEYINGI MAVSUM", goToNextCoachSeason, true));
+    actions.appendChild(makeBtn("MURABBIYLIKNI TUGATISH", resetGame));
+    return;
+  }
+  document.getElementById('event-text').innerHTML = `<b>${candidates.length}</b> klub sizni murabbiy sifatida taklif qilmoqda:`;
+  const offerWrap = document.createElement('div');
+  offerWrap.style.cssText = "display:flex;flex-direction:column;gap:8px;width:100%;";
+  candidates.forEach(({club,league})=>{
+    const row = document.createElement('button');
+    row.style.cssText = "display:flex;align-items:center;gap:12px;justify-content:flex-start;text-align:left;width:100%;";
+    const prevManager = REAL_MANAGERS[club.name];
+    row.innerHTML = `${clubBadgeSVG(club,28)}<span><b>${club.name}</b><br><span style="opacity:.7;font-size:11px;">${league.name}${prevManager?` · avvalgi murabbiy: ${prevManager}`:''}</span></span>`;
+    row.addEventListener('click', ()=>{
+      addLog(`${player.name} murabbiy sifatida ${club.name} (${league.name}) klubiga o'tdi!`);
+      player.club = club.name; player.league = league.name; player.clubColors = club;
+      renderLiveCard(); goToNextCoachSeason();
+    });
+    offerWrap.appendChild(row);
+  });
+  document.getElementById('event-text').appendChild(offerWrap);
+  actions.appendChild(makeBtn(`${player.club} da qolish`, goToNextCoachSeason));
+  actions.appendChild(makeBtn("MURABBIYLIKNI TUGATISH", resetGame));
+}
+function goToNextCoachSeason(){
+  season++; coachState.week=1; coachState.wins=0; coachState.draws=0; coachState.losses=0;
+  driftRealStarRatings(); addLog(seasonPreviewLine());
+  initLeagueTable(); saveActiveSlot(); showCoachWeek();
 }
 
 /* ===================== RENDER HELPERS ===================== */
