@@ -10,6 +10,7 @@
   :root{
     --pitch:#0E3B2C; --pitch-light:#164A36; --chalk:#F2EFE6;
     --gold:#C9A44C; --charcoal:#181815; --crimson:#B23A3A; --line: rgba(242,239,230,0.14);
+    --purple:#8B5CF6; --purple-light:#c4b0ff; --purple-glow: rgba(139,92,246,0.55);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -151,6 +152,267 @@
   @media (orientation: portrait) and (max-width: 700px){
     .landscape-hint.active{display:flex;}
   }
+
+  /* ===================================================================
+     HOME MENU (FC Mobile / eFootball inspired) — Phase 1
+  =================================================================== */
+  @keyframes homeFadeIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .fade-in-screen{ animation:homeFadeIn .4s ease; }
+
+  /* --- topbar economy chips + avatar + settings --- */
+  .topbar-stats{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .topbar-chip{
+    display:flex; align-items:center; gap:4px; background:#0f0f0d; border:1px solid var(--line);
+    border-radius:20px; padding:4px 10px 4px 6px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    font-weight:600; color:var(--chalk); white-space:nowrap;
+  }
+  .topbar-chip .ic{ font-size:13px; }
+  .topbar-chip.level{ border-color:var(--purple); color:var(--purple-light); }
+  .topbar-chip.coins{ border-color:var(--gold); color:var(--gold); }
+  .topbar-chip.gems{ border-color:#c084fc; color:#c084fc; }
+  .topbar-chip.energy{ border-color:#5CC8FF; color:#5CC8FF; }
+  .topbar-chip.pop{ animation:chipPop .4s ease; }
+  @keyframes chipPop{ 0%{transform:scale(1);} 40%{transform:scale(1.3);} 100%{transform:scale(1);} }
+  .topbar-avatar{
+    width:30px; height:30px; border-radius:50%; flex:0 0 auto; cursor:pointer;
+    background:linear-gradient(135deg,var(--purple),var(--gold)); border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif;
+    font-size:13px; color:#fff; box-shadow:0 0 10px var(--purple-glow); overflow:hidden;
+  }
+  .topbar-avatar img{ width:100%; height:100%; object-fit:cover; }
+  .topbar-avatar:hover{ transform:scale(1.08); }
+  .settings-gear-wrap{ position:relative; }
+  .settings-gear{ cursor:pointer; font-size:16px; display:inline-block; line-height:1; padding:4px; }
+  .settings-gear:hover{ transform:rotate(25deg); display:inline-block; }
+  .settings-popover{
+    position:absolute; top:32px; right:0; background:var(--charcoal); border:1px solid var(--line);
+    border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:8px; z-index:80;
+    box-shadow:0 14px 34px rgba(0,0,0,.55); min-width:190px;
+  }
+
+  /* --- persistent main navigation (top row on desktop, bottom bar on mobile) --- */
+  .main-nav{ display:flex; gap:8px; overflow-x:auto; padding:4px 2px 16px; margin-bottom:2px; scrollbar-width:thin; }
+  .main-nav.hidden{ display:none; }
+  .nav-item{
+    flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:4px; min-width:68px;
+    background:#0f0f0d; border:1px solid var(--line); border-radius:10px; padding:9px 12px; cursor:pointer;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.5px; color:var(--chalk); opacity:.78;
+    transition:transform .12s ease, border-color .12s ease, opacity .12s ease, box-shadow .12s ease; text-align:center;
+  }
+  .nav-item .nav-ic{ font-size:18px; }
+  .nav-item:hover{ transform:translateY(-2px); opacity:1; border-color:var(--purple); }
+  .nav-item:active{ transform:translateY(0) scale(.95); }
+  .nav-item.active{ border-color:var(--gold); color:var(--gold); opacity:1; box-shadow:0 0 14px rgba(201,164,76,0.4); }
+  @media (max-width:760px){
+    .main-nav{
+      position:fixed; left:0; right:0; bottom:0; z-index:70; margin:0; overflow-x:visible;
+      background:rgba(8,8,7,0.97); border-top:1px solid var(--line); justify-content:space-between;
+      padding:7px 4px calc(7px + env(safe-area-inset-bottom)); backdrop-filter:blur(8px);
+    }
+    .nav-item{ flex:1 1 0; min-width:0; padding:7px 1px; font-size:8.6px; border-radius:8px; }
+    .nav-item .nav-ic{ font-size:17px; }
+    body.has-bottom-nav .game-frame{ padding-bottom:88px; }
+  }
+
+  /* --- hero banner --- */
+  .home-hero{
+    position:relative; border-radius:14px; overflow:hidden; padding:30px 18px 24px; text-align:center; margin-bottom:16px;
+    background:
+      radial-gradient(circle at 25% 15%, rgba(139,92,246,0.38), transparent 55%),
+      radial-gradient(circle at 78% 85%, rgba(201,164,76,0.28), transparent 55%),
+      linear-gradient(160deg,#0a0a09,#151013 55%,#0a0a09);
+    border:1px solid rgba(201,164,76,0.32);
+    animation:homeFadeIn .55s ease;
+  }
+  .home-hero .home-hero-logo{ width:64px; height:auto; margin-bottom:6px; filter:drop-shadow(0 4px 14px rgba(0,0,0,.55)); }
+  .home-hero h1.home-title{
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,7vw,44px); letter-spacing:3px; margin:4px 0 4px;
+    background:linear-gradient(90deg,var(--gold),#fff2c8,var(--gold)); -webkit-background-clip:text; background-clip:text;
+    color:transparent; text-shadow:0 0 30px rgba(201,164,76,0.35);
+  }
+  .home-hero .home-subtitle{ opacity:.8; font-size:13px; margin-bottom:18px; }
+  .home-hero-buttons{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .btn-play-match{
+    flex:1 1 220px; max-width:320px; background:linear-gradient(90deg,var(--gold),#e8c878); color:#1b1400;
+    font-family:'Bebas Neue',sans-serif; font-size:19px; letter-spacing:1.5px; padding:15px; border:none;
+    box-shadow:0 8px 26px rgba(201,164,76,0.42);
+  }
+  .btn-play-match:hover{ filter:brightness(1.1); transform:translateY(-2px); }
+  .btn-play-match:active{ transform:translateY(0) scale(.98); }
+  .btn-secondary-hero{
+    flex:0 1 170px; background:rgba(139,92,246,0.14); border:1px solid var(--purple); color:#e3d8ff; font-size:12.5px;
+  }
+  .btn-secondary-hero:hover{ background:rgba(139,92,246,0.3); border-color:var(--purple-light); }
+
+  /* --- section headings --- */
+  .home-section-title{
+    font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:var(--gold);
+    margin:0 0 12px; display:flex; align-items:center; gap:8px;
+  }
+
+  /* --- team preview / mini pitch --- */
+  .team-preview-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+  .team-preview-head .ovr-badge{
+    font-family:'Bebas Neue',sans-serif; font-size:21px; color:var(--gold); background:rgba(201,164,76,0.1);
+    border:1px solid var(--gold); border-radius:8px; padding:3px 12px;
+  }
+  .mini-pitch{
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 42px),
+      linear-gradient(180deg,#0E3B2C,#164A36);
+    border:2px solid rgba(242,239,230,0.22); border-radius:10px; padding:16px 8px; display:flex;
+    flex-direction:column-reverse; gap:14px; min-height:220px; position:relative;
+  }
+  .mini-pitch::before{
+    content:""; position:absolute; left:50%; top:8px; bottom:8px; width:1px; background:rgba(255,255,255,0.15);
+    transform:rotate(90deg); display:none;
+  }
+  .pitch-line{ display:flex; justify-content:space-evenly; gap:6px; flex-wrap:wrap; }
+  .pitch-slot{ display:flex; flex-direction:column; align-items:center; gap:3px; font-family:'IBM Plex Mono',monospace; font-size:8.6px; color:var(--chalk); opacity:.9; }
+  .pitch-dot{
+    width:28px; height:28px; border-radius:50%; background:rgba(15,15,13,0.85); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700;
+  }
+  .pitch-slot.me .pitch-dot{
+    background:linear-gradient(135deg,var(--gold),#fff2c8); color:#1b1400; border-color:#fff2c8;
+    box-shadow:0 0 14px rgba(201,164,76,0.65); animation:meGlow 2s infinite ease-in-out;
+  }
+  .pitch-slot.me{ color:var(--gold); font-weight:700; }
+  @keyframes meGlow{ 0%,100%{ box-shadow:0 0 8px rgba(201,164,76,0.4);} 50%{ box-shadow:0 0 20px rgba(201,164,76,0.9);} }
+
+  /* --- daily rewards --- */
+  .daily-rewards-row{ display:flex; gap:6px; overflow-x:auto; padding:4px 2px 8px; }
+  .day-cell{
+    flex:0 0 auto; width:66px; background:#0f0f0d; border:1px solid var(--line); border-radius:8px;
+    padding:8px 4px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:9.5px; transition:transform .15s ease;
+  }
+  .day-cell .coin-ic{ font-size:18px; display:block; margin:4px 0; }
+  .day-cell.claimed{ opacity:.4; border-color:#3a3a34; }
+  .day-cell.today{ border-color:var(--gold); box-shadow:0 0 12px rgba(201,164,76,0.45); animation:todayPulse 1.7s infinite; }
+  @keyframes todayPulse{ 0%,100%{ box-shadow:0 0 8px rgba(201,164,76,0.28);} 50%{ box-shadow:0 0 18px rgba(201,164,76,0.72);} }
+  .day-cell.claimable:hover{ transform:translateY(-2px); border-color:var(--gold); }
+
+  /* --- missions --- */
+  .mission-row{ display:flex; align-items:center; gap:10px; background:#0f0f0d; border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; }
+  .mission-row .mission-ic{ font-size:19px; flex:0 0 auto; }
+  .mission-info{ flex:1; min-width:0; }
+  .mission-title{ font-size:11.5px; margin-bottom:5px; display:flex; justify-content:space-between; gap:6px; }
+  .mission-meter{ height:6px; background:#1c1c19; border-radius:3px; overflow:hidden; border:1px solid var(--line); }
+  .mission-meter-fill{ height:100%; background:linear-gradient(90deg,var(--purple),#c4b0ff); transition:width .5s ease; }
+  .mission-reward{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gold); flex:0 0 auto; text-align:right; min-width:58px; }
+  .mission-row.done{ border-color:var(--gold); }
+  .mission-row.done .mission-meter-fill{ background:linear-gradient(90deg,var(--gold),#fff2c8); }
+  .mission-row.done .mission-ic{ filter:drop-shadow(0 0 6px rgba(201,164,76,0.8)); }
+
+  /* --- placeholder screens (Cards / Market / Rewards) --- */
+  .placeholder-screen{ text-align:center; padding:54px 20px; }
+  .placeholder-screen .big-ic{ font-size:52px; margin-bottom:14px; display:block; animation:homeFadeIn .5s ease; }
+  .placeholder-screen p{ max-width:420px; margin:0 auto 22px; line-height:1.6; }
+
+  /* ===================================================================
+     CARD COLLECTION / MARKET / PACKS / REWARDS HUB — Phase 2
+  =================================================================== */
+  .hub-head{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .hub-head-title{ font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; color:var(--gold); }
+  .hub-head-sub{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75; margin-top:2px; }
+  .hub-tabs{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .hub-tab{ flex:0 0 auto; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:#0f0f0d; color:var(--chalk); opacity:.8; cursor:pointer; }
+  .hub-tab:hover{ opacity:1; border-color:var(--purple); }
+  .hub-tab.active{ border-color:var(--gold); color:var(--gold); opacity:1; box-shadow:0 0 10px rgba(201,164,76,0.35); }
+  .filter-row{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .filter-chip{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:6px 12px; border-radius:16px; border:1px solid var(--line); background:#0f0f0d; color:var(--chalk); opacity:.75; cursor:pointer; }
+  .filter-chip.active{ border-color:var(--purple); color:var(--purple-light); opacity:1; }
+  .sort-select{ width:auto; min-width:120px; font-size:11px; padding:6px 10px; }
+  .search-input{ width:100%; margin-bottom:10px; }
+
+  /* rarity color system */
+  .rarity-BRONZE{ --rc1:#a05a2c; --rc2:#e0a374; }
+  .rarity-SILVER{ --rc1:#9aa0a6; --rc2:#eef1f3; }
+  .rarity-GOLD{ --rc1:#c9a44c; --rc2:#fff2c8; }
+  .rarity-ELITE{ --rc1:#3AA0D4; --rc2:#c8f0ff; }
+  .rarity-HERO{ --rc1:#B23A3A; --rc2:#ffd0c8; }
+  .rarity-ICON{ --rc1:#8B5CF6; --rc2:#efe2ff; }
+  .rarity-LEGENDARY{ --rc1:#1B1B1B; --rc2:#ffe9a8; }
+
+  .pcard-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(122px,1fr)); gap:10px; }
+  .pcard{
+    position:relative; border-radius:10px; padding:8px 6px 10px; text-align:center; cursor:pointer;
+    background:linear-gradient(160deg, rgba(20,18,15,.92), rgba(8,8,7,.96));
+    border:1.5px solid var(--rc1,var(--line)); box-shadow:0 6px 18px rgba(0,0,0,.4);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .pcard::before{ content:""; position:absolute; inset:0; border-radius:10px; pointer-events:none;
+    background:linear-gradient(160deg, color-mix(in srgb, var(--rc1,#333) 22%, transparent), transparent 55%); }
+  .pcard:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.55), 0 0 16px color-mix(in srgb, var(--rc1,#333) 55%, transparent); }
+  .pcard .pc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--rc2,var(--gold)); line-height:1; }
+  .pcard .pc-pos{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; opacity:.8; margin-bottom:2px; }
+  .pcard .pc-photo{ width:52px; height:52px; margin:2px auto 4px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1b1400; box-shadow:0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent); overflow:hidden; }
+  .pc-photo img.ppic, .mr-photo img.ppic{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
+  .pcard .pc-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:11px; line-height:1.2; margin-bottom:2px; min-height:26px; display:flex; align-items:center; justify-content:center; }
+  .pcard .pc-nat{ font-size:14px; }
+  .pcard .pc-rarity{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1px; color:var(--rc1,var(--gold)); margin-top:2px; }
+  .pcard .pc-lvl{ position:absolute; top:5px; right:6px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; background:rgba(0,0,0,.55); border:1px solid var(--rc1,var(--line)); border-radius:4px; padding:1px 4px; color:var(--rc2,var(--chalk)); }
+  .pcard .pc-lock{ position:absolute; inset:0; border-radius:10px; background:rgba(5,5,5,.72); display:flex; align-items:center; justify-content:center; font-size:20px; }
+
+  .empty-hint{ text-align:center; opacity:.65; font-size:13px; padding:30px 10px; }
+
+  /* modal */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(4,4,3,0.78); z-index:200; display:flex; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(3px); }
+  .modal-overlay.hidden{ display:none; }
+  .modal-box{ background:var(--charcoal); border:1px solid var(--gold); border-radius:12px; padding:20px; max-width:420px; width:100%; max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.6); animation:homeFadeIn .25s ease; }
+  .modal-close{ float:right; cursor:pointer; font-size:18px; opacity:.7; }
+  .modal-close:hover{ opacity:1; }
+  .pdetail-card{ text-align:center; margin-bottom:14px; }
+  .pdetail-ovr{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--rc2,var(--gold)); }
+  .pdetail-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:18px; margin:2px 0; }
+  .pdetail-meta{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75; }
+  .pdetail-stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; margin:14px 0; }
+  .pdetail-stat{ font-family:'IBM Plex Mono',monospace; font-size:12px; display:flex; justify-content:space-between; border-bottom:1px dashed var(--line); padding-bottom:4px; }
+  .pdetail-actions{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+  .pdetail-actions button{ flex:none; width:100%; }
+
+  /* market list */
+  .market-row{ display:flex; align-items:center; gap:10px; background:#0f0f0d; border:1px solid var(--rc1,var(--line)); border-radius:8px; padding:9px 10px; margin-bottom:8px; }
+  .market-row .mr-photo{ width:40px; height:40px; border-radius:50%; flex:0 0 auto; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:15px; color:#1b1400; overflow:hidden; }
+  .fut-photo img.ppic{ width:100%; height:100%; object-fit:cover; }
+  .market-row .mr-info{ flex:1; min-width:0; }
+  .market-row .mr-name{ font-size:13px; font-weight:600; }
+  .market-row .mr-sub{ font-family:'IBM Plex Mono',monospace; font-size:10px; opacity:.7; }
+  .market-row .mr-price{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); flex:0 0 auto; text-align:right; }
+  .market-row button{ flex:0 0 auto; width:auto; min-width:auto; padding:8px 12px; font-size:11px; }
+
+  /* packs */
+  .pack-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; }
+  .pack-card{ border-radius:10px; padding:16px 10px; text-align:center; border:1.5px solid var(--rc1,var(--line));
+    background:linear-gradient(160deg, color-mix(in srgb, var(--rc1,#333) 18%, #0f0f0d), #0a0a09); }
+  .pack-card .pack-ic{ font-size:34px; display:block; margin-bottom:6px; filter:drop-shadow(0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent)); }
+  .pack-card .pack-name{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; color:var(--rc2,var(--gold)); }
+  .pack-card .pack-contains{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; opacity:.7; margin:4px 0 8px; }
+  .pack-card button{ width:100%; font-size:11px; padding:8px 6px; }
+
+  /* pack opening animation */
+  .pack-open-stage{ text-align:center; padding:20px 10px; min-height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .pack-anim-icon{ font-size:70px; animation:packGlow 1.1s ease-in-out infinite; }
+  @keyframes packGlow{ 0%,100%{ transform:scale(1); filter:drop-shadow(0 0 8px rgba(201,164,76,0.4)); } 50%{ transform:scale(1.12); filter:drop-shadow(0 0 26px rgba(201,164,76,0.9)); } }
+  .pack-reveal-card{ animation:packReveal .5s cubic-bezier(.2,1.4,.4,1); }
+  @keyframes packReveal{ from{ transform:scale(.4) rotateY(90deg); opacity:0; } to{ transform:scale(1) rotateY(0); opacity:1; } }
+
+  /* squad builder */
+  .squad-pitch-slot{ display:flex; flex-direction:column; align-items:center; gap:3px; font-family:'IBM Plex Mono',monospace; font-size:8.6px; cursor:pointer; }
+  .squad-pitch-slot .sq-dot{ width:34px; height:34px; border-radius:50%; background:rgba(15,15,13,0.85); border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+  .squad-pitch-slot.filled .sq-dot{ border-color:var(--gold); background:linear-gradient(135deg,var(--gold),#fff2c8); color:#1b1400; }
+  .squad-pitch-slot:hover .sq-dot{ box-shadow:0 0 12px rgba(201,164,76,0.6); }
+
+  /* toast notifications */
+  .toast-wrap{ position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none; }
+  .toast{ font-family:'IBM Plex Mono',monospace; font-size:12px; padding:9px 16px; border-radius:20px; background:var(--charcoal); border:1px solid var(--gold); color:var(--chalk); box-shadow:0 8px 24px rgba(0,0,0,.5); animation:toastIn .25s ease, toastOut .3s ease 2.2s forwards; }
+  .toast.warn{ border-color:var(--crimson); color:#ffb3b3; }
+  @keyframes toastIn{ from{ opacity:0; transform:translateY(-10px);} to{ opacity:1; transform:translateY(0);} }
+  @keyframes toastOut{ to{ opacity:0; transform:translateY(-10px);} }
+
+  @media (max-width:760px){
+    .pcard-grid{ grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); }
+  }
 </style>
 </head>
 <body>
@@ -160,39 +422,66 @@
   <div class="scoreboard">
     <div class="sb-left"><span class="dot"></span><span id="sb-status">YANGI KARYERA</span></div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-      <select id="device-select" style="background:#0f0f0d;color:var(--gold);border:1px solid var(--line);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 6px;width:auto;">
-        <option value="laptop">💻 Noutbuk ekran</option>
-        <option value="phone">📱 Telefon ekran</option>
-        <option value="tablet">📐 Planshet ekran</option>
-      </select>
-      <select id="lang-select" style="background:#0f0f0d;color:var(--gold);border:1px solid var(--line);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 6px;width:auto;">
-        <option value="uz">🇺🇿 UZ sharh</option>
-        <option value="ru">🇷🇺 RU коммент.</option>
-        <option value="en">🇬🇧 EN commentary</option>
-        <option value="tr">🇹🇷 TR yorum</option>
-      </select>
-      <span id="sound-toggle" style="cursor:pointer;font-size:15px;" title="Ovozni yoqish/o'chirish">🔊</span>
-      <span id="stats-toggle" style="cursor:pointer;font-size:15px;display:none;" title="Statistika">📊</span>
-      <span id="header-download-icon" style="cursor:pointer;font-size:15px;" title="O'yinni faylga yuklab olish">⬇️</span>
+      <div class="topbar-stats" id="topbar-stats">
+        <span class="topbar-chip level" id="topbar-level-chip" title="Daraja"><span class="ic">⭐</span><span id="topbar-level-val">1</span></span>
+        <span class="topbar-chip coins" id="topbar-coins-chip" title="Tangalar"><span class="ic">🪙</span><span id="topbar-coins-val">0</span></span>
+        <span class="topbar-chip gems" id="topbar-gems-chip" title="Olmoslar"><span class="ic">💎</span><span id="topbar-gems-val">0</span></span>
+        <span class="topbar-chip energy" id="topbar-energy-chip" title="Energiya"><span class="ic">⚡</span><span id="topbar-energy-val">5/5</span></span>
+      </div>
+      <div class="topbar-avatar" id="topbar-avatar" title="Mening profilim">👤</div>
+      <div class="settings-gear-wrap">
+        <span class="settings-gear" id="settings-gear-btn" title="Sozlamalar">⚙️</span>
+        <div class="settings-popover hidden" id="settings-popover">
+          <select id="device-select" style="background:#0f0f0d;color:var(--gold);border:1px solid var(--line);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 6px;width:100%;">
+            <option value="laptop">💻 Noutbuk ekran</option>
+            <option value="phone">📱 Telefon ekran</option>
+            <option value="tablet">📐 Planshet ekran</option>
+          </select>
+          <select id="lang-select" style="background:#0f0f0d;color:var(--gold);border:1px solid var(--line);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 6px;width:100%;">
+            <option value="uz">🇺🇿 UZ sharh</option>
+            <option value="ru">🇷🇺 RU коммент.</option>
+            <option value="en">🇬🇧 EN commentary</option>
+            <option value="tr">🇹🇷 TR yorum</option>
+          </select>
+          <div style="display:flex;gap:12px;align-items:center;justify-content:center;padding-top:2px;">
+            <span id="sound-toggle" style="cursor:pointer;font-size:16px;" title="Ovozni yoqish/o'chirish">🔊</span>
+            <span id="stats-toggle" style="cursor:pointer;font-size:16px;display:none;" title="Statistika">📊</span>
+            <span id="header-download-icon" style="cursor:pointer;font-size:16px;" title="O'yinni faylga yuklab olish">⬇️</span>
+          </div>
+        </div>
+      </div>
       <div class="sb-right" id="sb-info">— : —</div>
     </div>
   </div>
 
-  <div style="text-align:center; margin-bottom:6px;"><img id="hero-logo" style="width:120px; height:auto; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));" alt="Soccer Card logo"></div>
-  <h1 class="title">SOCCER CARD</h1>
-  <div class="subtitle" id="hero-subtitle">Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.</div>
-  <div style="margin-bottom:16px;">
-    <button id="self-download-btn" class="primary" style="width:auto; padding:10px 20px;">⬇ O'YINNI FAYLGA YUKLAB OLISH</button>
+  <!-- ============ PERSISTENT MAIN NAVIGATION (top on desktop, bottom bar on mobile) ============ -->
+  <div class="main-nav hidden" id="main-nav">
+    <div class="nav-item" data-nav="home"><span class="nav-ic">🏠</span>HOME</div>
+    <div class="nav-item" data-nav="match"><span class="nav-ic">⚔️</span>MATCH</div>
+    <div class="nav-item" data-nav="team"><span class="nav-ic">👥</span>MY TEAM</div>
+    <div class="nav-item" data-nav="cards"><span class="nav-ic">🃏</span>CARDS</div>
+    <div class="nav-item" data-nav="career"><span class="nav-ic">🏆</span>CAREER</div>
+    <div class="nav-item" data-nav="market"><span class="nav-ic">🛒</span>MARKET</div>
+    <div class="nav-item" data-nav="rewards"><span class="nav-ic">🎁</span>REWARDS</div>
   </div>
 
-  <details class="card" style="padding:14px 20px; margin-bottom:16px;">
-    <summary style="cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:var(--gold);">QANDAY O'RNATISH / SAQLASH MUMKIN?</summary>
-    <div style="font-size:13px; line-height:1.7; margin-top:10px; opacity:.9;">
-      <b>📱 Telefonda (Android/iOS):</b> yuqoridagi yuklab olish tugmasi orqali <code>soccer-card.html</code> faylini saqlang, so'ng uni brauzeringizda (Chrome/Safari) oching. Chrome'da menyudan "Bosh ekranga qo'shish" ni tanlasangiz, u ilova kabi ikonka bo'lib qoladi.<br><br>
-      <b>💻 Noutbuk/kompyuterda:</b> faylni istalgan papkaga saqlang va uni ikki marta bosib oching — brauzeringiz avtomatik ochadi. Internetsiz ham ishlayveradi (faqat rasm/ovoz effektlari birinchi ochilishda yuklanadi).<br><br>
-      <i>Eslatma: bu — oddiy HTML fayl, alohida "ilova do'koni"siz to'g'ridan-to'g'ri brauzerda ishlaydi.</i>
+  <div id="landing-intro">
+    <div style="text-align:center; margin-bottom:6px;"><img id="hero-logo" style="width:120px; height:auto; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));" alt="Soccer Card logo"></div>
+    <h1 class="title">SOCCER CARD</h1>
+    <div class="subtitle" id="hero-subtitle">Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.</div>
+    <div style="margin-bottom:16px;">
+      <button id="self-download-btn" class="primary" style="width:auto; padding:10px 20px;">⬇ O'YINNI FAYLGA YUKLAB OLISH</button>
     </div>
-  </details>
+
+    <details class="card" style="padding:14px 20px; margin-bottom:16px;">
+      <summary style="cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:var(--gold);">QANDAY O'RNATISH / SAQLASH MUMKIN?</summary>
+      <div style="font-size:13px; line-height:1.7; margin-top:10px; opacity:.9;">
+        <b>📱 Telefonda (Android/iOS):</b> yuqoridagi yuklab olish tugmasi orqali <code>soccer-card.html</code> faylini saqlang, so'ng uni brauzeringizda (Chrome/Safari) oching. Chrome'da menyudan "Bosh ekranga qo'shish" ni tanlasangiz, u ilova kabi ikonka bo'lib qoladi.<br><br>
+        <b>💻 Noutbuk/kompyuterda:</b> faylni istalgan papkaga saqlang va uni ikki marta bosib oching — brauzeringiz avtomatik ochadi. Internetsiz ham ishlayveradi (faqat rasm/ovoz effektlari birinchi ochilishda yuklanadi).<br><br>
+        <i>Eslatma: bu — oddiy HTML fayl, alohida "ilova do'koni"siz to'g'ridan-to'g'ri brauzerda ishlaydi.</i>
+      </div>
+    </details>
+  </div>
 
   <!-- ============ SLOT SELECT SCREEN ============ -->
   <div class="card" id="slot-screen">
@@ -204,6 +493,141 @@
       <div class="center-note" id="trash-empty-note">Korzinka bo'sh.</div>
     </div>
   </div>
+
+  <!-- ============ HOME MENU (FC Mobile style hub) ============ -->
+  <div class="hidden fade-in-screen" id="home-menu-screen">
+    <div class="home-hero">
+      <img class="home-hero-logo" id="home-hero-logo" alt="Soccer Card Champions">
+      <h1 class="home-title">SOCCER CARD CHAMPIONS</h1>
+      <div class="home-subtitle" id="home-hero-subtitle">Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.</div>
+      <div class="home-hero-buttons">
+        <button class="btn-play-match" id="home-play-match-btn">⚽ PLAY MATCH</button>
+        <button class="btn-secondary-hero" id="home-career-btn">🏆 CAREER MODE</button>
+        <button class="btn-secondary-hero" id="home-team-btn">👥 TEAM</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="team-preview-head">
+        <div class="home-section-title" style="margin:0;">👥 MY TEAM</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span class="pill gold" id="home-formation-pill">FORMATION: 4-3-3</span>
+          <span class="ovr-badge" id="home-ovr-badge">— OVR</span>
+        </div>
+      </div>
+      <div class="mini-pitch" id="home-mini-pitch"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="home-section-title">🎁 DAILY REWARDS</div>
+      <div class="daily-rewards-row" id="daily-rewards-row"></div>
+    </div>
+
+    <div class="card">
+      <div class="home-section-title">🎯 DAILY MISSIONS</div>
+      <div id="missions-list"></div>
+    </div>
+  </div>
+
+  <!-- ============ CARDS: PLAYER COLLECTION ============ -->
+  <div class="card hidden fade-in-screen" id="cards-screen">
+    <div class="hub-tabs" id="cards-hub-tabs">
+      <div class="hub-tab" data-cardstab="collection">🃏 MY PLAYERS</div>
+      <div class="hub-tab" data-cardstab="squad">👥 SQUAD</div>
+    </div>
+
+    <div id="cards-collection-view">
+      <div class="hub-head">
+        <div>
+          <div class="hub-head-title" id="collection-title">MY PLAYERS</div>
+          <div class="hub-head-sub" id="collection-sub">Team OVR: — · Players: 0/100</div>
+        </div>
+      </div>
+      <div class="filter-row" id="pos-filter-row"></div>
+      <div class="filter-row">
+        <span class="filter-chip" style="opacity:.55;cursor:default;">SORT:</span>
+        <select class="sort-select" id="collection-sort">
+          <option value="ovr">OVR</option>
+          <option value="rating">RATING</option>
+          <option value="position">POSITION</option>
+          <option value="rarity">RARITY</option>
+        </select>
+      </div>
+      <div class="pcard-grid" id="collection-grid"></div>
+      <div class="empty-hint hidden" id="collection-empty">Hali kartalaringiz yo'q. MARKET yoki PACKS bo'limidan futbolchilar yig'ing!</div>
+    </div>
+
+    <div class="hidden" id="cards-squad-view">
+      <div class="hub-head">
+        <div>
+          <div class="hub-head-title">MY TEAM</div>
+          <div class="hub-head-sub" id="squad-sub">FORMATION: 4-3-3 · TEAM OVR —</div>
+        </div>
+        <select class="sort-select" id="squad-formation-select">
+          <option value="4-3-3">4-3-3</option>
+          <option value="4-4-2">4-4-2</option>
+          <option value="3-5-2">3-5-2</option>
+          <option value="4-2-3-1">4-2-3-1</option>
+        </select>
+      </div>
+      <div class="mini-pitch" id="squad-pitch" style="min-height:280px;"></div>
+      <div class="hub-head-sub" style="margin-top:10px;" id="squad-chem-note"></div>
+    </div>
+  </div>
+
+  <!-- ============ MARKET: TRANSFER MARKET + PACKS ============ -->
+  <div class="card hidden fade-in-screen" id="market-screen">
+    <div class="hub-tabs" id="market-hub-tabs">
+      <div class="hub-tab" data-markettab="players">🛒 PLAYERS</div>
+      <div class="hub-tab" data-markettab="packs">📦 PACKS</div>
+    </div>
+
+    <div id="market-players-view">
+      <input type="text" class="search-input" id="market-search" placeholder="Futbolchi qidirish...">
+      <div class="filter-row" id="market-filter-row"></div>
+      <div id="market-list"></div>
+      <div class="empty-hint hidden" id="market-empty">Hech narsa topilmadi.</div>
+    </div>
+
+    <div class="hidden" id="market-packs-view">
+      <div class="pack-grid" id="pack-grid"></div>
+    </div>
+  </div>
+
+  <!-- ============ REWARDS: DAILY REWARDS + MISSIONS ============ -->
+  <div class="card hidden fade-in-screen" id="rewards-screen">
+    <div class="hub-head-title" style="margin-bottom:10px;">🎁 DAILY REWARDS</div>
+    <div class="daily-rewards-row" id="rewards-daily-row"></div>
+    <div class="hub-head-title" style="margin:18px 0 10px;">🎯 DAILY MISSIONS</div>
+    <div id="rewards-missions-list"></div>
+  </div>
+
+  <!-- ============ MODALS ============ -->
+  <div class="modal-overlay hidden" id="player-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="player-modal">✕</span>
+      <div id="player-modal-body"></div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="buy-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="buy-modal">✕</span>
+      <div id="buy-modal-body"></div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="pack-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="pack-modal">✕</span>
+      <div id="pack-modal-body"></div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="squadpick-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="squadpick-modal">✕</span>
+      <div id="squadpick-modal-body"></div>
+    </div>
+  </div>
+  <div class="toast-wrap" id="toast-wrap"></div>
 
   <!-- ============ SETUP SCREEN ============ -->
   <div class="card hidden" id="setup-screen">
@@ -728,7 +1152,31 @@ function buildPool(type){
 function tournamentDisplayName(type){
   return {wc:"Jahon Chempionati", euro:"Yevropa Chempionati", copa:"Amerika Chempionati (Copa America)", asia:"Osiyo Kubogi", cl:"Chempionlar Ligasi", cwc:"Klublar Jahon Chempionati"}[type] || "Turnir";
 }
+function nationContinent(nat){
+  if(EURO_POOL.some(n=>n.name===nat)) return 'euro';
+  if(COPA_POOL.some(n=>n.name===nat)) return 'copa';
+  if(ASIA_POOL.some(n=>n.name===nat)) return 'asia';
+  return null;
+}
+function announceOtherContinentalWinners(currentYear, skipContinent){
+  ['euro','copa','asia'].forEach(c=>{
+    if(c===skipContinent) return;
+    const pool = c==='euro'?EURO_POOL:c==='copa'?COPA_POOL:ASIA_POOL;
+    if(!pool.length) return;
+    const total = pool.reduce((s,t)=>s+t.strength,0);
+    let r = Math.random()*total, winner=pool[0];
+    for(const t of pool){ r-=t.strength; if(r<=0){ winner=t; break; } }
+    addLog(`📰 ${tournamentDisplayName(c)} (${currentYear}) g'olibi: ${winner.flag} ${winner.name}!`);
+  });
+}
+function announceWorldCupWinnerFlavor(currentYear){
+  const total = WC_POOL.reduce((s,t)=>s+t.strength,0);
+  let r = Math.random()*total, winner=WC_POOL[0];
+  for(const t of WC_POOL){ r-=t.strength; if(r<=0){ winner=t; break; } }
+  addLog(`📰 Jahon Chempionati (${currentYear}) g'olibi: ${winner.flag} ${winner.name}!`);
+}
 let exhibitionState = null;
+let exhibitionReturnCallback = showExhibitionMenu;
 
 function showExhibitionMenu(){
   document.getElementById('week-title').textContent = "🏆 TURNIRLAR";
@@ -762,7 +1210,47 @@ function showTeamPicker(type){
     wrap.appendChild(row);
   });
   document.getElementById('event-text').appendChild(wrap);
-  actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu));
+  actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback()));
+}
+/* ---- Career mode: national team championships, tied to the real 2-year cycle
+   (World Cup in 2026, 2030, ...; continental championships in 2028, 2032, ...) ---- */
+const NATION_CONTINENT = {
+  "Ispaniya":"euro","Fransiya":"euro","Angliya":"euro","Germaniya":"euro","Portugaliya":"euro","Italiya":"euro",
+  "Niderlandiya":"euro","Belgiya":"euro","Turkiya":"euro","Rossiya":"euro","Xorvatiya":"euro","Serbiya":"euro",
+  "Polsha":"euro","Shvetsiya":"euro","Norvegiya":"euro","Daniya":"euro","Shveytsariya":"euro","Avstriya":"euro",
+  "Ukraina":"euro","Chexiya":"euro","Ruminiya":"euro","Vengriya":"euro","Yunoniston":"euro","Shotlandiya":"euro",
+  "Uels":"euro","Irlandiya":"euro","Islandiya":"euro","Finlyandiya":"euro","Sloveniya":"euro","Slovakiya":"euro",
+  "Bosniya":"euro","Albaniya":"euro",
+  "Braziliya":"copa","Argentina":"copa","Kolumbiya":"copa","Urugvay":"copa","Chili":"copa","Peru":"copa",
+  "Ekvador":"copa","Paragvay":"copa","Boliviya":"copa","Venesuela":"copa",
+  "O'zbekiston":"asia","Yaponiya":"asia","Janubiy Koreya":"asia","Xitoy":"asia","Saudiya Arabistoni":"asia",
+  "Qatar":"asia","BAA":"asia","Eron":"asia","Iroq":"asia","Isroil":"asia","Iordaniya":"asia","Qozog'iston":"asia",
+  "Tojikiston":"asia","Qirg'iziston":"asia","Turkmaniston":"asia","Malayziya":"asia","Filippin":"asia",
+  "Hindiston":"asia","Indoneziya":"asia","Vetnam":"asia","Tailand":"asia","Avstraliya":"asia"
+};
+function startCareerContinentalChampionship(){
+  const contType = NATION_CONTINENT[player.nationality];
+  if(!contType){ runPostQueue(); return; }
+  const pool = buildPool(contType);
+  let myNation = pool.find(t=>t.name===player.nationality);
+  if(!myNation){
+    const natInfo = NATIONS.find(n=>n.name===player.nationality);
+    myNation = {name:player.nationality, flag:natInfo?natInfo.flag:'🏳️', strength:clamp(overall(),40,96)};
+    pool.push(myNation);
+  } else {
+    myNation.strength = clamp(Math.round((myNation.strength+overall())/2)+3, 40, 97);
+  }
+  exhibitionReturnCallback = runPostQueue;
+  addLog(`🏆 ${tournamentDisplayName(contType)} boshlanmoqda — ${myNation.flag} ${player.nationality} terma jamoasi safida!`);
+  startExhibitionDraw(contType, myNation, pool);
+}
+function simulateBackgroundTournamentWinner(type){
+  const pool = buildPool(type);
+  if(!pool.length) return;
+  const sorted = pool.slice().sort((a,b)=>b.strength-a.strength);
+  const winner = sorted[rnd(0, Math.min(2, sorted.length-1))];
+  const label = isNationType(type) ? `${winner.flag} ${winner.name}` : winner.name;
+  addLog(`📰 ${tournamentDisplayName(type)} yakunlandi — g'olib: ${label}!`);
 }
 function startExhibitionDraw(type, myTeam, pool){
   const groupSize = 4;
@@ -827,7 +1315,7 @@ function showExhibitionGroupTable(){
     exhibitionState.roundIdx = 0;
     actions.appendChild(makeBtn("PLEY-OFFNI BOSHLASH", startExhibitionKnockout, true));
   } else {
-    actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+    actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback(), true));
   }
 }
 function startExhibitionKnockout(){
@@ -843,7 +1331,7 @@ function startExhibitionKnockout(){
       document.getElementById('event-text').innerHTML = bracketHTML(rounds, rounds.length) + `<b>${label(st.myTeam)}</b> ${trophyName}ning g'olibi bo'ldi!`;
       const actions = document.getElementById('action-buttons');
       actions.innerHTML = "";
-      actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+      actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback(), true));
       return;
     }
     const roundName = rounds[st.roundIdx];
@@ -864,7 +1352,7 @@ function startExhibitionKnockout(){
       addLog(`${label(st.myTeam)}: ${roundName} bosqichida mag'lub bo'ldi.${viaPenalties?' (penalti seriyasida)':''}`);
       document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx, st.roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida chetlashtirildingiz.`;
       actions.innerHTML = "";
-      actions.appendChild(makeBtn(tC('btn_continue'), showExhibitionMenu, true));
+      actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback(), true));
     }
     actions.appendChild(makeBtn("O'YNASH", ()=>{
       const perf = clamp(st.myTeam.strength + rnd(-15,15), 0, 100);
@@ -992,6 +1480,232 @@ function hideLiveScore(){
 /* ===================== STATE ===================== */
 let player = null, log = [], trophies = [];
 let seasonWeek = 1; const SEASON_LENGTH = 20;
+
+/* ===================== HOME MENU: ECONOMY / MISSIONS / DAILY REWARDS ===================== */
+let econ = { coins:500, gems:25, energy:5, energyMax:5, level:1 };
+let missionsState = { date:null, play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} };
+let dailyState = { streak:0, lastClaimDate:null };
+const MISSION_DEFS = [
+  {key:'play', icon:'⚽', label:"Play 1 Match", target:1, reward:60},
+  {key:'goals', icon:'🥅', label:"Score 3 Goals", target:3, reward:100},
+  {key:'win', icon:'🏆', label:"Win 1 Match", target:1, reward:120}
+];
+const DAILY_REWARD_AMOUNTS = [50,60,80,100,120,150,250];
+function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+async function loadEconomyForSlot(){
+  econ = { coins:500, gems:25, energy:5, energyMax:5, level:1 };
+  missionsState = { date:null, play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} };
+  dailyState = { streak:0, lastClaimDate:null };
+  if(activeSlot===null) return;
+  try{ const r = await window.storage.get('econ:'+activeSlot, false); if(r) econ = Object.assign(econ, JSON.parse(r.value)); }catch(e){}
+  try{ const r = await window.storage.get('missions:'+activeSlot, false); if(r) missionsState = Object.assign(missionsState, JSON.parse(r.value)); }catch(e){}
+  try{ const r = await window.storage.get('daily:'+activeSlot, false); if(r) dailyState = Object.assign(dailyState, JSON.parse(r.value)); }catch(e){}
+  if(player){ econ.level = Math.max(1, Math.round((player.age||17) - 16 + Math.floor((player.matches||0)/10))); }
+  if(missionsState.date !== todayStr()){ missionsState = { date:todayStr(), play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} }; saveMissions(); }
+}
+async function saveEconomy(){ if(activeSlot===null) return; try{ await window.storage.set('econ:'+activeSlot, JSON.stringify(econ), false); }catch(e){} }
+async function saveMissions(){ if(activeSlot===null) return; try{ await window.storage.set('missions:'+activeSlot, JSON.stringify(missionsState), false); }catch(e){} }
+async function saveDaily(){ if(activeSlot===null) return; try{ await window.storage.set('daily:'+activeSlot, JSON.stringify(dailyState), false); }catch(e){} }
+function flashChip(id){ const el = document.getElementById(id); if(!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+function grantCoins(amount){ econ.coins += amount; saveEconomy(); renderTopbar(true); }
+function grantGems(amount){ econ.gems += amount; saveEconomy(); renderTopbar(true); }
+function renderTopbar(animate){
+  if(player){ econ.level = Math.max(1, Math.round((player.age||17) - 16 + Math.floor((player.matches||0)/10))); }
+  const lv = document.getElementById('topbar-level-val'); if(lv) lv.textContent = econ.level;
+  const co = document.getElementById('topbar-coins-val'); if(co) co.textContent = econ.coins.toLocaleString();
+  const ge = document.getElementById('topbar-gems-val'); if(ge) ge.textContent = econ.gems;
+  const en = document.getElementById('topbar-energy-val'); if(en) en.textContent = `${econ.energy}/${econ.energyMax}`;
+  const av = document.getElementById('topbar-avatar'); if(av) av.textContent = player ? (player.name||'?').charAt(0).toUpperCase() : '👤';
+  if(animate){ flashChip('topbar-coins-chip'); flashChip('topbar-gems-chip'); }
+}
+
+/* ---- team preview mini pitch ---- */
+function renderTeamPreviewPitch(){
+  const pitch = document.getElementById('home-mini-pitch');
+  const ovrBadge = document.getElementById('home-ovr-badge');
+  const formPill = document.getElementById('home-formation-pill');
+  if(!pitch) return;
+  pitch.innerHTML = "";
+  if(!player){
+    ovrBadge.textContent = "— OVR"; formPill.textContent = "FORMATION: —";
+    pitch.innerHTML = `<div class="pitch-line"><div class="pitch-slot"><div class="pitch-dot">?</div><span>Karyera yo'q</span></div></div>`;
+    return;
+  }
+  const formation = (player.tactic && player.tactic.formation) || "4-3-3";
+  const ovr = overall_calc(player);
+  ovrBadge.textContent = `${ovr} OVR`;
+  formPill.textContent = `FORMATION: ${formation}`;
+  const myGroup = POS_ROLE_GROUP[player.position] || "MID";
+  const lineCounts = formation.split('-').map(n=>parseInt(n)||0);
+  const lines = [ {group:'GK', count:1}, {group:'DEF', count:lineCounts[0]||4} ];
+  if(lineCounts.length===3){ lines.push({group:'MID', count:lineCounts[1]||3}); lines.push({group:'ATT', count:lineCounts[2]||3}); }
+  else if(lineCounts.length===4){ lines.push({group:'MID', count:lineCounts[1]||0}); lines.push({group:'MID', count:lineCounts[2]||0}); lines.push({group:'ATT', count:lineCounts[3]||1}); }
+  else { lines.push({group:'MID', count:lineCounts[1]||3}); lines.push({group:'ATT', count:lineCounts[2]||2}); }
+  let placedMe = false;
+  lines.forEach(line=>{
+    const row = document.createElement('div'); row.className = 'pitch-line';
+    for(let i=0;i<line.count;i++){
+      const isMe = !placedMe && line.group===myGroup;
+      if(isMe) placedMe = true;
+      const slot = document.createElement('div'); slot.className = 'pitch-slot'+(isMe?' me':'');
+      slot.innerHTML = `<div class="pitch-dot">${isMe ? (player.number||'★') : line.group[0]}</div><span>${isMe ? player.position : line.group}</span>`;
+      row.appendChild(slot);
+    }
+    pitch.appendChild(row);
+  });
+}
+
+/* ---- daily rewards ---- */
+function renderDailyRewards(){
+  const rows = ['daily-rewards-row','rewards-daily-row'].map(id=>document.getElementById(id)).filter(Boolean);
+  if(!rows.length) return;
+  const claimedToday = dailyState.lastClaimDate === todayStr();
+  const currentDayIdx = dailyState.streak % 7;
+  rows.forEach(row=>{
+    row.innerHTML = "";
+    for(let i=0;i<7;i++){
+      const cell = document.createElement('div');
+      const isPast = i < currentDayIdx;
+      const isToday = i === currentDayIdx && !claimedToday;
+      const isClaimedToday = i === currentDayIdx && claimedToday;
+      cell.className = 'day-cell' + ((isPast||isClaimedToday) ? ' claimed' : (isToday ? ' today claimable' : ''));
+      cell.innerHTML = `<div>DAY ${i+1}</div><span class="coin-ic">🪙</span><div>${DAILY_REWARD_AMOUNTS[i]}</div>`;
+      if(isToday){ cell.style.cursor='pointer'; cell.addEventListener('click', claimDailyReward); }
+      row.appendChild(cell);
+    }
+  });
+}
+function claimDailyReward(){
+  if(dailyState.lastClaimDate === todayStr()) return;
+  const idx = dailyState.streak % 7;
+  const amount = DAILY_REWARD_AMOUNTS[idx];
+  dailyState.streak += 1; dailyState.lastClaimDate = todayStr();
+  saveDaily();
+  grantCoins(amount);
+  renderDailyRewards();
+}
+
+/* ---- daily missions ---- */
+function renderMissions(){
+  const lists = ['missions-list','rewards-missions-list'].map(id=>document.getElementById(id)).filter(Boolean);
+  if(!lists.length) return;
+  lists.forEach(list=>{
+    list.innerHTML = "";
+    MISSION_DEFS.forEach(def=>{
+      const progress = Math.min(missionsState[def.key]||0, def.target);
+      const done = progress >= def.target;
+      const claimed = missionsState.claimed[def.key];
+      const row = document.createElement('div');
+      row.className = 'mission-row' + (done ? ' done' : '');
+      row.innerHTML = `
+        <div class="mission-ic">${def.icon}</div>
+        <div class="mission-info">
+          <div class="mission-title"><span>${def.label}</span><span>${progress}/${def.target}</span></div>
+          <div class="mission-meter"><div class="mission-meter-fill" style="width:${Math.round(progress/def.target*100)}%"></div></div>
+        </div>
+        <div class="mission-reward">${claimed ? '✅' : (done ? '<button style=\"padding:6px 10px;font-size:10px;min-width:auto;\">OLISH</button>' : `🪙 ${def.reward}`)}</div>`;
+      if(done && !claimed){
+        row.querySelector('button').addEventListener('click', ()=>{
+          missionsState.claimed[def.key] = true; saveMissions();
+          grantCoins(def.reward);
+          renderMissions();
+          showToast(`🎯 ${def.label} — +${def.reward} 🪙`, 'ok');
+        });
+      }
+      list.appendChild(row);
+    });
+  });
+}
+function trackMissionProgress({goals, won}){
+  if(missionsState.date !== todayStr()){ missionsState = { date:todayStr(), play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} }; }
+  missionsState.play = (missionsState.play||0) + 1;
+  missionsState.goals = (missionsState.goals||0) + (goals||0);
+  if(won) missionsState.win = (missionsState.win||0) + 1;
+  saveMissions();
+}
+
+/* ---- home menu render ---- */
+function renderHomeMenu(){
+  renderTopbar(false);
+  renderTeamPreviewPitch();
+  renderDailyRewards();
+  renderMissions();
+  const sub = document.getElementById('home-hero-subtitle');
+  if(sub) sub.textContent = player ? `${player.name} · ${player.club} · ${overall_calc(player)} OVR` : "Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.";
+  const logoSrc = document.getElementById('hero-logo') ? document.getElementById('hero-logo').src : "";
+  const homeLogo = document.getElementById('home-hero-logo');
+  if(homeLogo && logoSrc) homeLogo.src = logoSrc;
+}
+
+/* ---- screen router ---- */
+const APP_SCREEN_IDS = ['slot-screen','setup-screen','home-menu-screen','mycard-card','game-screen','stats-card','log-card','trophy-card','table-card','career-stats-screen','cards-screen','market-screen','rewards-screen'];
+function hideAllAppScreens(){
+  APP_SCREEN_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.add('hidden'); });
+}
+function setActiveNav(name){
+  document.querySelectorAll('.nav-item').forEach(n=> n.classList.toggle('active', n.getAttribute('data-nav')===name));
+}
+function ensureCareerScreensVisible(){
+  ['mycard-card','game-screen','stats-card','log-card','trophy-card'].forEach(id=>{
+    const el = document.getElementById(id); if(el) el.classList.remove('hidden');
+  });
+}
+function showAppScreen(name){
+  hideAllAppScreens();
+  const landing = document.getElementById('landing-intro');
+  const nav = document.getElementById('main-nav');
+  if(name==='slot'){
+    document.getElementById('slot-screen').classList.remove('hidden');
+    if(landing) landing.classList.remove('hidden');
+    if(nav) nav.classList.add('hidden');
+    document.body.classList.remove('has-bottom-nav');
+    return;
+  }
+  if(landing) landing.classList.add('hidden');
+  if(nav) nav.classList.remove('hidden');
+  document.body.classList.add('has-bottom-nav');
+  if(name==='setup'){ document.getElementById('setup-screen').classList.remove('hidden'); if(nav) nav.classList.add('hidden'); document.body.classList.remove('has-bottom-nav'); return; }
+  if(name==='home'){ document.getElementById('home-menu-screen').classList.remove('hidden'); renderHomeMenu(); setActiveNav('home'); return; }
+  if(name==='match'){ ensureCareerScreensVisible(); setActiveNav('match'); return; }
+  if(name==='team'){ ensureCareerScreensVisible(); showTacticsScreen(); setActiveNav('team'); return; }
+  if(name==='career'){ renderCareerStats(); document.getElementById('career-stats-screen').classList.remove('hidden'); setActiveNav('career'); return; }
+  if(name==='cards'){ document.getElementById('cards-screen').classList.remove('hidden'); setActiveNav('cards'); renderCardsHub(); return; }
+  if(name==='market'){ document.getElementById('market-screen').classList.remove('hidden'); setActiveNav('market'); renderMarketHub(); return; }
+  if(name==='rewards'){ document.getElementById('rewards-screen').classList.remove('hidden'); setActiveNav('rewards'); renderDailyRewards(); renderMissions(); return; }
+}
+function goToMatchScreen(){
+  showAppScreen('match');
+  if(coachState){ showCoachWeek(); } else { showTrainingWeek(); }
+}
+async function enterCareerHub(){
+  await loadEconomyForSlot();
+  showAppScreen('home');
+}
+/* delegated nav + data-nav clicks */
+document.addEventListener('click', (e)=>{
+  const navEl = e.target.closest('[data-nav]');
+  if(!navEl) return;
+  const target = navEl.getAttribute('data-nav');
+  if(target==='match') goToMatchScreen();
+  else showAppScreen(target);
+});
+document.addEventListener('DOMContentLoaded', ()=>{
+  const gear = document.getElementById('settings-gear-btn');
+  const pop = document.getElementById('settings-popover');
+  if(gear && pop){
+    gear.addEventListener('click', (e)=>{ e.stopPropagation(); pop.classList.toggle('hidden'); });
+    document.addEventListener('click', (e)=>{ if(!pop.contains(e.target) && e.target!==gear) pop.classList.add('hidden'); });
+  }
+  const avatar = document.getElementById('topbar-avatar');
+  if(avatar) avatar.addEventListener('click', ()=>{ if(player) goToMatchScreen(); });
+  const playBtn = document.getElementById('home-play-match-btn');
+  const careerBtn = document.getElementById('home-career-btn');
+  const teamBtn = document.getElementById('home-team-btn');
+  if(playBtn) playBtn.addEventListener('click', goToMatchScreen);
+  if(careerBtn) careerBtn.addEventListener('click', goToMatchScreen);
+  if(teamBtn) teamBtn.addEventListener('click', ()=> showAppScreen('team'));
+});
+
 let season = 1; let baseYear = 2026;
 let postQueue = [];
 let avatarCfg = {skin:0, hairStyle:'short', hairColor:0, pose:'crossed', expression:'smiling', jersey:0, facialHair:'none'};
@@ -1188,7 +1902,7 @@ async function loadSlot(i){
   document.getElementById('log-card').classList.remove('hidden');
   document.getElementById('trophy-card').classList.remove('hidden');
   renderStats(); renderTrophies(); renderLiveCard(); renderLeagueTable();
-  if(coachState){ showCoachWeek(); } else { showTrainingWeek(); }
+  enterCareerHub();
 }
 function openSetupForSlot(i){
   activeSlot = i;
@@ -1478,12 +2192,11 @@ document.getElementById('sound-toggle').addEventListener('click', ()=>{
   document.getElementById('sound-toggle').textContent = soundOn ? '🔊' : '🔇';
 });
 document.getElementById('stats-toggle').addEventListener('click', ()=>{
-  renderCareerStats();
-  document.getElementById('career-stats-screen').classList.remove('hidden');
+  showAppScreen('career');
   document.getElementById('career-stats-screen').scrollIntoView({behavior:'smooth'});
 });
 document.getElementById('close-stats-btn').addEventListener('click', ()=>{
-  document.getElementById('career-stats-screen').classList.add('hidden');
+  showAppScreen('home');
 });
 function renderCareerStats(){
   if(!player) return;
@@ -1625,7 +2338,7 @@ document.getElementById('start-btn').addEventListener('click', ()=>{
   addLog(`${player.name} ${player.club} bilan ${player.position} sifatida shartnoma imzoladi. Karyera boshlandi!`);
   renderStats(); renderTrophies(); renderLiveCard(); initLeagueTable();
   saveActiveSlot();
-  showTrainingWeek();
+  enterCareerHub();
 });
 
 /* ===================== TRAINING WEEK ===================== */
@@ -2238,6 +2951,8 @@ function applyMatchResult(res){
   document.getElementById('event-text').innerHTML = `<b>${res.result}</b><br><br>Yakuniy hisob: ${player.club} ${res.usScore} — ${res.themScore} ${currentOpponent.name}<br>Ishlash reytingi: ${res.performance}/100<br>Daromad: +${res.earn}$<br>` + (res.injured ? `<span style="color:var(--crimson)">Jarohat tufayli forma pasaydi.</span>` : `Jamoa a'zolari sizni tabrikladi.`) + (cardNote?`<br><span style="color:${gotRed?'var(--crimson)':'#e8c878'}">${cardNote.trim()}</span>`:'') + (mvpNote?`<br><span style="color:var(--gold);">${mvpNote.trim()}</span>`:'');
   renderStats(); renderLiveCard(); renderLeagueTable();
   saveActiveSlot();
+  trackMissionProgress({goals:res.goals, won: res.usScore > res.themScore});
+  renderTopbar(false);
   const actions = document.getElementById('action-buttons');
   actions.innerHTML = "";
   actions.appendChild(makeBtn(tC("btn_next_week"), nextWeek, true));
@@ -2356,6 +3071,15 @@ function endSeason(){
   }
   if(season % 4 === 0 && ovr >= 55){
     postQueue.push(()=> runTournament(`${player.nationality} milliy termasi — Jahon chempionati`, true));
+    postQueue.push(()=> announceRivalCupWinners('cwc'));
+  }
+  if(season % 4 === 2 && ovr >= 50){
+    const contType = EURO_NAMES.includes(player.nationality) ? 'euro' : (COPA_STRENGTH.hasOwnProperty(player.nationality) ? 'copa' : (ASIA_STRENGTH.hasOwnProperty(player.nationality) ? 'asia' : null));
+    if(contType){
+      const contTitle = tournamentDisplayName(contType);
+      postQueue.push(()=> runTournament(`${player.nationality} milliy termasi — ${contTitle}`, true));
+    }
+    postQueue.push(()=> announceRivalCupWinners('cl'));
   }
   postQueue.push(()=> checkBallonDor(ovr));
   postQueue.push(()=> { checkTrebleAchievement(); checkSeasonAwards(ovr); });
@@ -2962,6 +3686,16 @@ function clubTransferBudget(league){
   const tierScale = clamp(league.max, 60, 97);
   return Math.round(tierScale * rnd(3200,6500) / 500) * 500;
 }
+/* ---- Flavor news: report who won other cups happening in the background ---- */
+function announceRivalCupWinners(type){
+  const pool = buildPool(type);
+  if(pool && pool.length){
+    const winner = pool[rnd(0, pool.length-1)];
+    const label = isNationType(type) ? `${winner.flag||''} ${winner.name}`.trim() : winner.name;
+    addLog(`🏆 ${tournamentDisplayName(type)}: ${label} g'olib bo'ldi.`);
+  }
+  runPostQueue();
+}
 function generateAITransferNews(){
   const lines = [];
   const allLeagues = LEAGUES.slice(1); // skip domestic Uzbek league for "big" news flavor
@@ -3115,21 +3849,14 @@ function showRetirement(){
   saveActiveSlot();
 }
 function resetGame(){
-  document.getElementById('setup-screen').classList.add('hidden');
-  document.getElementById('mycard-card').classList.add('hidden');
   document.getElementById('stats-toggle').style.display = 'none';
-  document.getElementById('table-card').classList.add('hidden');
-  document.getElementById('game-screen').classList.add('hidden');
-  document.getElementById('stats-card').classList.add('hidden');
-  document.getElementById('log-card').classList.add('hidden');
-  document.getElementById('trophy-card').classList.add('hidden');
-  document.getElementById('career-stats-screen').classList.add('hidden');
   document.getElementById('p-name').value = "";
   photoDataUrl = null;
   activeSlot = null;
+  player = null;
   loadAllSlots().then(()=>{
     renderSlotScreen();
-    document.getElementById('slot-screen').classList.remove('hidden');
+    showAppScreen('slot');
   });
 }
 
@@ -3377,6 +4104,656 @@ function renderTrophies(){
   note.classList.add('hidden');
   trophies.slice().reverse().forEach(t=>{ const d=document.createElement('div'); d.className="trophy-item"; d.innerHTML=`<span>🏆 ${t.title}</span><span>${t.season}-mavsum</span>`; list.appendChild(d); });
 }
+
+/* =====================================================================
+   PLAYER CARD COLLECTION / MARKET / PACKS  — Phase 2
+   Additive module: does not modify any function above. Uses the
+   existing econ/window.storage/activeSlot infra.
+===================================================================== */
+
+/* ---------- toast notifications ---------- */
+function showToast(msg, kind){
+  const wrap = document.getElementById('toast-wrap');
+  if(!wrap) return;
+  const t = document.createElement('div');
+  t.className = 'toast' + (kind==='warn' ? ' warn' : '');
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.remove(); }, 2600);
+}
+
+/* ---------- rarity + card pool definitions ---------- */
+const RARITY_DEFS = [
+  {id:'BRONZE',     min:55, max:68, upgradeCost:400,  sellRate:0.35},
+  {id:'SILVER',     min:66, max:76, upgradeCost:900,  sellRate:0.4},
+  {id:'GOLD',       min:74, max:83, upgradeCost:1800, sellRate:0.45},
+  {id:'ELITE',      min:81, max:87, upgradeCost:3200, sellRate:0.5},
+  {id:'HERO',       min:85, max:91, upgradeCost:5200, sellRate:0.55},
+  {id:'ICON',       min:89, max:95, upgradeCost:8500, sellRate:0.6},
+  {id:'LEGENDARY',  min:93, max:99, upgradeCost:14000,sellRate:0.65}
+];
+function rarityForOVR(ovr){
+  let best = RARITY_DEFS[0];
+  for(const r of RARITY_DEFS){ if(ovr>=r.min) best = r; }
+  return best;
+}
+const REAL_PLAYERS = [
+  {n:'Lionel Messi',w:'Lionel Messi',pos:'RW',nat:'Argentina',club:'Inter Miami',league:'MLS',c1:'#F291B0',c2:'#1B1B1B',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
+  {n:'Cristiano Ronaldo',w:'Cristiano Ronaldo',pos:'ST',nat:'Portugaliya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
+  {n:'Kylian Mbappe',w:'Kylian Mbappé',pos:'ST',nat:'Fransiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
+  {n:'Erling Haaland',w:'Erling Haaland',pos:'ST',nat:'Norvegiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
+  {n:'Lamine Yamal',w:'Lamine Yamal',pos:'RW',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
+  {n:'Vinicius Junior',w:'Vinícius Júnior',pos:'LW',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
+  {n:'Jude Bellingham',w:'Jude Bellingham',pos:'CAM',nat:'Angliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:93,shooting:93,passing:99,dribbling:99,defending:51,physical:81}},
+  {n:'Kevin De Bruyne',w:'Kevin De Bruyne',pos:'CAM',nat:'Belgiya',club:'Napoli',league:'Serie A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:93,shooting:93,passing:99,dribbling:99,defending:51,physical:81}},
+  {n:'Mohamed Salah',w:'Mohamed Salah',pos:'RW',nat:'Misr',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
+  {n:'Harry Kane',w:'Harry Kane',pos:'ST',nat:'Angliya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:96,shooting:97,passing:77,dribbling:93,defending:37,physical:89}},
+  {n:'Rodri',w:'Rodri (footballer)',pos:'CDM',nat:'Ispaniya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:79,shooting:71,passing:89,dribbling:81,defending:93,physical:95}},
+  {n:'Pedri',w:'Pedri',pos:'CM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
+  {n:'Raphinha',w:'Raphinha',pos:'LW',nat:'Braziliya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
+  {n:'Robert Lewandowski',w:'Robert Lewandowski',pos:'ST',nat:'Polsha',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:96,shooting:97,passing:77,dribbling:93,defending:37,physical:89}},
+  {n:'Ousmane Dembele',w:'Ousmane Dembélé',pos:'RW',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
+  {n:'Neymar',w:'Neymar',pos:'LW',nat:'Braziliya',club:'Santos',league:'Brasileirao',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
+  {n:'Alisson',w:'Alisson (footballer)',pos:'GK',nat:'Braziliya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:57,shooting:37,passing:73,dribbling:47,defending:91,physical:93}},
+  {n:'Thibaut Courtois',w:'Thibaut Courtois',pos:'GK',nat:'Belgiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:57,shooting:37,passing:73,dribbling:47,defending:91,physical:93}},
+  {n:'Virgil van Dijk',w:'Virgil van Dijk',pos:'CB',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:81,shooting:45,passing:75,dribbling:65,defending:93,physical:95}},
+  {n:'Achraf Hakimi',w:'Achraf Hakimi',pos:'RB',nat:'Marokash',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:95,shooting:57,passing:83,dribbling:81,defending:91,physical:83}},
+  {n:'Bukayo Saka',w:'Bukayo Saka',pos:'RW',nat:'Angliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
+  {n:'Florian Wirtz',w:'Florian Wirtz',pos:'CAM',nat:'Germaniya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:89,shooting:89,passing:97,dribbling:95,defending:47,physical:77}},
+  {n:'Vitinha',w:'Vitinha',pos:'CM',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
+  {n:'Federico Valverde',w:'Federico Valverde',pos:'CM',nat:'Urugvay',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
+  {n:'Declan Rice',w:'Declan Rice',pos:'CDM',nat:'Angliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:79,shooting:71,passing:89,dribbling:81,defending:93,physical:95}},
+  {n:'Martin Odegaard',w:'Martin Ødegaard',pos:'CAM',nat:'Norvegiya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:89,shooting:89,passing:97,dribbling:95,defending:47,physical:77}},
+  {n:'Antoine Griezmann',w:'Antoine Griezmann',pos:'CAM',nat:'Fransiya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
+  {n:'Marcus Rashford',w:'Marcus Rashford',pos:'LW',nat:'Angliya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
+  {n:'Phil Foden',w:'Phil Foden',pos:'CAM',nat:'Angliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
+  {n:'Joao Felix',w:'João Félix',pos:'ST',nat:'Portugaliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
+  {n:'Ademola Lookman',w:'Ademola Lookman',pos:'RW',nat:'Nigeriya',club:'Atalanta',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
+  {n:'Victor Osimhen',w:'Victor Osimhen',pos:'ST',nat:'Nigeriya',club:'Napoli',league:'Serie A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
+  {n:'Khvicha Kvaratskhelia',w:'Khvicha Kvaratskhelia',pos:'LW',nat:'Gruziya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
+  {n:'Nico Williams',w:'Nico Williams',pos:'LW',nat:'Ispaniya',club:'Athletic Bilbao',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
+  {n:'Alexander Isak',w:'Alexander Isak',pos:'ST',nat:'Shvetsiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
+  {n:'Bruno Fernandes',w:'Bruno Fernandes',pos:'CAM',nat:'Portugaliya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
+  {n:'Jamal Musiala',w:'Jamal Musiala',pos:'CAM',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
+  {n:'Cole Palmer',w:'Cole Palmer',pos:'CAM',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
+  {n:'Ruben Dias',w:'Rúben Dias',pos:'CB',nat:'Portugaliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
+  {n:'William Saliba',w:'William Saliba',pos:'CB',nat:'Fransiya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
+  {n:'Alessandro Bastoni',w:'Alessandro Bastoni',pos:'CB',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
+  {n:'Josko Gvardiol',w:'Joško Gvardiol',pos:'CB',nat:'Xorvatiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
+  {n:'Theo Hernandez',w:'Theo Hernández',pos:'LB',nat:'Fransiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
+  {n:'Trent Alexander-Arnold',w:'Trent Alexander-Arnold',pos:'RB',nat:'Angliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
+  {n:'Alphonso Davies',w:'Alphonso Davies',pos:'LB',nat:'Kanada',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
+  {n:'Manuel Neuer',w:'Manuel Neuer',pos:'GK',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
+  {n:'Mike Maignan',w:'Mike Maignan',pos:'GK',nat:'Fransiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
+  {n:'Gianluigi Donnarumma',w:'Gianluigi Donnarumma',pos:'GK',nat:'Italiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
+  {n:'Jan Oblak',w:'Jan Oblak',pos:'GK',nat:'Sloveniya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
+  {n:'Toni Kroos',w:'Toni Kroos',pos:'CM',nat:'Germaniya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
+  {n:'Luka Modric',w:'Luka Modrić',pos:'CM',nat:'Xorvatiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
+  {n:'Frenkie de Jong',w:'Frenkie de Jong',pos:'CM',nat:'Niderlandiya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
+  {n:'Joshua Kimmich',w:'Joshua Kimmich',pos:'CDM',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
+  {n:'Casemiro',w:'Casemiro',pos:'CDM',nat:'Braziliya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
+  {n:'Enzo Fernandez',w:'Enzo Fernández',pos:'CDM',nat:'Argentina',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
+  {n:'Serge Gnabry',w:'Serge Gnabry',pos:'RW',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Leroy Sane',w:'Leroy Sané',pos:'RW',nat:'Germaniya',club:'Galatasaray',league:'Super Lig',c1:'#B23A3A',c2:'#F0D13B',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Rafael Leao',w:'Rafael Leão',pos:'LW',nat:'Portugaliya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Dusan Vlahovic',w:'Dušan Vlahović',pos:'ST',nat:'Serbiya',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
+  {n:'Randal Kolo Muani',w:'Randal Kolo Muani',pos:'ST',nat:'Fransiya',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
+  {n:'Darwin Nunez',w:'Darwin Núñez',pos:'ST',nat:'Urugvay',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
+  {n:'Christopher Nkunku',w:'Christopher Nkunku',pos:'CAM',nat:'Fransiya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:78,shooting:78,passing:86,dribbling:84,defending:36,physical:66}},
+  {n:'Rodrygo',w:'Rodrygo',pos:'RW',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Kaoru Mitoma',w:'Kaoru Mitoma',pos:'LW',nat:'Yaponiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Takefusa Kubo',w:'Takefusa Kubo',pos:'RW',nat:'Yaponiya',club:'Real Sociedad',league:'La Liga',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
+  {n:'Bernardo Silva',w:'Bernardo Silva',pos:'CAM',nat:'Portugaliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:78,shooting:78,passing:86,dribbling:84,defending:36,physical:66}},
+  {n:'Ilkay Gundogan',w:'İlkay Gündoğan',pos:'CM',nat:'Germaniya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:72,shooting:70,passing:84,dribbling:78,defending:68,physical:76}},
+  {n:'Aurelien Tchouameni',w:'Aurélien Tchouaméni',pos:'CDM',nat:'Fransiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
+  {n:'Moises Caicedo',w:'Moisés Caicedo',pos:'CDM',nat:'Ekvador',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
+  {n:'Sandro Tonali',w:'Sandro Tonali',pos:'CM',nat:'Italiya',club:'Newcastle United',league:'Premier League',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:72,shooting:70,passing:84,dribbling:78,defending:68,physical:76}},
+  {n:'Fabinho',w:'Fabinho',pos:'CDM',nat:'Braziliya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
+  {n:'Marquinhos',w:'Marquinhos',pos:'CB',nat:'Braziliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
+  {n:'Kim Min-jae',w:'Kim Min-jae',pos:'CB',nat:'Janubiy Koreya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
+  {n:'Antonio Rudiger',w:'Antonio Rüdiger',pos:'CB',nat:'Germaniya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
+  {n:'Milan Skriniar',w:'Milan Škriniar',pos:'CB',nat:'Slovakiya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
+  {n:'Kyle Walker',w:'Kyle Walker',pos:'RB',nat:'Angliya',club:'Burnley',league:'Premier League',c1:'#6C2C3A',c2:'#6CABDD',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Ben Chilwell',w:'Ben Chilwell',pos:'LB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Denzel Dumfries',w:'Denzel Dumfries',pos:'RB',nat:'Niderlandiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Federico Dimarco',w:'Federico Dimarco',pos:'LB',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Andre Onana',w:'André Onana',pos:'GK',nat:'Kamerun',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
+  {n:'Emiliano Martinez',w:'Emiliano Martínez',pos:'GK',nat:'Argentina',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
+  {n:'Yassine Bounou',w:'Yassine Bounou',pos:'GK',nat:'Marokash',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
+  {n:'David Raya',w:'David Raya',pos:'GK',nat:'Ispaniya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
+  {n:'Warren Zaire-Emery',w:'Warren Zaire-Emery',pos:'CM',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Xavi Simons',w:'Xavi Simons',pos:'CAM',nat:'Niderlandiya',club:'RB Leipzig',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:71,shooting:71,passing:79,dribbling:77,defending:29,physical:59}},
+  {n:'Gavi',w:'Gavi',pos:'CM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Jamie Gittens',w:'Jamie Gittens',pos:'LW',nat:'Angliya',club:'Borussia Dortmund',league:'Bundesliga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Karim Adeyemi',w:'Karim Adeyemi',pos:'LW',nat:'Germaniya',club:'Borussia Dortmund',league:'Bundesliga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Amine Gouiri',w:'Amine Gouiri',pos:'ST',nat:'Jazoir',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
+  {n:'Mason Greenwood',w:'Mason Greenwood',pos:'RW',nat:'Angliya',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Jonathan David',w:'Jonathan David',pos:'ST',nat:'Kanada',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
+  {n:'Benjamin Sesko',w:'Benjamin Šeško',pos:'ST',nat:'Sloveniya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
+  {n:'Joao Neves',w:'João Neves',pos:'CM',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Pau Cubarsi',w:'Pau Cubarsí',pos:'CB',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
+  {n:'Ronald Araujo',w:'Ronald Araújo',pos:'CB',nat:'Urugvay',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
+  {n:'Jarrad Branthwaite',w:'Jarrad Branthwaite',pos:'CB',nat:'Angliya',club:'Everton',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
+  {n:'Levi Colwill',w:'Levi Colwill',pos:'CB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
+  {n:'Reece James',w:'Reece James',pos:'RB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
+  {n:'Pedro Porro',w:'Pedro Porro',pos:'RB',nat:'Ispaniya',club:'Tottenham',league:'Premier League',c1:'#1B2A5B',c2:'#F2EFE6',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
+  {n:'Ferran Torres',w:'Ferran Torres',pos:'RW',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Nicolo Barella',w:'Nicolò Barella',pos:'CM',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Hakan Calhanoglu',w:'Hakan Çalhanoğlu',pos:'CDM',nat:'Turkiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:61,shooting:53,passing:71,dribbling:63,defending:75,physical:77}},
+  {n:'Piotr Zielinski',w:'Piotr Zieliński',pos:'CAM',nat:'Polsha',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:71,shooting:71,passing:79,dribbling:77,defending:29,physical:59}},
+  {n:'Yunus Musah',w:'Yunus Musah',pos:'CM',nat:'AQSH',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Christian Pulisic',w:'Christian Pulisic',pos:'RW',nat:'AQSH',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Weston McKennie',w:'Weston McKennie',pos:'CM',nat:'AQSH',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
+  {n:'Timothy Weah',w:'Timothy Weah',pos:'RM',nat:'AQSH',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
+  {n:'Mohammed Kudus',w:'Mohammed Kudus',pos:'RW',nat:'Gana',club:'Tottenham',league:'Premier League',c1:'#1B2A5B',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Iñaki Williams',w:'Iñaki Williams',pos:'ST',nat:'Gana',club:'Athletic Bilbao',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
+  {n:'Sadio Mane',w:'Sadio Mané',pos:'LW',nat:'Senegal',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Riyad Mahrez',w:'Riyad Mahrez',pos:'RW',nat:'Jazoir',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
+  {n:'Karim Benzema',w:'Karim Benzema',pos:'ST',nat:'Fransiya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
+  {n:'N\'Golo Kante',w:'N\'Golo Kanté',pos:'CDM',nat:'Fransiya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:61,shooting:53,passing:71,dribbling:63,defending:75,physical:77}},
+  {n:'Nuno Mendes',w:'Nuno Mendes',pos:'LB',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Jeremie Frimpong',w:'Jeremie Frimpong',pos:'RB',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
+  {n:'Alejandro Balde',w:'Alejandro Balde',pos:'LB',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
+  {n:'Daniel Munoz',w:'Daniel Muñoz',pos:'RB',nat:'Kolumbiya',club:'Crystal Palace',league:'Premier League',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
+  {n:'Dani Olmo',w:'Dani Olmo',pos:'LM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:85,shooting:74,passing:80,dribbling:80,defending:48,physical:70}},
+  {n:'Kingsley Coman',w:'Kingsley Coman',pos:'LM',nat:'Fransiya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
+  {n:'Federico Chiesa',w:'Federico Chiesa',pos:'RM',nat:'Italiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
+  {n:'Facundo Buonanotte',w:'Facundo Buonanotte',pos:'RM',nat:'Argentina',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}}
+];
+
+/* ---------- real player -> silhouette / wiki photo system ---------- */
+const SILHOUETTE_SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#2a2a26"/>
+  <circle cx="50" cy="38" r="20" fill="#54544c"/>
+  <path d="M14 96 Q14 62 50 62 Q86 62 86 96 Z" fill="#54544c"/>
+</svg>`);
+const PLAYER_IMAGE_CACHE = {};
+async function ensurePlayerImage(def, imgEl){
+  if(!imgEl) return;
+  imgEl.classList.add('ppic');
+  const cached = PLAYER_IMAGE_CACHE[def.defId];
+  if(cached==='FAILED'){ imgEl.src = SILHOUETTE_SVG; return; }
+  if(cached){ imgEl.src = cached; return; }
+  imgEl.src = SILHOUETTE_SVG;
+  try{
+    const title = encodeURIComponent((def.wikiTitle||def.name).replace(/ /g,'_'));
+    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${title}`);
+    if(!res.ok) throw 0;
+    const data = await res.json();
+    let src = data.thumbnail && data.thumbnail.source;
+    if(!src) throw 0;
+    src = src.replace(/\/\d+px-/, '/300px-');
+    PLAYER_IMAGE_CACHE[def.defId] = src;
+    imgEl.src = src;
+    imgEl.title = 'Manba: Wikipedia (' + (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page ? data.content_urls.desktop.page : 'wikipedia.org') + ')';
+    imgEl.onerror = ()=>{ PLAYER_IMAGE_CACHE[def.defId]='FAILED'; imgEl.src = SILHOUETTE_SVG; };
+  }catch(e){
+    PLAYER_IMAGE_CACHE[def.defId] = 'FAILED';
+    imgEl.src = SILHOUETTE_SVG;
+  }
+}
+function hydratePlayerImages(container){
+  if(!container) return;
+  container.querySelectorAll('img.ppic-pending').forEach(img=>{
+    const defId = img.getAttribute('data-defid');
+    const def = playerDefById(defId);
+    img.classList.remove('ppic-pending');
+    if(def) ensurePlayerImage(def, img);
+  });
+}
+function playerPhotoImgTag(def, sizeClass){
+  return `<img class="ppic ppic-pending" data-defid="${def.defId}" src="${SILHOUETTE_SVG}" alt="${def.name}">`;
+}
+
+const CARD_POSITIONS = ["GK","CB","LB","RB","CDM","CM","CAM","LM","RM","LW","RW","ST"];
+const CARD_POS_GROUP = POS_ROLE_GROUP;
+function buildPlayerDB(){
+  return REAL_PLAYERS.map((rp, idx)=>{
+    const stats = { pace:rp.st.pace, shooting:rp.st.shooting, passing:rp.st.passing, defending:rp.st.defending, physical:rp.st.physical };
+    const tmpPlayer = {position:rp.pos, stats};
+    const ovr = overall_calc(tmpPlayer);
+    const rarity = rarityForOVR(ovr);
+    const nat = NATIONS.find(n=>n.name===rp.nat) || NATIONS[0];
+    return {
+      defId: 'p'+idx,
+      name: rp.n,
+      wikiTitle: rp.w,
+      position: rp.pos,
+      nationality: rp.nat,
+      flag: nat.flag || '\ud83c\udff3\ufe0f',
+      club: rp.club,
+      league: rp.league,
+      clubColors: {name:rp.club, c1:rp.c1, c2:rp.c2},
+      stats: Object.assign({dribbling: rp.st.dribbling}, stats),
+      ovr, rarity: rarity.id,
+      basePrice: Math.round(ovr*ovr*1.8 + (rarity.id==='LEGENDARY'?40000:0))
+    };
+  });
+}
+
+let PLAYER_DB = [];
+function playerDefById(defId){ return PLAYER_DB.find(p=>p.defId===defId); }
+
+/* ---------- collection state ---------- */
+let collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[] };
+let nextOwnedId = 1;
+async function loadCollectionForSlot(){
+  if(!PLAYER_DB.length) PLAYER_DB = buildPlayerDB();
+  collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[] };
+  nextOwnedId = 1;
+  if(activeSlot===null) return;
+  try{
+    const r = await window.storage.get('collection:'+activeSlot, false);
+    if(r) collection = Object.assign(collection, JSON.parse(r.value));
+  }catch(e){}
+  if(!collection.owned.length){
+    const starterDefs = PLAYER_DB.filter(p=>p.rarity==='BRONZE' || p.rarity==='SILVER').slice(0,5);
+    starterDefs.forEach(def=>addOwnedPlayer(def.defId, false));
+  }
+  if(!collection.marketPool.length || collection.marketPool.length<12) refreshMarketPool(false);
+  nextOwnedId = collection.owned.reduce((m,o)=>Math.max(m, o.id||0), 0) + 1;
+  await saveCollection();
+}
+async function saveCollection(){ if(activeSlot===null) return; try{ await window.storage.set('collection:'+activeSlot, JSON.stringify(collection), false); }catch(e){} }
+function addOwnedPlayer(defId, doSave){
+  const inst = { id: nextOwnedId++, defId, level:1 };
+  collection.owned.push(inst);
+  if(doSave!==false) saveCollection();
+  return inst;
+}
+function ownedById(ownedId){ return collection.owned.find(o=>o.id===ownedId); }
+function ownedLevelBonus(level){ return (level-1)*2; }
+function statsForOwned(inst){
+  const def = playerDefById(inst.defId);
+  if(!def) return null;
+  const bump = ownedLevelBonus(inst.level);
+  const cap = (v)=>Math.max(1,Math.min(99, v+bump));
+  const stats = {
+    pace:cap(def.stats.pace), shooting:cap(def.stats.shooting), passing:cap(def.stats.passing),
+    defending:cap(def.stats.defending), physical:cap(def.stats.physical),
+    dribbling: def.stats.dribbling!=null ? cap(def.stats.dribbling) : undefined
+  };
+  const ovr = overall_calc({position:def.position, stats});
+  return {def, stats, ovr, rarity: rarityForOVR(ovr).id};
+}
+function refreshMarketPool(doSave){
+  const ownedDefIds = new Set(collection.owned.map(o=>o.defId));
+  const candidates = PLAYER_DB.filter(p=>!ownedDefIds.has(p.defId));
+  const shuffled = candidates.slice().sort(()=>Math.random()-0.5);
+  collection.marketPool = shuffled.slice(0, 18).map(p=>p.defId);
+  if(doSave!==false) saveCollection();
+}
+
+/* ---------- squad ---------- */
+const SQUAD_TEMPLATES = {
+  '4-3-3': ['GK','LB','CB','CB','RB','CM','CM','CM','LW','ST','RW'],
+  '4-4-2': ['GK','LB','CB','CB','RB','LM','CM','CM','RM','ST','ST'],
+  '3-5-2': ['GK','CB','CB','CB','LM','CDM','CM','CAM','RM','ST','ST'],
+  '4-2-3-1':['GK','LB','CB','CB','RB','CDM','CDM','CAM','LW','RW','ST']
+};
+function squadSlotList(){ return SQUAD_TEMPLATES[collection.formation] || SQUAD_TEMPLATES['4-3-3']; }
+function computeSquadOVR(){
+  const slots = squadSlotList();
+  let sum=0, count=0;
+  slots.forEach((pos,i)=>{
+    const ownedId = collection.squad[i];
+    if(ownedId){ const inst = ownedById(ownedId); if(inst){ const s = statsForOwned(inst); if(s){ sum+=s.ovr; count++; } } }
+  });
+  if(!count) return null;
+  let chemPairs=0;
+  const filled = slots.map((pos,i)=>collection.squad[i]).filter(Boolean).map(ownedById).filter(Boolean);
+  for(let i=0;i<filled.length;i++) for(let j=i+1;j<filled.length;j++){
+    const a = playerDefById(filled[i].defId), b = playerDefById(filled[j].defId);
+    if(a && b && (a.nationality===b.nationality || a.club===b.club)) chemPairs++;
+  }
+  const chemBonus = Math.min(4, Math.round(chemPairs/3));
+  return {avg: Math.round(sum/count), chemBonus, filled:count, total:slots.length};
+}
+
+/* ---------- rendering: cards hub ---------- */
+let cardsHubTab = 'collection';
+let posFilter = 'ALL';
+function renderCardsHub(){
+  document.querySelectorAll('#cards-hub-tabs .hub-tab').forEach(t=> t.classList.toggle('active', t.getAttribute('data-cardstab')===cardsHubTab));
+  document.getElementById('cards-collection-view').classList.toggle('hidden', cardsHubTab!=='collection');
+  document.getElementById('cards-squad-view').classList.toggle('hidden', cardsHubTab!=='squad');
+  if(cardsHubTab==='collection') renderCollectionGrid();
+  else renderSquadPitch();
+}
+function renderPosFilterRow(){
+  const row = document.getElementById('pos-filter-row');
+  if(!row) return;
+  const groups = ['ALL','GK','DEF','MID','ATT'];
+  row.innerHTML = groups.map(g=>`<span class="filter-chip${posFilter===g?' active':''}" data-posfilter="${g}">${g}</span>`).join('');
+}
+function renderCollectionGrid(){
+  renderPosFilterRow();
+  const sub = document.getElementById('collection-sub');
+  const squadInfo = computeSquadOVR();
+  sub.textContent = `Team OVR: ${squadInfo ? squadInfo.avg+squadInfo.chemBonus : '—'} · Players: ${collection.owned.length}/100`;
+  const sortKey = document.getElementById('collection-sort').value;
+  let items = collection.owned.map(inst=>({inst, s:statsForOwned(inst)})).filter(x=>x.s);
+  if(posFilter!=='ALL') items = items.filter(x=> CARD_POS_GROUP[x.s.def.position]===posFilter);
+  items.sort((a,b)=>{
+    if(sortKey==='ovr') return b.s.ovr - a.s.ovr;
+    if(sortKey==='rating') return b.s.ovr - a.s.ovr;
+    if(sortKey==='position') return a.s.def.position.localeCompare(b.s.def.position);
+    if(sortKey==='rarity') return RARITY_DEFS.findIndex(r=>r.id===b.s.rarity) - RARITY_DEFS.findIndex(r=>r.id===a.s.rarity);
+    return 0;
+  });
+  const grid = document.getElementById('collection-grid');
+  const empty = document.getElementById('collection-empty');
+  grid.innerHTML = "";
+  empty.classList.toggle('hidden', items.length>0);
+  items.forEach(({inst,s})=>{
+    const el = document.createElement('div');
+    el.className = `pcard rarity-${s.rarity}`;
+    el.innerHTML = `
+      <div class="pc-lvl">Lv${inst.level}</div>
+      <div class="pc-ovr">${s.ovr}</div>
+      <div class="pc-pos">${s.def.position}</div>
+      <div class="pc-photo">${playerPhotoImgTag(s.def)}</div>
+      <div class="pc-name">${s.def.name}</div>
+      <div class="pc-nat">${s.def.flag}</div>
+      <div class="pc-rarity">${s.rarity}</div>`;
+    el.addEventListener('click', ()=> openPlayerDetail(inst.id));
+    grid.appendChild(el);
+  });
+  hydratePlayerImages(grid);
+}
+function renderSquadPitch(){
+  const sub = document.getElementById('squad-sub');
+  const chemNote = document.getElementById('squad-chem-note');
+  const fsel = document.getElementById('squad-formation-select');
+  if(fsel.value !== collection.formation) fsel.value = collection.formation;
+  const info = computeSquadOVR();
+  sub.textContent = `FORMATION: ${collection.formation} · TEAM OVR ${info ? info.avg+info.chemBonus : '—'} (${info?info.filled:0}/11)`;
+  chemNote.textContent = info ? `Chemistry bonus: +${info.chemBonus} (bir xil millat/klub futbolchilaridan)` : 'Futbolchilarni tanlang.';
+  const pitch = document.getElementById('squad-pitch');
+  pitch.innerHTML = "";
+  const slots = squadSlotList();
+  const lineGroups = { GK:[], DF:[], MF:[], FW:[] };
+  slots.forEach((pos,i)=>{ lineGroups[POS_LINEUP_SLOT[pos]||'MF'].push({pos,i}); });
+  ['GK','DF','MF','FW'].forEach(lg=>{
+    if(!lineGroups[lg].length) return;
+    const row = document.createElement('div'); row.className = 'pitch-line';
+    lineGroups[lg].forEach(({pos,i})=>{
+      const ownedId = collection.squad[i];
+      const inst = ownedId ? ownedById(ownedId) : null;
+      const s = inst ? statsForOwned(inst) : null;
+      const slot = document.createElement('div');
+      slot.className = 'squad-pitch-slot' + (s ? ' filled' : '');
+      slot.innerHTML = `<div class="sq-dot">${s ? s.ovr : pos}</div><span>${s ? s.def.name.split(' ')[0] : pos}</span>`;
+      slot.addEventListener('click', ()=> openSquadPicker(i, pos));
+      row.appendChild(slot);
+    });
+    pitch.appendChild(row);
+  });
+}
+
+/* ---------- player detail modal ---------- */
+function statLabelsRow(stats){
+  const L = {pace:'PAC',shooting:'SHO',passing:'PAS',defending:'DEF',physical:'PHY'};
+  return Object.keys(L).map(k=>`<div class="pdetail-stat"><span>${L[k]}</span><span>${stats[k]}</span></div>`).join('') +
+    `<div class="pdetail-stat"><span>DRI</span><span>${stats.dribbling!=null ? stats.dribbling : Math.round((stats.passing+stats.pace)/2)}</span></div>`;
+}
+function openPlayerDetail(ownedId){
+  const inst = ownedById(ownedId); if(!inst) return;
+  const s = statsForOwned(inst); if(!s) return;
+  const def = s.def;
+  const upgradeCost = RARITY_DEFS.find(r=>r.id===s.rarity).upgradeCost * inst.level;
+  const sellValue = Math.round(def.basePrice * RARITY_DEFS.find(r=>r.id===s.rarity).sellRate * inst.level);
+  const body = document.getElementById('player-modal-body');
+  body.innerHTML = `
+    <div class="pdetail-card rarity-${s.rarity}">
+      <div class="pc-photo" style="width:76px;height:76px;font-size:26px;margin:0 auto 8px;">${playerPhotoImgTag(def)}</div>
+      <div class="pdetail-ovr">${s.ovr}</div>
+      <div class="pdetail-name">${def.name}</div>
+      <div class="pdetail-meta">${def.flag} ${def.nationality} · ${def.position} · ${def.club}${def.league?' · '+def.league:''}</div>
+      <div class="pdetail-meta">${s.rarity} · LEVEL ${inst.level}</div>
+    </div>
+    <div class="pdetail-stats">${statLabelsRow(s.stats)}</div>
+    <div class="pdetail-actions">
+      <button class="primary" id="pd-upgrade-btn">⬆ UPGRADE (🪙 ${upgradeCost.toLocaleString()})</button>
+      <button id="pd-squad-btn">➕ ADD TO SQUAD</button>
+      <button id="pd-sell-btn">💰 SELL (+🪙 ${sellValue.toLocaleString()})</button>
+    </div>`;
+  hydratePlayerImages(body);
+  document.getElementById('pd-upgrade-btn').addEventListener('click', ()=>{
+    if(econ.coins < upgradeCost){ showToast("Tangalar yetarli emas.", 'warn'); return; }
+    econ.coins -= upgradeCost; saveEconomy(); renderTopbar(true);
+    inst.level += 1; saveCollection();
+    showToast(`⬆ ${def.name} LEVEL ${inst.level} ga oshdi!`, 'ok');
+    openPlayerDetail(ownedId); renderCollectionGrid();
+  });
+  document.getElementById('pd-squad-btn').addEventListener('click', ()=>{
+    closeModal('player-modal');
+    cardsHubTab = 'squad'; renderCardsHub();
+    const slots = squadSlotList();
+    let slotIdx = slots.findIndex((p,i)=> p===def.position && !collection.squad[i]);
+    if(slotIdx<0) slotIdx = slots.findIndex((p,i)=> POS_LINEUP_SLOT[p]===POS_LINEUP_SLOT[def.position] && !collection.squad[i]);
+    if(slotIdx<0) slotIdx = slots.findIndex((p,i)=>!collection.squad[i]);
+    if(slotIdx>=0){ collection.squad[slotIdx]=inst.id; saveCollection(); renderSquadPitch(); showToast(`${def.name} jamoaga qo'shildi!`, 'ok'); }
+    else showToast("Jamoa to'liq. Avval o'yinchini almashtiring.", 'warn');
+  });
+  document.getElementById('pd-sell-btn').addEventListener('click', ()=>{
+    collection.owned = collection.owned.filter(o=>o.id!==ownedId);
+    Object.keys(collection.squad).forEach(k=>{ if(collection.squad[k]===ownedId) delete collection.squad[k]; });
+    saveCollection();
+    grantCoins(sellValue);
+    closeModal('player-modal');
+    renderCollectionGrid();
+    showToast(`💰 ${def.name} sotildi! +${sellValue.toLocaleString()} 🪙`, 'ok');
+  });
+  openModal('player-modal');
+}
+function openSquadPicker(slotIndex, posNeeded){
+  const body = document.getElementById('squadpick-modal-body');
+  const eligible = collection.owned.map(inst=>({inst,s:statsForOwned(inst)})).filter(x=>x.s);
+  body.innerHTML = `<div class="hub-head-title" style="margin-bottom:10px;">CHANGE PLAYER — ${posNeeded}</div>` +
+    (eligible.length ? eligible.sort((a,b)=>b.s.ovr-a.s.ovr).map(({inst,s})=>`
+      <div class="market-row rarity-${s.rarity}">
+        <div class="mr-photo">${playerPhotoImgTag(s.def)}</div>
+        <div class="mr-info"><div class="mr-name">${s.def.name} (${s.ovr})</div><div class="mr-sub">${s.def.position} · ${s.rarity}</div></div>
+        <button data-pick="${inst.id}">TANLASH</button>
+      </div>`).join('') : `<div class="empty-hint">Kolleksiyada futbolchi yo'q.</div>`) +
+    (collection.squad[slotIndex] ? `<button id="sp-remove-btn" style="width:100%;margin-top:8px;">✕ SLOTNI BO'SHATISH</button>` : '');
+  hydratePlayerImages(body);
+  body.querySelectorAll('[data-pick]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const ownedId = parseInt(btn.getAttribute('data-pick'));
+      Object.keys(collection.squad).forEach(k=>{ if(collection.squad[k]===ownedId) delete collection.squad[k]; });
+      collection.squad[slotIndex] = ownedId;
+      saveCollection(); closeModal('squadpick-modal'); renderSquadPitch();
+      showToast("Jamoa yangilandi!", 'ok');
+    });
+  });
+  const rmBtn = body.querySelector('#sp-remove-btn');
+  if(rmBtn) rmBtn.addEventListener('click', ()=>{
+    delete collection.squad[slotIndex]; saveCollection(); closeModal('squadpick-modal'); renderSquadPitch();
+  });
+  openModal('squadpick-modal');
+}
+
+/* ---------- market ---------- */
+let marketHubTab = 'players';
+let marketPosFilter = 'ALL';
+function renderMarketHub(){
+  document.querySelectorAll('#market-hub-tabs .hub-tab').forEach(t=> t.classList.toggle('active', t.getAttribute('data-markettab')===marketHubTab));
+  document.getElementById('market-players-view').classList.toggle('hidden', marketHubTab!=='players');
+  document.getElementById('market-packs-view').classList.toggle('hidden', marketHubTab!=='packs');
+  if(marketHubTab==='players') renderMarketList(); else renderPackGrid();
+}
+function renderMarketFilterRow(){
+  const row = document.getElementById('market-filter-row');
+  const groups = [['ALL','ALL'],['ATT','ATTACKERS'],['MID','MIDFIELDERS'],['DEF','DEFENDERS'],['GK','GOALKEEPERS'],['HIGH','HIGHEST OVR'],['LOW','CHEAPEST']];
+  row.innerHTML = groups.map(([id,label])=>`<span class="filter-chip${marketPosFilter===id?' active':''}" data-marketfilter="${id}">${label}</span>`).join('');
+}
+function renderMarketList(){
+  renderMarketFilterRow();
+  const search = (document.getElementById('market-search').value||'').toLowerCase();
+  let items = collection.marketPool.map(defId=>playerDefById(defId)).filter(Boolean);
+  if(['ATT','MID','DEF','GK'].includes(marketPosFilter)) items = items.filter(p=>CARD_POS_GROUP[p.position]===marketPosFilter);
+  if(search) items = items.filter(p=>p.name.toLowerCase().includes(search));
+  if(marketPosFilter==='HIGH') items = items.slice().sort((a,b)=>b.ovr-a.ovr);
+  else if(marketPosFilter==='LOW') items = items.slice().sort((a,b)=>a.basePrice-b.basePrice);
+  else items = items.slice().sort((a,b)=>b.ovr-a.ovr);
+  const list = document.getElementById('market-list');
+  const empty = document.getElementById('market-empty');
+  list.innerHTML = "";
+  empty.classList.toggle('hidden', items.length>0);
+  items.forEach(def=>{
+    const rarity = def.rarity;
+    const row = document.createElement('div');
+    row.className = `market-row rarity-${rarity}`;
+    row.innerHTML = `
+      <div class="mr-photo">${playerPhotoImgTag(def)}</div>
+      <div class="mr-info"><div class="mr-name">${def.name} <span style="opacity:.6;">(${def.ovr})</span></div><div class="mr-sub">${def.flag} ${def.position} · ${rarity}${def.league?' · '+def.league:''}</div></div>
+      <div class="mr-price">🪙 ${def.basePrice.toLocaleString()}</div>
+      <button data-buy="${def.defId}">BUY</button>`;
+    list.appendChild(row);
+  });
+  hydratePlayerImages(list);
+  list.querySelectorAll('[data-buy]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openBuyConfirm(btn.getAttribute('data-buy')));
+  });
+}
+function openBuyConfirm(defId){
+  const def = playerDefById(defId); if(!def) return;
+  const body = document.getElementById('buy-modal-body');
+  const canAfford = econ.coins >= def.basePrice;
+  body.innerHTML = `
+    <div class="pdetail-card rarity-${def.rarity}">
+      <div class="pc-photo" style="width:70px;height:70px;font-size:24px;margin:0 auto 8px;">${playerPhotoImgTag(def)}</div>
+      <div class="pdetail-name">${def.name}</div>
+      <div class="pdetail-meta">${def.flag} ${def.position} · ${def.ovr} OVR · ${def.rarity}</div>
+      <div class="pdetail-meta">${def.club}${def.league?' · '+def.league:''}</div>
+    </div>
+    <p style="text-align:center;">Bu futbolchini <b>${def.basePrice.toLocaleString()} coins</b> evaziga sotib olasizmi?</p>
+    ${canAfford ? '' : '<p style="text-align:center;color:var(--crimson);">Not enough coins.</p>'}
+    <div class="pdetail-actions">
+      <button class="primary" id="buy-confirm-btn" ${canAfford?'':'disabled'}>BUY</button>
+      <button data-closemodal="buy-modal">CANCEL</button>
+    </div>`;
+  hydratePlayerImages(body);
+  const confirmBtn = document.getElementById('buy-confirm-btn');
+  if(confirmBtn) confirmBtn.addEventListener('click', ()=>{
+    if(econ.coins < def.basePrice){ showToast("Not enough coins.", 'warn'); return; }
+    econ.coins -= def.basePrice; saveEconomy(); renderTopbar(true);
+    addOwnedPlayer(def.defId);
+    collection.marketPool = collection.marketPool.filter(id=>id!==def.defId);
+    saveCollection();
+    closeModal('buy-modal');
+    renderMarketList();
+    showToast(`✅ ${def.name} kolleksiyaga qo'shildi!`, 'ok');
+  });
+  openModal('buy-modal');
+}
+
+/* ---------- packs ---------- */
+const PACK_DEFS = [
+  {id:'bronze', name:'BRONZE PACK', ic:'📦', price:1500, currency:'coins', players:1, rarityWeights:{BRONZE:70,SILVER:25,GOLD:5}},
+  {id:'silver', name:'SILVER PACK', ic:'🎁', price:3200, currency:'coins', players:1, rarityWeights:{BRONZE:35,SILVER:45,GOLD:18,ELITE:2}},
+  {id:'gold',   name:'GOLD PACK',   ic:'🏆', price:5000, currency:'coins', players:1, rarityWeights:{SILVER:30,GOLD:45,ELITE:20,HERO:5}},
+  {id:'elite',  name:'ELITE PACK',  ic:'💎', price:80,   currency:'gems',  players:1, rarityWeights:{GOLD:30,ELITE:40,HERO:22,ICON:8}},
+  {id:'special',name:'SPECIAL PACK',ic:'✨', price:150,  currency:'gems',  players:1, rarityWeights:{ELITE:20,HERO:35,ICON:35,LEGENDARY:10}}
+];
+function renderPackGrid(){
+  const grid = document.getElementById('pack-grid');
+  grid.innerHTML = "";
+  PACK_DEFS.forEach(pack=>{
+    const el = document.createElement('div');
+    el.className = `pack-card rarity-${pack.id==='bronze'?'BRONZE':pack.id==='silver'?'SILVER':pack.id==='gold'?'GOLD':pack.id==='elite'?'ELITE':'ICON'}`;
+    el.innerHTML = `
+      <span class="pack-ic">${pack.ic}</span>
+      <div class="pack-name">${pack.name}</div>
+      <div class="pack-contains">1 Player + 2 Items</div>
+      <button data-openpack="${pack.id}">OPEN — ${pack.currency==='gems'?'💎':'🪙'} ${pack.price.toLocaleString()}</button>`;
+    grid.appendChild(el);
+  });
+  grid.querySelectorAll('[data-openpack]').forEach(btn=>{
+    btn.addEventListener('click', ()=> startPackOpen(btn.getAttribute('data-openpack')));
+  });
+}
+function pickWeighted(weights){
+  const entries = Object.entries(weights);
+  const total = entries.reduce((s,[,w])=>s+w,0);
+  let r = Math.random()*total;
+  for(const [k,w] of entries){ r -= w; if(r<=0) return k; }
+  return entries[0][0];
+}
+function startPackOpen(packId){
+  const pack = PACK_DEFS.find(p=>p.id===packId); if(!pack) return;
+  const cost = pack.price;
+  const have = pack.currency==='gems' ? econ.gems : econ.coins;
+  if(have < cost){ showToast(pack.currency==='gems' ? "Olmoslar yetarli emas." : "Not enough coins.", 'warn'); return; }
+  if(pack.currency==='gems') econ.gems -= cost; else econ.coins -= cost;
+  saveEconomy(); renderTopbar(true);
+  const rarityId = pickWeighted(pack.rarityWeights);
+  const candidates = PLAYER_DB.filter(p=>p.rarity===rarityId);
+  const def = candidates.length ? candidates[Math.floor(Math.random()*candidates.length)] : PLAYER_DB[Math.floor(Math.random()*PLAYER_DB.length)];
+  const body = document.getElementById('pack-modal-body');
+  body.innerHTML = `<div class="pack-open-stage" id="pack-open-stage"><span class="pack-anim-icon">${pack.ic}</span><div class="hub-head-sub" style="margin-top:14px;">Ochilmoqda...</div></div>`;
+  openModal('pack-modal');
+  setTimeout(()=>{
+    const stage = document.getElementById('pack-open-stage');
+    if(!stage) return;
+    stage.innerHTML = `<div class="hub-head-sub" style="margin-bottom:10px;">✨ GLOW ✨</div><span class="pack-anim-icon" style="font-size:90px;">🌟</span>`;
+  }, 500);
+  setTimeout(()=>{
+    const inst = addOwnedPlayer(def.defId);
+    const stage = document.getElementById('pack-open-stage');
+    if(!stage) return;
+    stage.innerHTML = `
+      <div class="pack-reveal-card pdetail-card rarity-${def.rarity}">
+        <div class="pc-photo" style="width:84px;height:84px;font-size:28px;margin:0 auto 10px;">${playerPhotoImgTag(def)}</div>
+        <div class="pdetail-ovr">${def.ovr}</div>
+        <div class="pdetail-name">${def.name}</div>
+        <div class="pdetail-meta">${def.flag} ${def.position} · ${def.club}</div>
+        <div class="pdetail-meta">${def.rarity}</div>
+      </div>
+      <button class="primary" id="pack-close-btn" style="margin-top:14px;width:100%;">GREAT!</button>`;
+    hydratePlayerImages(stage);
+    document.getElementById('pack-close-btn').addEventListener('click', ()=>{ closeModal('pack-modal'); renderCollectionGrid(); });
+    showToast(`🎉 ${def.name} (${def.rarity}) qo'lga kiritildi!`, 'ok');
+  }, 1500);
+}
+
+/* ---------- modal helpers ---------- */
+function openModal(id){ const el=document.getElementById(id); if(el) el.classList.remove('hidden'); }
+function closeModal(id){ const el=document.getElementById(id); if(el) el.classList.add('hidden'); }
+
+/* ---------- delegated events for new UI ---------- */
+document.addEventListener('click', (e)=>{
+  const closeEl = e.target.closest('[data-closemodal]');
+  if(closeEl){ closeModal(closeEl.getAttribute('data-closemodal')); return; }
+  const tabEl = e.target.closest('[data-cardstab]');
+  if(tabEl){ cardsHubTab = tabEl.getAttribute('data-cardstab'); renderCardsHub(); return; }
+  const mtabEl = e.target.closest('[data-markettab]');
+  if(mtabEl){ marketHubTab = mtabEl.getAttribute('data-markettab'); renderMarketHub(); return; }
+  const posEl = e.target.closest('[data-posfilter]');
+  if(posEl){ posFilter = posEl.getAttribute('data-posfilter'); renderCollectionGrid(); return; }
+  const mfEl = e.target.closest('[data-marketfilter]');
+  if(mfEl){ marketPosFilter = mfEl.getAttribute('data-marketfilter'); renderMarketList(); return; }
+  const overlay = e.target.closest('.modal-overlay');
+  if(overlay && e.target===overlay){ overlay.classList.add('hidden'); return; }
+});
+document.addEventListener('DOMContentLoaded', ()=>{
+  const sortSel = document.getElementById('collection-sort');
+  if(sortSel) sortSel.addEventListener('change', renderCollectionGrid);
+  const searchEl = document.getElementById('market-search');
+  if(searchEl) searchEl.addEventListener('input', renderMarketList);
+  const formSel = document.getElementById('squad-formation-select');
+  if(formSel) formSel.addEventListener('change', ()=>{ collection.formation = formSel.value; collection.squad = {}; saveCollection(); renderSquadPitch(); });
+});
+
+/* ---------- hook collection load into the existing career-hub entry ---------- */
+const _origEnterCareerHub = enterCareerHub;
+enterCareerHub = async function(){
+  await _origEnterCareerHub();
+  await loadCollectionForSlot();
+};
 </script>
 </body>
 </html>
