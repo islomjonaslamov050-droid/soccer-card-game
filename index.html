@@ -326,33 +326,56 @@
   .search-input{ width:100%; margin-bottom:10px; }
 
   /* rarity color system */
-  .rarity-BRONZE{ --rc1:#a05a2c; --rc2:#e0a374; }
-  .rarity-SILVER{ --rc1:#9aa0a6; --rc2:#eef1f3; }
-  .rarity-GOLD{ --rc1:#c9a44c; --rc2:#fff2c8; }
-  .rarity-ELITE{ --rc1:#3AA0D4; --rc2:#c8f0ff; }
-  .rarity-HERO{ --rc1:#B23A3A; --rc2:#ffd0c8; }
-  .rarity-ICON{ --rc1:#8B5CF6; --rc2:#efe2ff; }
-  .rarity-LEGENDARY{ --rc1:#1B1B1B; --rc2:#ffe9a8; }
+  .rarity-BRONZE{ --rc1:#a05a2c; --rc2:#e0a374; --rc3:#5c3315; }
+  .rarity-SILVER{ --rc1:#9aa0a6; --rc2:#eef1f3; --rc3:#5f6469; }
+  .rarity-GOLD{ --rc1:#c9a44c; --rc2:#fff2c8; --rc3:#7a5a1e; }
+  .rarity-ELITE{ --rc1:#3AA0D4; --rc2:#c8f0ff; --rc3:#1b4d66; }
+  .rarity-HERO{ --rc1:#B23A3A; --rc2:#ffd0c8; --rc3:#5c1a1a; }
+  .rarity-ICON{ --rc1:#8B5CF6; --rc2:#efe2ff; --rc3:#3a2166; }
+  .rarity-LEGENDARY{ --rc1:#1B1B1B; --rc2:#ffe9a8; --rc3:#000; }
 
-  .pcard-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(122px,1fr)); gap:10px; }
+  /* ===== Soccer Card Champions — original shield card system =====
+     Shape: rounded shoulders + tapered shield base, distinct from any
+     third-party card game's silhouette. Diagonal sheen + metallic
+     gradient give the premium feel from the gold reference. */
+  .pcard-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:14px 10px; }
   .pcard{
-    position:relative; border-radius:10px; padding:8px 6px 10px; text-align:center; cursor:pointer;
-    background:linear-gradient(160deg, rgba(20,18,15,.92), rgba(8,8,7,.96));
-    border:1.5px solid var(--rc1,var(--line)); box-shadow:0 6px 18px rgba(0,0,0,.4);
+    position:relative; padding:34px 8px 14px; text-align:center; cursor:pointer;
+    aspect-ratio:0.72; display:flex; flex-direction:column; align-items:center;
+    clip-path: path('M0,26 C0,10 14,0 30,0 L98,0 C114,0 128,10 128,26 L128,150 C128,178 100,196 64,206 C28,196 0,178 0,150 Z');
+    background:
+      linear-gradient(115deg, transparent 42%, color-mix(in srgb, var(--rc2,#fff) 55%, transparent) 50%, transparent 58%),
+      repeating-linear-gradient(58deg, color-mix(in srgb, var(--rc1,#333) 16%, transparent) 0 2px, transparent 2px 9px),
+      linear-gradient(150deg, color-mix(in srgb, var(--rc1,#333) 88%, #0a0a09), color-mix(in srgb, var(--rc3,#000) 92%, #050504) 68%);
+    box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px color-mix(in srgb, var(--rc1,#333) 70%, transparent);
     transition:transform .15s ease, box-shadow .15s ease;
   }
-  .pcard::before{ content:""; position:absolute; inset:0; border-radius:10px; pointer-events:none;
-    background:linear-gradient(160deg, color-mix(in srgb, var(--rc1,#333) 22%, transparent), transparent 55%); }
-  .pcard:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.55), 0 0 16px color-mix(in srgb, var(--rc1,#333) 55%, transparent); }
-  .pcard .pc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--rc2,var(--gold)); line-height:1; }
-  .pcard .pc-pos{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; opacity:.8; margin-bottom:2px; }
-  .pcard .pc-photo{ width:52px; height:52px; margin:2px auto 4px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1b1400; box-shadow:0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent); overflow:hidden; }
+  .pcard:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 14px 30px rgba(0,0,0,.6), 0 0 20px color-mix(in srgb, var(--rc1,#333) 65%, transparent); }
+  .pcard .pc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--rc2,var(--gold)); line-height:1; text-shadow:0 1px 3px rgba(0,0,0,.6); }
+  .pcard .pc-pos{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; opacity:.85; margin-bottom:2px; color:var(--rc2,var(--chalk)); }
+  .pcard .pc-photo{ width:50px; height:50px; margin:3px auto 4px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1b1400; box-shadow:0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent), 0 0 0 2px color-mix(in srgb, var(--rc2,#fff) 70%, transparent); overflow:hidden; }
   .pc-photo img.ppic, .mr-photo img.ppic{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
-  .pcard .pc-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:11px; line-height:1.2; margin-bottom:2px; min-height:26px; display:flex; align-items:center; justify-content:center; }
-  .pcard .pc-nat{ font-size:14px; }
-  .pcard .pc-rarity{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1px; color:var(--rc1,var(--gold)); margin-top:2px; }
-  .pcard .pc-lvl{ position:absolute; top:5px; right:6px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; background:rgba(0,0,0,.55); border:1px solid var(--rc1,var(--line)); border-radius:4px; padding:1px 4px; color:var(--rc2,var(--chalk)); }
-  .pcard .pc-lock{ position:absolute; inset:0; border-radius:10px; background:rgba(5,5,5,.72); display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .pcard .pc-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:10.5px; line-height:1.2; margin-bottom:2px; min-height:24px; display:flex; align-items:center; justify-content:center; color:var(--chalk); }
+  .pcard .pc-nat{ font-size:13px; }
+  .pcard .pc-rarity{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1.5px; color:var(--rc2,var(--gold)); margin-top:2px; opacity:.9; }
+  .pcard .pc-lvl{ position:absolute; top:5px; right:10px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; background:rgba(0,0,0,.55); border:1px solid var(--rc1,var(--line)); border-radius:4px; padding:1px 4px; color:var(--rc2,var(--chalk)); z-index:2; }
+  .pcard .pc-lock{ position:absolute; inset:0; background:rgba(5,5,5,.72); display:flex; align-items:center; justify-content:center; font-size:20px; clip-path:inherit; }
+
+  /* ICON (retired legend) treatment — gold + purple dual glow, animated */
+  .pcard.pcard-icon, .pdetail-card.pcard-icon{
+    --rc1:#D4AF37; --rc2:#fff2c8; --rc3:#3a2166;
+    background:
+      linear-gradient(115deg, transparent 40%, rgba(255,242,200,.65) 50%, transparent 60%),
+      repeating-linear-gradient(58deg, rgba(139,92,246,.22) 0 2px, transparent 2px 9px),
+      linear-gradient(150deg, #caa233 0%, #3a2166 55%, #1b1420 100%);
+    animation: iconPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes iconPulse{
+    0%,100%{ box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px rgba(212,175,55,.8), 0 0 14px rgba(139,92,246,.35); }
+    50%{ box-shadow:0 8px 24px rgba(0,0,0,.5), inset 0 0 0 2px rgba(255,242,200,.95), 0 0 26px rgba(139,92,246,.75); }
+  }
+  .pc-icon-badge{ position:absolute; top:5px; left:10px; font-size:13px; z-index:2; filter:drop-shadow(0 0 4px rgba(255,242,200,.8)); }
+  .pdetail-legacy{ font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.6; opacity:.85; text-align:left; background:rgba(139,92,246,.1); border:1px solid rgba(139,92,246,.35); border-radius:8px; padding:10px 12px; margin:10px 0; }
 
   .empty-hint{ text-align:center; opacity:.65; font-size:13px; padding:30px 10px; }
 
@@ -362,10 +385,17 @@
   .modal-box{ background:var(--charcoal); border:1px solid var(--gold); border-radius:12px; padding:20px; max-width:420px; width:100%; max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.6); animation:homeFadeIn .25s ease; }
   .modal-close{ float:right; cursor:pointer; font-size:18px; opacity:.7; }
   .modal-close:hover{ opacity:1; }
-  .pdetail-card{ text-align:center; margin-bottom:14px; }
-  .pdetail-ovr{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--rc2,var(--gold)); }
-  .pdetail-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:18px; margin:2px 0; }
-  .pdetail-meta{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75; }
+  .pdetail-card{ text-align:center; margin:0 auto 14px; padding:30px 14px 20px; max-width:220px;
+    clip-path: path('M0,34 C0,13 18,0 39,0 L181,0 C202,0 220,13 220,34 L220,230 C220,268 172,292 110,304 C48,292 0,268 0,230 Z');
+    background:
+      linear-gradient(115deg, transparent 42%, color-mix(in srgb, var(--rc2,#fff) 55%, transparent) 50%, transparent 58%),
+      repeating-linear-gradient(58deg, color-mix(in srgb, var(--rc1,#333) 16%, transparent) 0 2px, transparent 2px 9px),
+      linear-gradient(150deg, color-mix(in srgb, var(--rc1,#333) 88%, #0a0a09), color-mix(in srgb, var(--rc3,#000) 92%, #050504) 68%);
+    box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px color-mix(in srgb, var(--rc1,#333) 70%, transparent);
+  }
+  .pdetail-ovr{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--rc2,var(--gold)); text-shadow:0 1px 3px rgba(0,0,0,.6); }
+  .pdetail-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:18px; margin:2px 0; color:var(--chalk); }
+  .pdetail-meta{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.8; color:var(--chalk); }
   .pdetail-stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; margin:14px 0; }
   .pdetail-stat{ font-family:'IBM Plex Mono',monospace; font-size:12px; display:flex; justify-content:space-between; border-bottom:1px dashed var(--line); padding-bottom:4px; }
   .pdetail-actions{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
@@ -4258,7 +4288,123 @@ const REAL_PLAYERS = [
   {n:'Dani Olmo',w:'Dani Olmo',pos:'LM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:85,shooting:74,passing:80,dribbling:80,defending:48,physical:70}},
   {n:'Kingsley Coman',w:'Kingsley Coman',pos:'LM',nat:'Fransiya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
   {n:'Federico Chiesa',w:'Federico Chiesa',pos:'RM',nat:'Italiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
-  {n:'Facundo Buonanotte',w:'Facundo Buonanotte',pos:'RM',nat:'Argentina',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}}
+  {n:'Facundo Buonanotte',w:'Facundo Buonanotte',pos:'RM',nat:'Argentina',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
+
+  /* ---- O'zbekiston milliy terma jamoasi ---- */
+  {n:'Eldor Shomurodov',w:'Eldor Shomurodov',pos:'ST',nat:"O'zbekiston",club:'Cagliari',league:'Seriya A',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:81,shooting:80,passing:60,dribbling:76,defending:26,physical:74}},
+  {n:'Abbosbek Fayzullaev',w:'Abbosbek Fayzullaev',pos:'CAM',nat:"O'zbekiston",club:'CSKA Moscow',league:'Rossiya Ligasi',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:78,shooting:74,passing:80,dribbling:82,defending:33,physical:62}},
+  {n:'Jasurbek Yakhshiboev',w:'Jasurbek Yakhshiboev',pos:'RW',nat:"O'zbekiston",club:'Pakhtakor Toshkent FK',league:"O'zbekiston Superligasi",c1:'#1E7A46',c2:'#F2EFE6',st:{pace:83,shooting:71,passing:68,dribbling:78,defending:24,physical:64}},
+  {n:'Sardor Rashidov',w:'Sardor Rashidov',pos:'LW',nat:"O'zbekiston",club:'Al-Wehda',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:69,passing:66,dribbling:76,defending:22,physical:60}},
+  {n:'Otabek Shukurov',w:'Otabek Shukurov',pos:'CB',nat:"O'zbekiston",club:'Pakhtakor Toshkent FK',league:"O'zbekiston Superligasi",c1:'#1E7A46',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:58,dribbling:48,defending:74,physical:76}},
+  {n:'Rustamjon Ashurmatov',w:'Rustamjon Ashurmatov',pos:'CB',nat:"O'zbekiston",club:'Al-Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:30,passing:60,dribbling:47,defending:78,physical:80}},
+  {n:'Utkirbek Isaev',w:'Utkirbek Isaev',pos:'GK',nat:"O'zbekiston",club:'FC Nasaf',league:"O'zbekiston Superligasi",c1:'#D4AF37',c2:'#1B1B1B',st:{pace:44,shooting:20,passing:56,dribbling:34,defending:71,physical:76}},
+
+  /* ---- Bepul agent / kam mashhur / o'rta reytingli — turli ligalar ---- */
+  {n:'Cody Gakpo',w:'Cody Gakpo',pos:'LW',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:87,shooting:83,passing:78,dribbling:85,defending:33,physical:75}},
+  {n:'Ivan Toney',w:'Ivan Toney',pos:'ST',nat:'Angliya',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:74,shooting:83,passing:64,dribbling:76,defending:32,physical:85}},
+  {n:'Evan Ferguson',w:'Evan Ferguson',pos:'ST',nat:'Irlandiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:76,shooting:75,passing:56,dribbling:70,defending:28,physical:78}},
+  {n:'Kaoru Mitoma Jr',w:'Kaoru Mitoma',pos:'LM',nat:'Yaponiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:88,shooting:74,passing:76,dribbling:87,defending:30,physical:64}},
+  {n:'Ayase Ueda',w:'Ayase Ueda',pos:'ST',nat:'Yaponiya',club:'Feyenoord',league:'Eredivisie',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:79,shooting:76,passing:52,dribbling:70,defending:26,physical:75}},
+  {n:'Wataru Endo',w:'Wataru Endo',pos:'CDM',nat:'Yaponiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:52,passing:74,dribbling:66,defending:80,physical:78}},
+  {n:'Son Heung-min',w:'Son Heung-min',pos:'LW',nat:'Janubiy Koreya',club:'LAFC',league:'MLS',c1:'#1B1B1B',c2:'#F0D13B',st:{pace:90,shooting:87,passing:80,dribbling:88,defending:34,physical:70}},
+  {n:'Lee Kang-in',w:'Lee Kang-in',pos:'CAM',nat:'Janubiy Koreya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:76,shooting:73,passing:82,dribbling:83,defending:36,physical:58}},
+  {n:'Hwang Hee-chan',w:'Hwang Hee-chan',pos:'ST',nat:'Janubiy Koreya',club:'Wolverhampton',league:'Premier League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:85,shooting:76,passing:60,dribbling:76,defending:32,physical:74}},
+  {n:'Wu Lei',w:'Wu Lei',pos:'RW',nat:'Xitoy',club:'Shanghai Port',league:'Xitoy Super League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:68,passing:60,dribbling:70,defending:24,physical:58}},
+  {n:'Salem Al-Dawsari',w:'Salem Al-Dawsari',pos:'LW',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:80,shooting:78,passing:74,dribbling:81,defending:26,physical:62}},
+  {n:'Firas Al-Buraikan',w:'Firas Al-Buraikan',pos:'ST',nat:'Saudiya Arabistoni',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:74,shooting:70,passing:52,dribbling:66,defending:22,physical:66}},
+  {n:'Almoez Ali',w:'Almoez Ali',pos:'ST',nat:'Qatar',club:'Al Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:78,shooting:76,passing:54,dribbling:68,defending:22,physical:70}},
+  {n:'Akram Afif',w:'Akram Afif',pos:'RW',nat:'Qatar',club:'Al Sadd',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:80,shooting:74,passing:76,dribbling:80,defending:24,physical:60}},
+  {n:'Mohammed Al-Owais',w:'Mohammed Al-Owais',pos:'GK',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:40,shooting:18,passing:52,dribbling:30,defending:66,physical:70}},
+  {n:'Mohamed Elneny',w:'Mohamed Elneny',pos:'CDM',nat:'Misr',club:'Al Jazira',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:56,shooting:46,passing:66,dribbling:58,defending:70,physical:66}},
+  {n:'Mostafa Mohamed',w:'Mostafa Mohamed',pos:'ST',nat:'Misr',club:'Galatasaray',league:'Super Lig',c1:'#F0D13B',c2:'#B23A3A',st:{pace:80,shooting:74,passing:52,dribbling:68,defending:20,physical:72}},
+  {n:'Percy Tau',w:'Percy Tau',pos:'RW',nat:'Janubiy Afrika',club:'Al Ahly',league:'Misr Premier League',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:82,shooting:64,passing:60,dribbling:74,defending:22,physical:60}},
+  {n:'Andre Ayew',w:'André Ayew',pos:'LW',nat:'Gana',club:'Le Havre',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:64,shooting:66,passing:64,dribbling:66,defending:28,physical:68}},
+  {n:'Thomas Partey',w:'Thomas Partey',pos:'CDM',nat:'Gana',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:66,shooting:52,passing:68,dribbling:64,defending:78,physical:80}},
+  {n:'Wilfried Zaha',w:'Wilfried Zaha',pos:'LW',nat:"Kot-d'Ivuar",club:'Charlotte FC',league:'MLS',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:88,shooting:70,passing:62,dribbling:82,defending:24,physical:68}},
+  {n:'Franck Kessie',w:'Franck Kessié',pos:'CM',nat:"Kot-d'Ivuar",club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:60,passing:66,dribbling:64,defending:66,physical:78}},
+  {n:'Simon Adingra',w:'Simon Adingra',pos:'RW',nat:"Kot-d'Ivuar",club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:86,shooting:70,passing:66,dribbling:80,defending:24,physical:62}},
+  {n:'Andre Onana Sr',w:'Fabrice Ondoa',pos:'GK',nat:'Kamerun',club:'FC Sion',league:'Shveytsariya Ligasi',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:42,shooting:16,passing:48,dribbling:26,defending:62,physical:68}},
+  {n:'Bryan Mbeumo',w:'Bryan Mbeumo',pos:'RW',nat:'Kamerun',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:84,shooting:80,passing:70,dribbling:80,defending:28,physical:66}},
+  {n:'Frank Anguissa',w:'Frank Anguissa',pos:'CM',nat:'Kamerun',club:'Napoli',league:'Seriya A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:68,shooting:58,passing:66,dribbling:66,defending:66,physical:80}},
+  {n:'Iliman Ndiaye',w:'Iliman Ndiaye',pos:'CAM',nat:'Senegal',club:'Everton',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:80,shooting:70,passing:70,dribbling:78,defending:30,physical:62}},
+  {n:'Nicolas Jackson',w:'Nicolas Jackson',pos:'ST',nat:'Senegal',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:88,shooting:76,passing:56,dribbling:76,defending:24,physical:70}},
+  {n:'Edouard Mendy',w:'Édouard Mendy',pos:'GK',nat:'Senegal',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:44,shooting:20,passing:54,dribbling:30,defending:74,physical:76}},
+  {n:'Habib Diallo',w:'Habib Diallo',pos:'ST',nat:'Senegal',club:'Al Rayyan',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:76,shooting:70,passing:48,dribbling:64,defending:20,physical:74}},
+  {n:'Nathan Ake',w:'Nathan Aké',pos:'CB',nat:'Niderlandiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:74,shooting:38,passing:70,dribbling:58,defending:84,physical:82}},
+  {n:'Teun Koopmeiners',w:'Teun Koopmeiners',pos:'CM',nat:'Niderlandiya',club:'Juventus',league:'Seriya A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:66,shooting:74,passing:80,dribbling:74,defending:60,physical:70}},
+  {n:'Justin Kluivert',w:'Justin Kluivert',pos:'RW',nat:'Niderlandiya',club:'AS Roma',league:'Seriya A',c1:'#7A2E3A',c2:'#D4AF37',st:{pace:84,shooting:70,passing:62,dribbling:76,defending:22,physical:60}},
+  {n:'Youri Tielemans',w:'Youri Tielemans',pos:'CM',nat:'Belgiya',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:64,shooting:68,passing:78,dribbling:72,defending:58,physical:66}},
+  {n:'Jeremy Doku',w:'Jeremy Doku',pos:'LW',nat:'Belgiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:96,shooting:70,passing:64,dribbling:88,defending:22,physical:64}},
+  {n:'Loïs Openda',w:'Loïs Openda',pos:'ST',nat:'Belgiya',club:'RB Leipzig',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:92,shooting:78,passing:54,dribbling:78,defending:22,physical:66}},
+  {n:'Pau Torres',w:'Pau Torres',pos:'CB',nat:'Ispaniya',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:66,shooting:34,passing:74,dribbling:58,defending:80,physical:76}},
+  {n:'Robin Le Normand',w:'Robin Le Normand',pos:'CB',nat:'Ispaniya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:30,passing:68,dribbling:52,defending:82,physical:80}},
+  {n:'Ansu Fati',w:'Ansu Fati',pos:'LW',nat:'Ispaniya',club:'Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:74,passing:68,dribbling:80,defending:24,physical:60}},
+  {n:'Alvaro Morata',w:'Álvaro Morata',pos:'ST',nat:'Ispaniya',club:'Como',league:'Seriya A',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:72,shooting:78,passing:60,dribbling:70,defending:26,physical:78}},
+  {n:'Gerard Moreno',w:'Gerard Moreno',pos:'ST',nat:'Ispaniya',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:68,shooting:78,passing:64,dribbling:74,defending:24,physical:68}},
+  {n:'Marc Cucurella',w:'Marc Cucurella',pos:'LB',nat:'Ispaniya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:80,shooting:44,passing:70,dribbling:68,defending:76,physical:66}},
+  {n:'Aymeric Laporte',w:'Aymeric Laporte',pos:'CB',nat:'Fransiya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:66,shooting:34,passing:74,dribbling:56,defending:82,physical:80}},
+  {n:'Jonathan Clauss',w:'Jonathan Clauss',pos:'RB',nat:'Fransiya',club:'Nice',league:'Ligue 1',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:82,shooting:44,passing:70,dribbling:66,defending:70,physical:62}},
+  {n:'Randal Kolo Muani Jr',w:'Bradley Barcola',pos:'LW',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:92,shooting:76,passing:66,dribbling:84,defending:22,physical:60}},
+  {n:'Michael Olise',w:'Michael Olise',pos:'RW',nat:'Fransiya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:82,shooting:76,passing:80,dribbling:84,defending:26,physical:60}},
+  {n:'Manuel Akanji',w:'Manuel Akanji',pos:'CB',nat:'Shveytsariya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:74,shooting:32,passing:68,dribbling:54,defending:82,physical:82}},
+  {n:'Xherdan Shaqiri',w:'Xherdan Shaqiri',pos:'CAM',nat:'Shveytsariya',club:'Chicago Fire',league:'MLS',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:72,passing:76,dribbling:78,defending:32,physical:62}},
+  {n:'Granit Xhaka',w:'Granit Xhaka',pos:'CDM',nat:'Shveytsariya',club:'Sunderland',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:56,shooting:60,passing:80,dribbling:64,defending:76,physical:76}},
+  {n:'Alexis Mac Allister',w:'Alexis Mac Allister',pos:'CM',nat:'Argentina',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:76,passing:84,dribbling:80,defending:60,physical:70}},
+  {n:'Julian Alvarez',w:'Julián Álvarez',pos:'ST',nat:'Argentina',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:86,passing:76,dribbling:86,defending:36,physical:70}},
+  {n:'Rodrigo De Paul',w:'Rodrigo De Paul',pos:'CM',nat:'Argentina',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:70,passing:82,dribbling:76,defending:66,physical:74}},
+  {n:'Nicolas Otamendi',w:'Nicolás Otamendi',pos:'CB',nat:'Argentina',club:'Benfica',league:'Portugaliya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:64,dribbling:50,defending:80,physical:82}},
+  {n:'Lisandro Martinez',w:'Lisandro Martínez',pos:'CB',nat:'Argentina',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:72,shooting:34,passing:74,dribbling:60,defending:82,physical:74}},
+  {n:'Gonzalo Montiel',w:'Gonzalo Montiel',pos:'RB',nat:'Argentina',club:'River Plate',league:'Arjentina Ligasi',c1:'#F2EFE6',c2:'#B23A3A',st:{pace:80,shooting:44,passing:68,dribbling:64,defending:74,physical:70}},
+  {n:'Endrick',w:'Endrick',pos:'ST',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:86,shooting:78,passing:62,dribbling:80,defending:22,physical:70}},
+  {n:'Estevao Willian',w:'Estêvão',pos:'RW',nat:'Braziliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:88,shooting:74,passing:74,dribbling:88,defending:24,physical:56}},
+  {n:'Bruno Guimaraes',w:'Bruno Guimarães',pos:'CDM',nat:'Braziliya',club:'Newcastle United',league:'Premier League',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:74,shooting:64,passing:80,dribbling:76,defending:74,physical:78}},
+  {n:'Ederson',w:'Ederson (footballer)',pos:'GK',nat:'Braziliya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:54,shooting:32,passing:82,dribbling:52,defending:82,physical:80}},
+  {n:'Gabriel Magalhaes',w:'Gabriel Magalhães',pos:'CB',nat:'Braziliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:44,passing:66,dribbling:56,defending:84,physical:86}},
+  {n:'Danilo Pereira',w:'Danilo (footballer, born 1988)',pos:'CB',nat:'Portugaliya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:60,shooting:38,passing:66,dribbling:52,defending:78,physical:80}},
+  {n:'Diogo Costa',w:'Diogo Costa',pos:'GK',nat:'Portugaliya',club:'FC Porto',league:'Portugaliya Ligasi',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:52,shooting:26,passing:70,dribbling:44,defending:80,physical:78}},
+  {n:'Renato Sanches',w:'Renato Sanches',pos:'CM',nat:'Portugaliya',club:'Benfica',league:'Portugaliya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:64,passing:70,dribbling:74,defending:56,physical:74}},
+  {n:'Goncalo Ramos',w:'Gonçalo Ramos',pos:'ST',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:78,shooting:82,passing:60,dribbling:76,defending:24,physical:74}},
+  {n:'Piotr Zielinski Jr',w:'Sebastian Szymanski',pos:'CAM',nat:'Polsha',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:74,shooting:70,passing:78,dribbling:76,defending:32,physical:62}},
+  {n:'Kacper Urbanski',w:'Kacper Urbański',pos:'CAM',nat:'Polsha',club:'Bologna',league:'Seriya A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:70,shooting:60,passing:66,dribbling:66,defending:30,physical:56}},
+  {n:'Nemanja Gudelj',w:'Nemanja Gudelj',pos:'CDM',nat:'Serbiya',club:'Sevilla',league:'La Liga',c1:'#F2EFE6',c2:'#B23A3A',st:{pace:52,shooting:44,passing:62,dribbling:52,defending:66,physical:72}},
+  {n:'Aleksandar Mitrovic',w:'Aleksandar Mitrović',pos:'ST',nat:'Serbiya',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:82,passing:52,dribbling:64,defending:24,physical:88}},
+  {n:'Erik Lamela',w:'Erik Lamela',pos:'RM',nat:'Argentina',club:'Fulham',league:'Premier League',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:66,shooting:62,passing:66,dribbling:70,defending:28,physical:56}},
+  {n:'Iurii Zhirkov',w:'Yuri Zhirkov',pos:'LB',nat:'Rossiya',club:'CSKA Moscow',league:'Rossiya Ligasi',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:58,shooting:34,passing:56,dribbling:50,defending:60,physical:62}},
+  {n:'Aleksandr Golovin',w:'Aleksandr Golovin',pos:'CAM',nat:'Rossiya',club:'AS Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:72,passing:80,dribbling:76,defending:34,physical:64}},
+  {n:'Denis Cheryshev',w:'Denis Cheryshev',pos:'LW',nat:'Rossiya',club:'Real Betis',league:'La Liga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:70,shooting:60,passing:56,dribbling:64,defending:22,physical:54}},
+  {n:'Ali Al-Bulaihi',w:'Ali Al-Bulaihi',pos:'CB',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:56,shooting:28,passing:52,dribbling:44,defending:64,physical:68}},
+  {n:'Yasir Al-Shahrani',w:'Yasser Al-Shahrani',pos:'LB',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:56,dribbling:52,defending:62,physical:60}},
+  {n:'Ali Mabkhout',w:'Ali Mabkhout',pos:'ST',nat:'BAA',club:'Al Jazira',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:74,passing:44,dribbling:58,defending:18,physical:66}},
+  {n:'Bassam Al-Rawi',w:'Bassam Al-Rawi',pos:'RB',nat:'Qatar',club:'Al Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:68,shooting:34,passing:52,dribbling:52,defending:58,physical:56}},
+  {n:'Awer Mabil',w:'Awer Mabil',pos:'RW',nat:'Avstraliya',club:'FC Cincinnati',league:'MLS',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:82,shooting:64,passing:56,dribbling:66,defending:22,physical:60}},
+  {n:'Martin Boyle',w:'Martin Boyle',pos:'RW',nat:'Avstraliya',club:'Al Faisaly',league:'Saudi Pro League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:80,shooting:66,passing:54,dribbling:64,defending:20,physical:56}},
+  {n:'Chris Wood',w:'Chris Wood',pos:'ST',nat:'Yangi Zelandiya',club:'Nottingham Forest',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:60,shooting:74,passing:42,dribbling:56,defending:22,physical:84}},
+  {n:'Alphonso Boyle',w:'Junior Firpo',pos:'LB',nat:'Dominikan Respublikasi',club:'Leeds United',league:'Premier League',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:78,shooting:36,passing:58,dribbling:60,defending:60,physical:62}},
+  {n:'Jonathan David Jr',w:'Cyle Larin',pos:'ST',nat:'Kanada',club:'Mallorca',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:68,passing:44,dribbling:60,defending:18,physical:74}},
+  {n:'Tajon Buchanan',w:'Tajon Buchanan',pos:'RM',nat:'Kanada',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:86,shooting:60,passing:56,dribbling:70,defending:34,physical:64}},
+  {n:'Folarin Balogun',w:'Folarin Balogun',pos:'ST',nat:'AQSH',club:'AS Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:82,shooting:72,passing:50,dribbling:70,defending:20,physical:66}},
+  {n:'Ricardo Pepi',w:'Ricardo Pepi',pos:'ST',nat:'AQSH',club:'PSV Eindhoven',league:'Eredivisie',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:74,passing:48,dribbling:66,defending:20,physical:72}},
+  {n:'Matt Turner',w:'Matt Turner (soccer)',pos:'GK',nat:'AQSH',club:'Crystal Palace',league:'Premier League',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:44,shooting:18,passing:52,dribbling:32,defending:66,physical:70}},
+  {n:'Guram Kashia',w:'Guram Kashia',pos:'CB',nat:'Gruziya',club:'Slovan Bratislava',league:'Slovakiya Ligasi',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:52,shooting:24,passing:46,dribbling:38,defending:60,physical:66}},
+  {n:'Giorgi Mamardashvili',w:'Giorgi Mamardashvili',pos:'GK',nat:'Gruziya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:24,passing:64,dribbling:38,defending:78,physical:78}},
+  {n:'Zurab Tsiskaridze',w:'Georges Mikautadze',pos:'ST',nat:'Gruziya',club:'Ajaccio',league:'Ligue 2',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:60,passing:40,dribbling:52,defending:16,physical:60}},
+  {n:'Toma Basic',w:'Toma Bašić',pos:'CM',nat:'Xorvatiya',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:56,shooting:48,passing:52,dribbling:50,defending:56,physical:60}},
+  {n:'Marin Pongracic',w:'Marin Pongračić',pos:'CB',nat:'Xorvatiya',club:'Wolfsburg',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:58,shooting:26,passing:46,dribbling:38,defending:56,physical:62}},
+  {n:'Kristijan Jakic',w:'Kristijan Jakić',pos:'CDM',nat:'Xorvatiya',club:'Eintracht Frankfurt',league:'Bundesliga',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:50,shooting:36,passing:44,dribbling:40,defending:52,physical:56}},
+  {n:'Adnan Januzaj',w:'Adnan Januzaj',pos:'LW',nat:'Belgiya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:54,shooting:44,passing:40,dribbling:48,defending:14,physical:44}},
+  {n:'Divock Origi',w:'Divock Origi',pos:'ST',nat:'Belgiya',club:'AC Milan',league:'Seriya A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:46,shooting:40,passing:32,dribbling:38,defending:12,physical:52}},
+  {n:'Dawid Kownacki',w:'Dawid Kownacki',pos:'ST',nat:'Polsha',club:'Werder Bremen',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:52,shooting:38,passing:30,dribbling:36,defending:10,physical:48}},
+  {n:'Kacper Kozlowski',w:'Kacper Kozłowski',pos:'CAM',nat:'Polsha',club:'Union Saint-Gilloise',league:'Belgiya Ligasi',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:48,shooting:32,passing:28,dribbling:34,defending:8,physical:40}},
+  {n:'Tomas Ostrak',w:'Tomáš Ostrák',pos:'CB',nat:'Chexiya',club:'Slavia Prague',league:'Chexiya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:44,shooting:20,passing:26,dribbling:24,defending:44,physical:46}},
+  {n:'Miroslav Stoch Jr',w:'Ondrej Duda',pos:'CAM',nat:'Slovakiya',club:'Werder Bremen',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:44,shooting:30,passing:24,dribbling:30,defending:6,physical:36}},
+  {n:'Denis Vavro',w:'Dénes Vávro',pos:'CB',nat:'Slovakiya',club:'Anderlecht',league:'Belgiya Ligasi',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:40,shooting:16,passing:22,dribbling:20,defending:38,physical:40}},
+  {n:'Yakup Yildiz',w:'Yakup Yıldız',pos:'CAM',nat:'Turkiya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:38,shooting:24,passing:20,dribbling:26,defending:6,physical:32}},
+  {n:'Berat Ozan',w:'Berat Özdemir',pos:'CB',nat:'Turkiya',club:'Trabzonspor',league:'Super Lig',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:34,shooting:14,passing:18,dribbling:18,defending:34,physical:36}},
+  {n:'Amine Harit',w:'Amine Harit',pos:'CAM',nat:'Marokash',club:'Al Wasl',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:32,shooting:22,passing:18,dribbling:24,defending:6,physical:30}},
+  {n:'Karim El Ahmadi',w:'Karim El Ahmadi',pos:'CDM',nat:'Marokash',club:'RKC Waalwijk',league:'Eredivisie',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:28,shooting:12,passing:16,dribbling:16,defending:30,physical:28}},
+  {n:'Youssef Msakni',w:'Youssef Msakni',pos:'LW',nat:'Tunis',club:'Al Arabi',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:26,shooting:18,passing:16,dribbling:20,defending:6,physical:26}},
+  {n:'Naim Sliti',w:'Naim Sliti',pos:'RW',nat:'Tunis',club:'Al-Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:24,shooting:16,passing:14,dribbling:18,defending:4,physical:24}},
+  {n:'Yassine Meriah',w:'Yassine Meriah',pos:'CB',nat:'Tunis',club:'Esperance Tunis',league:'Tunis Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:22,shooting:8,passing:10,dribbling:10,defending:24,physical:22}}
 ];
 
 /* ---------- real player -> silhouette / wiki photo system ---------- */
