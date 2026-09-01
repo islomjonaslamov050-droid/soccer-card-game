@@ -326,56 +326,33 @@
   .search-input{ width:100%; margin-bottom:10px; }
 
   /* rarity color system */
-  .rarity-BRONZE{ --rc1:#a05a2c; --rc2:#e0a374; --rc3:#5c3315; }
-  .rarity-SILVER{ --rc1:#9aa0a6; --rc2:#eef1f3; --rc3:#5f6469; }
-  .rarity-GOLD{ --rc1:#c9a44c; --rc2:#fff2c8; --rc3:#7a5a1e; }
-  .rarity-ELITE{ --rc1:#3AA0D4; --rc2:#c8f0ff; --rc3:#1b4d66; }
-  .rarity-HERO{ --rc1:#B23A3A; --rc2:#ffd0c8; --rc3:#5c1a1a; }
-  .rarity-ICON{ --rc1:#8B5CF6; --rc2:#efe2ff; --rc3:#3a2166; }
-  .rarity-LEGENDARY{ --rc1:#1B1B1B; --rc2:#ffe9a8; --rc3:#000; }
+  .rarity-BRONZE{ --rc1:#a05a2c; --rc2:#e0a374; }
+  .rarity-SILVER{ --rc1:#9aa0a6; --rc2:#eef1f3; }
+  .rarity-GOLD{ --rc1:#c9a44c; --rc2:#fff2c8; }
+  .rarity-ELITE{ --rc1:#3AA0D4; --rc2:#c8f0ff; }
+  .rarity-HERO{ --rc1:#B23A3A; --rc2:#ffd0c8; }
+  .rarity-ICON{ --rc1:#8B5CF6; --rc2:#efe2ff; }
+  .rarity-LEGENDARY{ --rc1:#1B1B1B; --rc2:#ffe9a8; }
 
-  /* ===== Soccer Card Champions — original shield card system =====
-     Shape: rounded shoulders + tapered shield base, distinct from any
-     third-party card game's silhouette. Diagonal sheen + metallic
-     gradient give the premium feel from the gold reference. */
-  .pcard-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:14px 10px; }
+  .pcard-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(122px,1fr)); gap:10px; }
   .pcard{
-    position:relative; padding:34px 8px 14px; text-align:center; cursor:pointer;
-    aspect-ratio:0.72; display:flex; flex-direction:column; align-items:center;
-    clip-path: path('M0,26 C0,10 14,0 30,0 L98,0 C114,0 128,10 128,26 L128,150 C128,178 100,196 64,206 C28,196 0,178 0,150 Z');
-    background:
-      linear-gradient(115deg, transparent 42%, color-mix(in srgb, var(--rc2,#fff) 55%, transparent) 50%, transparent 58%),
-      repeating-linear-gradient(58deg, color-mix(in srgb, var(--rc1,#333) 16%, transparent) 0 2px, transparent 2px 9px),
-      linear-gradient(150deg, color-mix(in srgb, var(--rc1,#333) 88%, #0a0a09), color-mix(in srgb, var(--rc3,#000) 92%, #050504) 68%);
-    box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px color-mix(in srgb, var(--rc1,#333) 70%, transparent);
+    position:relative; border-radius:10px; padding:8px 6px 10px; text-align:center; cursor:pointer;
+    background:linear-gradient(160deg, rgba(20,18,15,.92), rgba(8,8,7,.96));
+    border:1.5px solid var(--rc1,var(--line)); box-shadow:0 6px 18px rgba(0,0,0,.4);
     transition:transform .15s ease, box-shadow .15s ease;
   }
-  .pcard:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 14px 30px rgba(0,0,0,.6), 0 0 20px color-mix(in srgb, var(--rc1,#333) 65%, transparent); }
-  .pcard .pc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--rc2,var(--gold)); line-height:1; text-shadow:0 1px 3px rgba(0,0,0,.6); }
-  .pcard .pc-pos{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; opacity:.85; margin-bottom:2px; color:var(--rc2,var(--chalk)); }
-  .pcard .pc-photo{ width:50px; height:50px; margin:3px auto 4px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1b1400; box-shadow:0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent), 0 0 0 2px color-mix(in srgb, var(--rc2,#fff) 70%, transparent); overflow:hidden; }
+  .pcard::before{ content:""; position:absolute; inset:0; border-radius:10px; pointer-events:none;
+    background:linear-gradient(160deg, color-mix(in srgb, var(--rc1,#333) 22%, transparent), transparent 55%); }
+  .pcard:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.55), 0 0 16px color-mix(in srgb, var(--rc1,#333) 55%, transparent); }
+  .pcard .pc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--rc2,var(--gold)); line-height:1; }
+  .pcard .pc-pos{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; opacity:.8; margin-bottom:2px; }
+  .pcard .pc-photo{ width:52px; height:52px; margin:2px auto 4px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--rc2,#444), var(--rc1,#222)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1b1400; box-shadow:0 0 10px color-mix(in srgb, var(--rc1,#333) 60%, transparent); overflow:hidden; }
   .pc-photo img.ppic, .mr-photo img.ppic{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
-  .pcard .pc-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:10.5px; line-height:1.2; margin-bottom:2px; min-height:24px; display:flex; align-items:center; justify-content:center; color:var(--chalk); }
-  .pcard .pc-nat{ font-size:13px; }
-  .pcard .pc-rarity{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1.5px; color:var(--rc2,var(--gold)); margin-top:2px; opacity:.9; }
-  .pcard .pc-lvl{ position:absolute; top:5px; right:10px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; background:rgba(0,0,0,.55); border:1px solid var(--rc1,var(--line)); border-radius:4px; padding:1px 4px; color:var(--rc2,var(--chalk)); z-index:2; }
-  .pcard .pc-lock{ position:absolute; inset:0; background:rgba(5,5,5,.72); display:flex; align-items:center; justify-content:center; font-size:20px; clip-path:inherit; }
-
-  /* ICON (retired legend) treatment — gold + purple dual glow, animated */
-  .pcard.pcard-icon, .pdetail-card.pcard-icon{
-    --rc1:#D4AF37; --rc2:#fff2c8; --rc3:#3a2166;
-    background:
-      linear-gradient(115deg, transparent 40%, rgba(255,242,200,.65) 50%, transparent 60%),
-      repeating-linear-gradient(58deg, rgba(139,92,246,.22) 0 2px, transparent 2px 9px),
-      linear-gradient(150deg, #caa233 0%, #3a2166 55%, #1b1420 100%);
-    animation: iconPulse 2.6s ease-in-out infinite;
-  }
-  @keyframes iconPulse{
-    0%,100%{ box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px rgba(212,175,55,.8), 0 0 14px rgba(139,92,246,.35); }
-    50%{ box-shadow:0 8px 24px rgba(0,0,0,.5), inset 0 0 0 2px rgba(255,242,200,.95), 0 0 26px rgba(139,92,246,.75); }
-  }
-  .pc-icon-badge{ position:absolute; top:5px; left:10px; font-size:13px; z-index:2; filter:drop-shadow(0 0 4px rgba(255,242,200,.8)); }
-  .pdetail-legacy{ font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.6; opacity:.85; text-align:left; background:rgba(139,92,246,.1); border:1px solid rgba(139,92,246,.35); border-radius:8px; padding:10px 12px; margin:10px 0; }
+  .pcard .pc-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:11px; line-height:1.2; margin-bottom:2px; min-height:26px; display:flex; align-items:center; justify-content:center; }
+  .pcard .pc-nat{ font-size:14px; }
+  .pcard .pc-rarity{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1px; color:var(--rc1,var(--gold)); margin-top:2px; }
+  .pcard .pc-lvl{ position:absolute; top:5px; right:6px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; background:rgba(0,0,0,.55); border:1px solid var(--rc1,var(--line)); border-radius:4px; padding:1px 4px; color:var(--rc2,var(--chalk)); }
+  .pcard .pc-lock{ position:absolute; inset:0; border-radius:10px; background:rgba(5,5,5,.72); display:flex; align-items:center; justify-content:center; font-size:20px; }
 
   .empty-hint{ text-align:center; opacity:.65; font-size:13px; padding:30px 10px; }
 
@@ -385,17 +362,10 @@
   .modal-box{ background:var(--charcoal); border:1px solid var(--gold); border-radius:12px; padding:20px; max-width:420px; width:100%; max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.6); animation:homeFadeIn .25s ease; }
   .modal-close{ float:right; cursor:pointer; font-size:18px; opacity:.7; }
   .modal-close:hover{ opacity:1; }
-  .pdetail-card{ text-align:center; margin:0 auto 14px; padding:30px 14px 20px; max-width:220px;
-    clip-path: path('M0,34 C0,13 18,0 39,0 L181,0 C202,0 220,13 220,34 L220,230 C220,268 172,292 110,304 C48,292 0,268 0,230 Z');
-    background:
-      linear-gradient(115deg, transparent 42%, color-mix(in srgb, var(--rc2,#fff) 55%, transparent) 50%, transparent 58%),
-      repeating-linear-gradient(58deg, color-mix(in srgb, var(--rc1,#333) 16%, transparent) 0 2px, transparent 2px 9px),
-      linear-gradient(150deg, color-mix(in srgb, var(--rc1,#333) 88%, #0a0a09), color-mix(in srgb, var(--rc3,#000) 92%, #050504) 68%);
-    box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 0 2px color-mix(in srgb, var(--rc1,#333) 70%, transparent);
-  }
-  .pdetail-ovr{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--rc2,var(--gold)); text-shadow:0 1px 3px rgba(0,0,0,.6); }
-  .pdetail-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:18px; margin:2px 0; color:var(--chalk); }
-  .pdetail-meta{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.8; color:var(--chalk); }
+  .pdetail-card{ text-align:center; margin-bottom:14px; }
+  .pdetail-ovr{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--rc2,var(--gold)); }
+  .pdetail-name{ font-family:'Playfair Display',serif; font-weight:900; font-size:18px; margin:2px 0; }
+  .pdetail-meta{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75; }
   .pdetail-stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; margin:14px 0; }
   .pdetail-stat{ font-family:'IBM Plex Mono',monospace; font-size:12px; display:flex; justify-content:space-between; border-bottom:1px dashed var(--line); padding-bottom:4px; }
   .pdetail-actions{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
@@ -476,8 +446,16 @@
           <div style="display:flex;gap:12px;align-items:center;justify-content:center;padding-top:2px;">
             <span id="sound-toggle" style="cursor:pointer;font-size:16px;" title="Ovozni yoqish/o'chirish">🔊</span>
             <span id="stats-toggle" style="cursor:pointer;font-size:16px;display:none;" title="Statistika">📊</span>
-            <span id="header-download-icon" style="cursor:pointer;font-size:16px;" title="O'yinni faylga yuklab olish">⬇️</span>
           </div>
+          <div style="display:flex;gap:8px;padding-top:6px;border-top:1px solid var(--line);margin-top:6px;">
+            <button id="backup-save-btn" style="flex:1;font-size:10px;padding:6px 4px;">💾 BACKUP</button>
+            <button id="import-save-btn" style="flex:1;font-size:10px;padding:6px 4px;">📥 IMPORT</button>
+          </div>
+          <div style="display:flex;gap:8px;padding-top:6px;">
+            <button id="import-playerdb-btn" style="flex:1;font-size:10px;padding:6px 4px;" title="Real futbolchi bazasini JSON/CSV orqali import qilish">🗂 PLAYER DB IMPORT</button>
+          </div>
+          <input type="file" id="import-save-input" accept="application/json" style="display:none;">
+          <input type="file" id="import-playerdb-input" accept="application/json,.csv,text/csv" style="display:none;">
         </div>
       </div>
       <div class="sb-right" id="sb-info">— : —</div>
@@ -499,10 +477,6 @@
     <div style="text-align:center; margin-bottom:6px;"><img id="hero-logo" style="width:120px; height:auto; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));" alt="Soccer Card logo"></div>
     <h1 class="title">SOCCER CARD</h1>
     <div class="subtitle" id="hero-subtitle">Kartangizni yasang. Martabangizni boshqaring. Afsona bo'ling.</div>
-    <div style="margin-bottom:16px;">
-      <button id="self-download-btn" class="primary" style="width:auto; padding:10px 20px;">⬇ O'YINNI FAYLGA YUKLAB OLISH</button>
-    </div>
-
     <details class="card" style="padding:14px 20px; margin-bottom:16px;">
       <summary style="cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; color:var(--gold);">QANDAY O'RNATISH / SAQLASH MUMKIN?</summary>
       <div style="font-size:13px; line-height:1.7; margin-top:10px; opacity:.9;">
@@ -593,15 +567,20 @@
           <div class="hub-head-title">MY TEAM</div>
           <div class="hub-head-sub" id="squad-sub">FORMATION: 4-3-3 · TEAM OVR —</div>
         </div>
-        <select class="sort-select" id="squad-formation-select">
-          <option value="4-3-3">4-3-3</option>
-          <option value="4-4-2">4-4-2</option>
-          <option value="3-5-2">3-5-2</option>
-          <option value="4-2-3-1">4-2-3-1</option>
-        </select>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <select class="sort-select" id="squad-formation-select"></select>
+          <button id="edit-formation-btn" style="width:auto;padding:8px 10px;font-size:11px;">✎ EDIT FORMATION</button>
+        </div>
       </div>
       <div class="mini-pitch" id="squad-pitch" style="min-height:280px;"></div>
       <div class="hub-head-sub" style="margin-top:10px;" id="squad-chem-note"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="formation-editor-modal">
+    <div class="card" style="max-width:420px;margin:40px auto;padding:18px;">
+      <span class="modal-close" data-closemodal="formation-editor-modal">✕</span>
+      <div id="formation-editor-body"></div>
     </div>
   </div>
 
@@ -911,7 +890,8 @@ const NATIONS = [
   {name:"Isroil", flag:"🇮🇱"}, {name:"Iordaniya", flag:"🇯🇴"}, {name:"Qozog'iston", flag:"🇰🇿"},
   {name:"Tojikiston", flag:"🇹🇯"}, {name:"Qirg'iziston", flag:"🇰🇬"}, {name:"Turkmaniston", flag:"🇹🇲"},
   {name:"Ozarbayjon", flag:"🇦🇿"}, {name:"Gruziya", flag:"🇬🇪"}, {name:"Armaniston", flag:"🇦🇲"},
-  {name:"Malayziya", flag:"🇲🇾"}, {name:"Filippin", flag:"🇵🇭"}
+  {name:"Malayziya", flag:"🇲🇾"}, {name:"Filippin", flag:"🇵🇭"},
+  {name:"Gvineya", flag:"🇬🇳"}, {name:"Bolgariya", flag:"🇧🇬"}
 ];
 const SKIN_TONES = ['#f2c9a0','#d9a066','#b97a48','#8a5a34','#5c3a24'];
 const HAIR_COLORS = ['#1b1b1b','#4a2e17','#7a4a1e','#c9a24c','#8a8a8a'];
@@ -1513,25 +1493,35 @@ let seasonWeek = 1; const SEASON_LENGTH = 20;
 
 /* ===================== HOME MENU: ECONOMY / MISSIONS / DAILY REWARDS ===================== */
 let econ = { coins:500, gems:25, energy:5, energyMax:5, level:1 };
-let missionsState = { date:null, play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} };
+let missionsState = { date:null, play:0, goals:0, win:0, passes:0, upgrades:0, packs:0,
+  claimed:{play:false, goals:false, win:false, passes:false, upgrades:false, packs:false} };
 let dailyState = { streak:0, lastClaimDate:null };
 const MISSION_DEFS = [
   {key:'play', icon:'⚽', label:"Play 1 Match", target:1, reward:60},
   {key:'goals', icon:'🥅', label:"Score 3 Goals", target:3, reward:100},
-  {key:'win', icon:'🏆', label:"Win 1 Match", target:1, reward:120}
+  {key:'win', icon:'🏆', label:"Win 1 Match", target:1, reward:120},
+  {key:'passes', icon:'🔁', label:"Complete 5 Passes", target:5, reward:70},
+  {key:'upgrades', icon:'⬆️', label:"Upgrade 1 Player", target:1, reward:90},
+  {key:'packs', icon:'📦', label:"Open 1 Pack", target:1, reward:80}
 ];
 const DAILY_REWARD_AMOUNTS = [50,60,80,100,120,150,250];
 function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
 async function loadEconomyForSlot(){
   econ = { coins:500, gems:25, energy:5, energyMax:5, level:1 };
-  missionsState = { date:null, play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} };
+  missionsState = freshMissionsState();
   dailyState = { streak:0, lastClaimDate:null };
   if(activeSlot===null) return;
   try{ const r = await window.storage.get('econ:'+activeSlot, false); if(r) econ = Object.assign(econ, JSON.parse(r.value)); }catch(e){}
-  try{ const r = await window.storage.get('missions:'+activeSlot, false); if(r) missionsState = Object.assign(missionsState, JSON.parse(r.value)); }catch(e){}
+  try{
+    const r = await window.storage.get('missions:'+activeSlot, false);
+    if(r){
+      const loaded = JSON.parse(r.value);
+      missionsState = Object.assign(freshMissionsState(), loaded, {claimed: Object.assign({play:false,goals:false,win:false,passes:false,upgrades:false,packs:false}, loaded.claimed||{})});
+    }
+  }catch(e){}
   try{ const r = await window.storage.get('daily:'+activeSlot, false); if(r) dailyState = Object.assign(dailyState, JSON.parse(r.value)); }catch(e){}
   if(player){ econ.level = Math.max(1, Math.round((player.age||17) - 16 + Math.floor((player.matches||0)/10))); }
-  if(missionsState.date !== todayStr()){ missionsState = { date:todayStr(), play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} }; saveMissions(); }
+  if(missionsState.date !== todayStr()){ missionsState = freshMissionsState(); saveMissions(); }
 }
 async function saveEconomy(){ if(activeSlot===null) return; try{ await window.storage.set('econ:'+activeSlot, JSON.stringify(econ), false); }catch(e){} }
 async function saveMissions(){ if(activeSlot===null) return; try{ await window.storage.set('missions:'+activeSlot, JSON.stringify(missionsState), false); }catch(e){} }
@@ -1646,12 +1636,24 @@ function renderMissions(){
     });
   });
 }
-function trackMissionProgress({goals, won}){
-  if(missionsState.date !== todayStr()){ missionsState = { date:todayStr(), play:0, goals:0, win:0, claimed:{play:false, goals:false, win:false} }; }
+function freshMissionsState(){
+  return { date:todayStr(), play:0, goals:0, win:0, passes:0, upgrades:0, packs:0,
+    claimed:{play:false, goals:false, win:false, passes:false, upgrades:false, packs:false} };
+}
+function trackMissionProgress({goals, won, passes}){
+  if(missionsState.date !== todayStr()){ missionsState = freshMissionsState(); }
   missionsState.play = (missionsState.play||0) + 1;
   missionsState.goals = (missionsState.goals||0) + (goals||0);
+  if(passes) missionsState.passes = (missionsState.passes||0) + passes;
   if(won) missionsState.win = (missionsState.win||0) + 1;
   saveMissions();
+  renderMissions();
+}
+function trackMissionEvent(key, amount){
+  if(missionsState.date !== todayStr()){ missionsState = freshMissionsState(); }
+  missionsState[key] = (missionsState[key]||0) + (amount||1);
+  saveMissions();
+  renderMissions();
 }
 
 /* ---- home menu render ---- */
@@ -1699,8 +1701,8 @@ function showAppScreen(name){
   if(name==='match'){ ensureCareerScreensVisible(); setActiveNav('match'); return; }
   if(name==='team'){ ensureCareerScreensVisible(); showTacticsScreen(); setActiveNav('team'); return; }
   if(name==='career'){ renderCareerStats(); document.getElementById('career-stats-screen').classList.remove('hidden'); setActiveNav('career'); return; }
-  if(name==='cards'){ document.getElementById('cards-screen').classList.remove('hidden'); setActiveNav('cards'); renderCardsHub(); return; }
-  if(name==='market'){ document.getElementById('market-screen').classList.remove('hidden'); setActiveNav('market'); renderMarketHub(); return; }
+  if(name==='cards'){ document.getElementById('cards-screen').classList.remove('hidden'); setActiveNav('cards'); ensureCollectionLoaded().then(renderCardsHub); return; }
+  if(name==='market'){ document.getElementById('market-screen').classList.remove('hidden'); setActiveNav('market'); ensureCollectionLoaded().then(renderMarketHub); return; }
   if(name==='rewards'){ document.getElementById('rewards-screen').classList.remove('hidden'); setActiveNav('rewards'); renderDailyRewards(); renderMissions(); return; }
 }
 function goToMatchScreen(){
@@ -1709,6 +1711,7 @@ function goToMatchScreen(){
 }
 async function enterCareerHub(){
   await loadEconomyForSlot();
+  ensureCollectionLoaded(); // prefetch in background; MARKET/CARDS screens await this same promise before rendering
   showAppScreen('home');
 }
 /* delegated nav + data-nav clicks */
@@ -1918,6 +1921,7 @@ async function loadSlot(i){
   const s = slotsCache[i];
   if(!s) return;
   activeSlot = i;
+  collectionLoadPromise = null;
   player = s.player; log = s.log||[]; trophies = s.trophies||[]; season = s.season||1; seasonWeek = s.seasonWeek||1;
   standings = s.standings||[]; avatarCfg = s.avatarCfg||avatarCfg; photoDataUrl = s.photoDataUrl||null;
   if(typeof commentaryLang!=='undefined') commentaryLang = s.commentaryLang||'uz';
@@ -1936,6 +1940,7 @@ async function loadSlot(i){
 }
 function openSetupForSlot(i){
   activeSlot = i;
+  collectionLoadPromise = null;
   document.getElementById('slot-screen').classList.add('hidden');
   document.getElementById('setup-screen').classList.remove('hidden');
 }
@@ -2179,24 +2184,57 @@ const heroLogoEl = document.getElementById('hero-logo');
 if(heroLogoEl) heroLogoEl.src = SOCCERCARD_LOGO;
 initSetupUI();
 
-function downloadGameFile(){
+async function exportGameBackup(){
+  if(activeSlot===null){ showToast("Avval profil tanlang.", 'warn'); return; }
+  const keys = ['slot:'+activeSlot,'econ:'+activeSlot,'missions:'+activeSlot,'daily:'+activeSlot,'collection:'+activeSlot];
+  const data = {};
+  for(const k of keys){
+    try{ const r = await window.storage.get(k, false); if(r) data[k] = r.value; }catch(e){}
+  }
+  const payload = {app:'soccer-card-champions', version:1, exportedAt:Date.now(), slot:activeSlot, data};
   try{
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    const blob = new Blob([html], {type:'text/html'});
+    const blob = new Blob([JSON.stringify(payload)], {type:'application/json'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'soccer-card.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    a.href = url; a.download = 'soccer-card-champions-save.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(()=> URL.revokeObjectURL(url), 2000);
-  }catch(e){
-    alert("Yuklab olishda xatolik yuz berdi. Iltimos, brauzeringiz menyusidan \"Sahifani saqlash\" (Ctrl+S) dan foydalaning.");
-  }
+    showToast('💾 Zaxira fayli yuklab olindi.', 'ok');
+  }catch(e){ showToast('Zaxiralashda xatolik yuz berdi.', 'warn'); }
 }
-document.getElementById('self-download-btn').addEventListener('click', downloadGameFile);
-document.getElementById('header-download-icon').addEventListener('click', downloadGameFile);
+function importGameBackupFile(file){
+  if(activeSlot===null){ showToast("Avval profil tanlang.", 'warn'); return; }
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e)=>{
+    try{
+      const payload = JSON.parse(e.target.result);
+      if(!payload || !payload.data) throw new Error('bad file');
+      for(const k in payload.data){
+        const newKey = k.replace(/:\d+$/, ':'+activeSlot);
+        await window.storage.set(newKey, payload.data[k], false);
+      }
+      showToast('📥 Zaxira import qilindi. Sahifa yangilanmoqda...', 'ok');
+      setTimeout(()=> location.reload(), 1200);
+    }catch(err){
+      showToast("Fayl noto'g'ri formatda yoki buzilgan.", 'warn');
+    }
+  };
+  reader.readAsText(file);
+}
+document.getElementById('backup-save-btn').addEventListener('click', exportGameBackup);
+document.getElementById('import-save-btn').addEventListener('click', ()=> document.getElementById('import-save-input').click());
+document.getElementById('import-save-input').addEventListener('change', (e)=>{
+  const file = e.target.files && e.target.files[0];
+  importGameBackupFile(file);
+  e.target.value = '';
+});
+document.getElementById('import-playerdb-btn').addEventListener('click', ()=> document.getElementById('import-playerdb-input').click());
+document.getElementById('import-playerdb-input').addEventListener('change', (e)=>{
+  const file = e.target.files && e.target.files[0];
+  if(file) importRealPlayerDatabaseFile(file);
+  e.target.value = '';
+});
 document.getElementById('device-select').addEventListener('change', (e)=>{
   const frame = document.getElementById('game-frame');
   frame.classList.remove('mode-laptop','mode-phone','mode-tablet');
@@ -2337,6 +2375,7 @@ function removeBackground(dataUrl, threshold, callback){
 /* ===================== START GAME ===================== */
 document.getElementById('start-btn').addEventListener('click', ()=>{
   if(activeSlot===null){ activeSlot = slotsCache.findIndex(s=>!s); if(activeSlot<0) activeSlot = 0; }
+  collectionLoadPromise = null;
   const name = document.getElementById('p-name').value.trim() || "Nomsiz futbolchi";
   const pos = document.getElementById('p-pos').value;
   const nat = document.getElementById('p-nat').value;
@@ -3883,6 +3922,7 @@ function resetGame(){
   document.getElementById('p-name').value = "";
   photoDataUrl = null;
   activeSlot = null;
+  collectionLoadPromise = null;
   player = null;
   loadAllSlots().then(()=>{
     renderSlotScreen();
@@ -4167,277 +4207,690 @@ function rarityForOVR(ovr){
   for(const r of RARITY_DEFS){ if(ovr>=r.min) best = r; }
   return best;
 }
-const REAL_PLAYERS = [
-  {n:'Lionel Messi',w:'Lionel Messi',pos:'RW',nat:'Argentina',club:'Inter Miami',league:'MLS',c1:'#F291B0',c2:'#1B1B1B',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
-  {n:'Cristiano Ronaldo',w:'Cristiano Ronaldo',pos:'ST',nat:'Portugaliya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
-  {n:'Kylian Mbappe',w:'Kylian Mbappé',pos:'ST',nat:'Fransiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
-  {n:'Erling Haaland',w:'Erling Haaland',pos:'ST',nat:'Norvegiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:99,shooting:99,passing:81,dribbling:97,defending:41,physical:93}},
-  {n:'Lamine Yamal',w:'Lamine Yamal',pos:'RW',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
-  {n:'Vinicius Junior',w:'Vinícius Júnior',pos:'LW',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:99,shooting:95,passing:91,dribbling:99,defending:43,physical:83}},
-  {n:'Jude Bellingham',w:'Jude Bellingham',pos:'CAM',nat:'Angliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:93,shooting:93,passing:99,dribbling:99,defending:51,physical:81}},
-  {n:'Kevin De Bruyne',w:'Kevin De Bruyne',pos:'CAM',nat:'Belgiya',club:'Napoli',league:'Serie A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:93,shooting:93,passing:99,dribbling:99,defending:51,physical:81}},
-  {n:'Mohamed Salah',w:'Mohamed Salah',pos:'RW',nat:'Misr',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
-  {n:'Harry Kane',w:'Harry Kane',pos:'ST',nat:'Angliya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:96,shooting:97,passing:77,dribbling:93,defending:37,physical:89}},
-  {n:'Rodri',w:'Rodri (footballer)',pos:'CDM',nat:'Ispaniya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:79,shooting:71,passing:89,dribbling:81,defending:93,physical:95}},
-  {n:'Pedri',w:'Pedri',pos:'CM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
-  {n:'Raphinha',w:'Raphinha',pos:'LW',nat:'Braziliya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
-  {n:'Robert Lewandowski',w:'Robert Lewandowski',pos:'ST',nat:'Polsha',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:96,shooting:97,passing:77,dribbling:93,defending:37,physical:89}},
-  {n:'Ousmane Dembele',w:'Ousmane Dembélé',pos:'RW',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
-  {n:'Neymar',w:'Neymar',pos:'LW',nat:'Braziliya',club:'Santos',league:'Brasileirao',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
-  {n:'Alisson',w:'Alisson (footballer)',pos:'GK',nat:'Braziliya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:57,shooting:37,passing:73,dribbling:47,defending:91,physical:93}},
-  {n:'Thibaut Courtois',w:'Thibaut Courtois',pos:'GK',nat:'Belgiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:57,shooting:37,passing:73,dribbling:47,defending:91,physical:93}},
-  {n:'Virgil van Dijk',w:'Virgil van Dijk',pos:'CB',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:81,shooting:45,passing:75,dribbling:65,defending:93,physical:95}},
-  {n:'Achraf Hakimi',w:'Achraf Hakimi',pos:'RB',nat:'Marokash',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:95,shooting:57,passing:83,dribbling:81,defending:91,physical:83}},
-  {n:'Bukayo Saka',w:'Bukayo Saka',pos:'RW',nat:'Angliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:98,shooting:91,passing:87,dribbling:97,defending:39,physical:79}},
-  {n:'Florian Wirtz',w:'Florian Wirtz',pos:'CAM',nat:'Germaniya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:89,shooting:89,passing:97,dribbling:95,defending:47,physical:77}},
-  {n:'Vitinha',w:'Vitinha',pos:'CM',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
-  {n:'Federico Valverde',w:'Federico Valverde',pos:'CM',nat:'Urugvay',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:83,shooting:81,passing:95,dribbling:89,defending:79,physical:87}},
-  {n:'Declan Rice',w:'Declan Rice',pos:'CDM',nat:'Angliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:79,shooting:71,passing:89,dribbling:81,defending:93,physical:95}},
-  {n:'Martin Odegaard',w:'Martin Ødegaard',pos:'CAM',nat:'Norvegiya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:89,shooting:89,passing:97,dribbling:95,defending:47,physical:77}},
-  {n:'Antoine Griezmann',w:'Antoine Griezmann',pos:'CAM',nat:'Fransiya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
-  {n:'Marcus Rashford',w:'Marcus Rashford',pos:'LW',nat:'Angliya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
-  {n:'Phil Foden',w:'Phil Foden',pos:'CAM',nat:'Angliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
-  {n:'Joao Felix',w:'João Félix',pos:'ST',nat:'Portugaliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
-  {n:'Ademola Lookman',w:'Ademola Lookman',pos:'RW',nat:'Nigeriya',club:'Atalanta',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
-  {n:'Victor Osimhen',w:'Victor Osimhen',pos:'ST',nat:'Nigeriya',club:'Napoli',league:'Serie A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
-  {n:'Khvicha Kvaratskhelia',w:'Khvicha Kvaratskhelia',pos:'LW',nat:'Gruziya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
-  {n:'Nico Williams',w:'Nico Williams',pos:'LW',nat:'Ispaniya',club:'Athletic Bilbao',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:93,shooting:86,passing:82,dribbling:92,defending:34,physical:74}},
-  {n:'Alexander Isak',w:'Alexander Isak',pos:'ST',nat:'Shvetsiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:91,shooting:92,passing:72,dribbling:88,defending:32,physical:84}},
-  {n:'Bruno Fernandes',w:'Bruno Fernandes',pos:'CAM',nat:'Portugaliya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
-  {n:'Jamal Musiala',w:'Jamal Musiala',pos:'CAM',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
-  {n:'Cole Palmer',w:'Cole Palmer',pos:'CAM',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:84,shooting:84,passing:92,dribbling:90,defending:42,physical:72}},
-  {n:'Ruben Dias',w:'Rúben Dias',pos:'CB',nat:'Portugaliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
-  {n:'William Saliba',w:'William Saliba',pos:'CB',nat:'Fransiya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
-  {n:'Alessandro Bastoni',w:'Alessandro Bastoni',pos:'CB',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
-  {n:'Josko Gvardiol',w:'Joško Gvardiol',pos:'CB',nat:'Xorvatiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:76,shooting:40,passing:70,dribbling:60,defending:88,physical:90}},
-  {n:'Theo Hernandez',w:'Theo Hernández',pos:'LB',nat:'Fransiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
-  {n:'Trent Alexander-Arnold',w:'Trent Alexander-Arnold',pos:'RB',nat:'Angliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
-  {n:'Alphonso Davies',w:'Alphonso Davies',pos:'LB',nat:'Kanada',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:90,shooting:52,passing:78,dribbling:76,defending:86,physical:78}},
-  {n:'Manuel Neuer',w:'Manuel Neuer',pos:'GK',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
-  {n:'Mike Maignan',w:'Mike Maignan',pos:'GK',nat:'Fransiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
-  {n:'Gianluigi Donnarumma',w:'Gianluigi Donnarumma',pos:'GK',nat:'Italiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
-  {n:'Jan Oblak',w:'Jan Oblak',pos:'GK',nat:'Sloveniya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:32,passing:68,dribbling:42,defending:86,physical:88}},
-  {n:'Toni Kroos',w:'Toni Kroos',pos:'CM',nat:'Germaniya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
-  {n:'Luka Modric',w:'Luka Modrić',pos:'CM',nat:'Xorvatiya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
-  {n:'Frenkie de Jong',w:'Frenkie de Jong',pos:'CM',nat:'Niderlandiya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:78,shooting:76,passing:90,dribbling:84,defending:74,physical:82}},
-  {n:'Joshua Kimmich',w:'Joshua Kimmich',pos:'CDM',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
-  {n:'Casemiro',w:'Casemiro',pos:'CDM',nat:'Braziliya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
-  {n:'Enzo Fernandez',w:'Enzo Fernández',pos:'CDM',nat:'Argentina',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:74,shooting:66,passing:84,dribbling:76,defending:88,physical:90}},
-  {n:'Serge Gnabry',w:'Serge Gnabry',pos:'RW',nat:'Germaniya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Leroy Sane',w:'Leroy Sané',pos:'RW',nat:'Germaniya',club:'Galatasaray',league:'Super Lig',c1:'#B23A3A',c2:'#F0D13B',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Rafael Leao',w:'Rafael Leão',pos:'LW',nat:'Portugaliya',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Dusan Vlahovic',w:'Dušan Vlahović',pos:'ST',nat:'Serbiya',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
-  {n:'Randal Kolo Muani',w:'Randal Kolo Muani',pos:'ST',nat:'Fransiya',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
-  {n:'Darwin Nunez',w:'Darwin Núñez',pos:'ST',nat:'Urugvay',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:85,shooting:86,passing:66,dribbling:82,defending:26,physical:78}},
-  {n:'Christopher Nkunku',w:'Christopher Nkunku',pos:'CAM',nat:'Fransiya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:78,shooting:78,passing:86,dribbling:84,defending:36,physical:66}},
-  {n:'Rodrygo',w:'Rodrygo',pos:'RW',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Kaoru Mitoma',w:'Kaoru Mitoma',pos:'LW',nat:'Yaponiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Takefusa Kubo',w:'Takefusa Kubo',pos:'RW',nat:'Yaponiya',club:'Real Sociedad',league:'La Liga',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:87,shooting:80,passing:76,dribbling:86,defending:28,physical:68}},
-  {n:'Bernardo Silva',w:'Bernardo Silva',pos:'CAM',nat:'Portugaliya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:78,shooting:78,passing:86,dribbling:84,defending:36,physical:66}},
-  {n:'Ilkay Gundogan',w:'İlkay Gündoğan',pos:'CM',nat:'Germaniya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:72,shooting:70,passing:84,dribbling:78,defending:68,physical:76}},
-  {n:'Aurelien Tchouameni',w:'Aurélien Tchouaméni',pos:'CDM',nat:'Fransiya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
-  {n:'Moises Caicedo',w:'Moisés Caicedo',pos:'CDM',nat:'Ekvador',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
-  {n:'Sandro Tonali',w:'Sandro Tonali',pos:'CM',nat:'Italiya',club:'Newcastle United',league:'Premier League',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:72,shooting:70,passing:84,dribbling:78,defending:68,physical:76}},
-  {n:'Fabinho',w:'Fabinho',pos:'CDM',nat:'Braziliya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:68,shooting:60,passing:78,dribbling:70,defending:82,physical:84}},
-  {n:'Marquinhos',w:'Marquinhos',pos:'CB',nat:'Braziliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
-  {n:'Kim Min-jae',w:'Kim Min-jae',pos:'CB',nat:'Janubiy Koreya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
-  {n:'Antonio Rudiger',w:'Antonio Rüdiger',pos:'CB',nat:'Germaniya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
-  {n:'Milan Skriniar',w:'Milan Škriniar',pos:'CB',nat:'Slovakiya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:70,shooting:34,passing:64,dribbling:54,defending:82,physical:84}},
-  {n:'Kyle Walker',w:'Kyle Walker',pos:'RB',nat:'Angliya',club:'Burnley',league:'Premier League',c1:'#6C2C3A',c2:'#6CABDD',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Ben Chilwell',w:'Ben Chilwell',pos:'LB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Denzel Dumfries',w:'Denzel Dumfries',pos:'RB',nat:'Niderlandiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Federico Dimarco',w:'Federico Dimarco',pos:'LB',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Andre Onana',w:'André Onana',pos:'GK',nat:'Kamerun',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
-  {n:'Emiliano Martinez',w:'Emiliano Martínez',pos:'GK',nat:'Argentina',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
-  {n:'Yassine Bounou',w:'Yassine Bounou',pos:'GK',nat:'Marokash',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
-  {n:'David Raya',w:'David Raya',pos:'GK',nat:'Ispaniya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:46,shooting:26,passing:62,dribbling:36,defending:80,physical:82}},
-  {n:'Warren Zaire-Emery',w:'Warren Zaire-Emery',pos:'CM',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Xavi Simons',w:'Xavi Simons',pos:'CAM',nat:'Niderlandiya',club:'RB Leipzig',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:71,shooting:71,passing:79,dribbling:77,defending:29,physical:59}},
-  {n:'Gavi',w:'Gavi',pos:'CM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Jamie Gittens',w:'Jamie Gittens',pos:'LW',nat:'Angliya',club:'Borussia Dortmund',league:'Bundesliga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Karim Adeyemi',w:'Karim Adeyemi',pos:'LW',nat:'Germaniya',club:'Borussia Dortmund',league:'Bundesliga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Amine Gouiri',w:'Amine Gouiri',pos:'ST',nat:'Jazoir',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
-  {n:'Mason Greenwood',w:'Mason Greenwood',pos:'RW',nat:'Angliya',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Jonathan David',w:'Jonathan David',pos:'ST',nat:'Kanada',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
-  {n:'Benjamin Sesko',w:'Benjamin Šeško',pos:'ST',nat:'Sloveniya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
-  {n:'Joao Neves',w:'João Neves',pos:'CM',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Pau Cubarsi',w:'Pau Cubarsí',pos:'CB',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
-  {n:'Ronald Araujo',w:'Ronald Araújo',pos:'CB',nat:'Urugvay',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
-  {n:'Jarrad Branthwaite',w:'Jarrad Branthwaite',pos:'CB',nat:'Angliya',club:'Everton',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
-  {n:'Levi Colwill',w:'Levi Colwill',pos:'CB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:63,shooting:27,passing:57,dribbling:47,defending:75,physical:77}},
-  {n:'Reece James',w:'Reece James',pos:'RB',nat:'Angliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
-  {n:'Pedro Porro',w:'Pedro Porro',pos:'RB',nat:'Ispaniya',club:'Tottenham',league:'Premier League',c1:'#1B2A5B',c2:'#F2EFE6',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
-  {n:'Ferran Torres',w:'Ferran Torres',pos:'RW',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Nicolo Barella',w:'Nicolò Barella',pos:'CM',nat:'Italiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Hakan Calhanoglu',w:'Hakan Çalhanoğlu',pos:'CDM',nat:'Turkiya',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:61,shooting:53,passing:71,dribbling:63,defending:75,physical:77}},
-  {n:'Piotr Zielinski',w:'Piotr Zieliński',pos:'CAM',nat:'Polsha',club:'Inter Milan',league:'Serie A',c1:'#1E3A8A',c2:'#1B1B1B',st:{pace:71,shooting:71,passing:79,dribbling:77,defending:29,physical:59}},
-  {n:'Yunus Musah',w:'Yunus Musah',pos:'CM',nat:'AQSH',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Christian Pulisic',w:'Christian Pulisic',pos:'RW',nat:'AQSH',club:'AC Milan',league:'Serie A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Weston McKennie',w:'Weston McKennie',pos:'CM',nat:'AQSH',club:'Juventus',league:'Serie A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:65,shooting:63,passing:77,dribbling:71,defending:61,physical:69}},
-  {n:'Timothy Weah',w:'Timothy Weah',pos:'RM',nat:'AQSH',club:'Marseille',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
-  {n:'Mohammed Kudus',w:'Mohammed Kudus',pos:'RW',nat:'Gana',club:'Tottenham',league:'Premier League',c1:'#1B2A5B',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Iñaki Williams',w:'Iñaki Williams',pos:'ST',nat:'Gana',club:'Athletic Bilbao',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
-  {n:'Sadio Mane',w:'Sadio Mané',pos:'LW',nat:'Senegal',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Riyad Mahrez',w:'Riyad Mahrez',pos:'RW',nat:'Jazoir',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:80,shooting:73,passing:69,dribbling:79,defending:25,physical:61}},
-  {n:'Karim Benzema',w:'Karim Benzema',pos:'ST',nat:'Fransiya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:78,shooting:79,passing:59,dribbling:75,defending:25,physical:71}},
-  {n:'N\'Golo Kante',w:'N\'Golo Kanté',pos:'CDM',nat:'Fransiya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:61,shooting:53,passing:71,dribbling:63,defending:75,physical:77}},
-  {n:'Nuno Mendes',w:'Nuno Mendes',pos:'LB',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Jeremie Frimpong',w:'Jeremie Frimpong',pos:'RB',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:46,passing:72,dribbling:70,defending:80,physical:72}},
-  {n:'Alejandro Balde',w:'Alejandro Balde',pos:'LB',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
-  {n:'Daniel Munoz',w:'Daniel Muñoz',pos:'RB',nat:'Kolumbiya',club:'Crystal Palace',league:'Premier League',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:77,shooting:39,passing:65,dribbling:63,defending:73,physical:65}},
-  {n:'Dani Olmo',w:'Dani Olmo',pos:'LM',nat:'Ispaniya',club:'Barcelona',league:'La Liga',c1:'#1E3A8A',c2:'#7A2E3A',st:{pace:85,shooting:74,passing:80,dribbling:80,defending:48,physical:70}},
-  {n:'Kingsley Coman',w:'Kingsley Coman',pos:'LM',nat:'Fransiya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
-  {n:'Federico Chiesa',w:'Federico Chiesa',pos:'RM',nat:'Italiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
-  {n:'Facundo Buonanotte',w:'Facundo Buonanotte',pos:'RM',nat:'Argentina',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:78,shooting:67,passing:73,dribbling:73,defending:41,physical:63}},
+/* ===================== REAL-WORLD PLAYER DATABASE (10,000+) ===================== */
+/* Club names, league names, nationalities and (for the curated roster below) real
+   player names/positions are public, factual information. Ratings/stats are an
+   original in-house formula (NOT EA Sports FC / FIFA data). No photos, logos or
+   crests are scraped or embedded — see playerAvatarDataUri(). Club rosters for the
+   bulk-generated "pro" pool are procedurally assigned, not literal real rosters. */
 
-  /* ---- O'zbekiston milliy terma jamoasi ---- */
-  {n:'Eldor Shomurodov',w:'Eldor Shomurodov',pos:'ST',nat:"O'zbekiston",club:'Cagliari',league:'Seriya A',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:81,shooting:80,passing:60,dribbling:76,defending:26,physical:74}},
-  {n:'Abbosbek Fayzullaev',w:'Abbosbek Fayzullaev',pos:'CAM',nat:"O'zbekiston",club:'CSKA Moscow',league:'Rossiya Ligasi',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:78,shooting:74,passing:80,dribbling:82,defending:33,physical:62}},
-  {n:'Jasurbek Yakhshiboev',w:'Jasurbek Yakhshiboev',pos:'RW',nat:"O'zbekiston",club:'Pakhtakor Toshkent FK',league:"O'zbekiston Superligasi",c1:'#1E7A46',c2:'#F2EFE6',st:{pace:83,shooting:71,passing:68,dribbling:78,defending:24,physical:64}},
-  {n:'Sardor Rashidov',w:'Sardor Rashidov',pos:'LW',nat:"O'zbekiston",club:'Al-Wehda',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:80,shooting:69,passing:66,dribbling:76,defending:22,physical:60}},
-  {n:'Otabek Shukurov',w:'Otabek Shukurov',pos:'CB',nat:"O'zbekiston",club:'Pakhtakor Toshkent FK',league:"O'zbekiston Superligasi",c1:'#1E7A46',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:58,dribbling:48,defending:74,physical:76}},
-  {n:'Rustamjon Ashurmatov',w:'Rustamjon Ashurmatov',pos:'CB',nat:"O'zbekiston",club:'Al-Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:30,passing:60,dribbling:47,defending:78,physical:80}},
-  {n:'Utkirbek Isaev',w:'Utkirbek Isaev',pos:'GK',nat:"O'zbekiston",club:'FC Nasaf',league:"O'zbekiston Superligasi",c1:'#D4AF37',c2:'#1B1B1B',st:{pace:44,shooting:20,passing:56,dribbling:34,defending:71,physical:76}},
+function mulberry32(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
-  /* ---- Bepul agent / kam mashhur / o'rta reytingli — turli ligalar ---- */
-  {n:'Cody Gakpo',w:'Cody Gakpo',pos:'LW',nat:'Niderlandiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:87,shooting:83,passing:78,dribbling:85,defending:33,physical:75}},
-  {n:'Ivan Toney',w:'Ivan Toney',pos:'ST',nat:'Angliya',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:74,shooting:83,passing:64,dribbling:76,defending:32,physical:85}},
-  {n:'Evan Ferguson',w:'Evan Ferguson',pos:'ST',nat:'Irlandiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:76,shooting:75,passing:56,dribbling:70,defending:28,physical:78}},
-  {n:'Kaoru Mitoma Jr',w:'Kaoru Mitoma',pos:'LM',nat:'Yaponiya',club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:88,shooting:74,passing:76,dribbling:87,defending:30,physical:64}},
-  {n:'Ayase Ueda',w:'Ayase Ueda',pos:'ST',nat:'Yaponiya',club:'Feyenoord',league:'Eredivisie',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:79,shooting:76,passing:52,dribbling:70,defending:26,physical:75}},
-  {n:'Wataru Endo',w:'Wataru Endo',pos:'CDM',nat:'Yaponiya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:52,passing:74,dribbling:66,defending:80,physical:78}},
-  {n:'Son Heung-min',w:'Son Heung-min',pos:'LW',nat:'Janubiy Koreya',club:'LAFC',league:'MLS',c1:'#1B1B1B',c2:'#F0D13B',st:{pace:90,shooting:87,passing:80,dribbling:88,defending:34,physical:70}},
-  {n:'Lee Kang-in',w:'Lee Kang-in',pos:'CAM',nat:'Janubiy Koreya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:76,shooting:73,passing:82,dribbling:83,defending:36,physical:58}},
-  {n:'Hwang Hee-chan',w:'Hwang Hee-chan',pos:'ST',nat:'Janubiy Koreya',club:'Wolverhampton',league:'Premier League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:85,shooting:76,passing:60,dribbling:76,defending:32,physical:74}},
-  {n:'Wu Lei',w:'Wu Lei',pos:'RW',nat:'Xitoy',club:'Shanghai Port',league:'Xitoy Super League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:68,passing:60,dribbling:70,defending:24,physical:58}},
-  {n:'Salem Al-Dawsari',w:'Salem Al-Dawsari',pos:'LW',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:80,shooting:78,passing:74,dribbling:81,defending:26,physical:62}},
-  {n:'Firas Al-Buraikan',w:'Firas Al-Buraikan',pos:'ST',nat:'Saudiya Arabistoni',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:74,shooting:70,passing:52,dribbling:66,defending:22,physical:66}},
-  {n:'Almoez Ali',w:'Almoez Ali',pos:'ST',nat:'Qatar',club:'Al Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:78,shooting:76,passing:54,dribbling:68,defending:22,physical:70}},
-  {n:'Akram Afif',w:'Akram Afif',pos:'RW',nat:'Qatar',club:'Al Sadd',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:80,shooting:74,passing:76,dribbling:80,defending:24,physical:60}},
-  {n:'Mohammed Al-Owais',w:'Mohammed Al-Owais',pos:'GK',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:40,shooting:18,passing:52,dribbling:30,defending:66,physical:70}},
-  {n:'Mohamed Elneny',w:'Mohamed Elneny',pos:'CDM',nat:'Misr',club:'Al Jazira',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:56,shooting:46,passing:66,dribbling:58,defending:70,physical:66}},
-  {n:'Mostafa Mohamed',w:'Mostafa Mohamed',pos:'ST',nat:'Misr',club:'Galatasaray',league:'Super Lig',c1:'#F0D13B',c2:'#B23A3A',st:{pace:80,shooting:74,passing:52,dribbling:68,defending:20,physical:72}},
-  {n:'Percy Tau',w:'Percy Tau',pos:'RW',nat:'Janubiy Afrika',club:'Al Ahly',league:'Misr Premier League',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:82,shooting:64,passing:60,dribbling:74,defending:22,physical:60}},
-  {n:'Andre Ayew',w:'André Ayew',pos:'LW',nat:'Gana',club:'Le Havre',league:'Ligue 1',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:64,shooting:66,passing:64,dribbling:66,defending:28,physical:68}},
-  {n:'Thomas Partey',w:'Thomas Partey',pos:'CDM',nat:'Gana',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:66,shooting:52,passing:68,dribbling:64,defending:78,physical:80}},
-  {n:'Wilfried Zaha',w:'Wilfried Zaha',pos:'LW',nat:"Kot-d'Ivuar",club:'Charlotte FC',league:'MLS',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:88,shooting:70,passing:62,dribbling:82,defending:24,physical:68}},
-  {n:'Franck Kessie',w:'Franck Kessié',pos:'CM',nat:"Kot-d'Ivuar",club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:60,passing:66,dribbling:64,defending:66,physical:78}},
-  {n:'Simon Adingra',w:'Simon Adingra',pos:'RW',nat:"Kot-d'Ivuar",club:'Brighton',league:'Premier League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:86,shooting:70,passing:66,dribbling:80,defending:24,physical:62}},
-  {n:'Andre Onana Sr',w:'Fabrice Ondoa',pos:'GK',nat:'Kamerun',club:'FC Sion',league:'Shveytsariya Ligasi',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:42,shooting:16,passing:48,dribbling:26,defending:62,physical:68}},
-  {n:'Bryan Mbeumo',w:'Bryan Mbeumo',pos:'RW',nat:'Kamerun',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:84,shooting:80,passing:70,dribbling:80,defending:28,physical:66}},
-  {n:'Frank Anguissa',w:'Frank Anguissa',pos:'CM',nat:'Kamerun',club:'Napoli',league:'Seriya A',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:68,shooting:58,passing:66,dribbling:66,defending:66,physical:80}},
-  {n:'Iliman Ndiaye',w:'Iliman Ndiaye',pos:'CAM',nat:'Senegal',club:'Everton',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:80,shooting:70,passing:70,dribbling:78,defending:30,physical:62}},
-  {n:'Nicolas Jackson',w:'Nicolas Jackson',pos:'ST',nat:'Senegal',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:88,shooting:76,passing:56,dribbling:76,defending:24,physical:70}},
-  {n:'Edouard Mendy',w:'Édouard Mendy',pos:'GK',nat:'Senegal',club:'Al Ahli',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:44,shooting:20,passing:54,dribbling:30,defending:74,physical:76}},
-  {n:'Habib Diallo',w:'Habib Diallo',pos:'ST',nat:'Senegal',club:'Al Rayyan',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:76,shooting:70,passing:48,dribbling:64,defending:20,physical:74}},
-  {n:'Nathan Ake',w:'Nathan Aké',pos:'CB',nat:'Niderlandiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:74,shooting:38,passing:70,dribbling:58,defending:84,physical:82}},
-  {n:'Teun Koopmeiners',w:'Teun Koopmeiners',pos:'CM',nat:'Niderlandiya',club:'Juventus',league:'Seriya A',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:66,shooting:74,passing:80,dribbling:74,defending:60,physical:70}},
-  {n:'Justin Kluivert',w:'Justin Kluivert',pos:'RW',nat:'Niderlandiya',club:'AS Roma',league:'Seriya A',c1:'#7A2E3A',c2:'#D4AF37',st:{pace:84,shooting:70,passing:62,dribbling:76,defending:22,physical:60}},
-  {n:'Youri Tielemans',w:'Youri Tielemans',pos:'CM',nat:'Belgiya',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:64,shooting:68,passing:78,dribbling:72,defending:58,physical:66}},
-  {n:'Jeremy Doku',w:'Jeremy Doku',pos:'LW',nat:'Belgiya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:96,shooting:70,passing:64,dribbling:88,defending:22,physical:64}},
-  {n:'Loïs Openda',w:'Loïs Openda',pos:'ST',nat:'Belgiya',club:'RB Leipzig',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:92,shooting:78,passing:54,dribbling:78,defending:22,physical:66}},
-  {n:'Pau Torres',w:'Pau Torres',pos:'CB',nat:'Ispaniya',club:'Aston Villa',league:'Premier League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:66,shooting:34,passing:74,dribbling:58,defending:80,physical:76}},
-  {n:'Robin Le Normand',w:'Robin Le Normand',pos:'CB',nat:'Ispaniya',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:30,passing:68,dribbling:52,defending:82,physical:80}},
-  {n:'Ansu Fati',w:'Ansu Fati',pos:'LW',nat:'Ispaniya',club:'Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:74,passing:68,dribbling:80,defending:24,physical:60}},
-  {n:'Alvaro Morata',w:'Álvaro Morata',pos:'ST',nat:'Ispaniya',club:'Como',league:'Seriya A',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:72,shooting:78,passing:60,dribbling:70,defending:26,physical:78}},
-  {n:'Gerard Moreno',w:'Gerard Moreno',pos:'ST',nat:'Ispaniya',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:68,shooting:78,passing:64,dribbling:74,defending:24,physical:68}},
-  {n:'Marc Cucurella',w:'Marc Cucurella',pos:'LB',nat:'Ispaniya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:80,shooting:44,passing:70,dribbling:68,defending:76,physical:66}},
-  {n:'Aymeric Laporte',w:'Aymeric Laporte',pos:'CB',nat:'Fransiya',club:'Al Nassr',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:66,shooting:34,passing:74,dribbling:56,defending:82,physical:80}},
-  {n:'Jonathan Clauss',w:'Jonathan Clauss',pos:'RB',nat:'Fransiya',club:'Nice',league:'Ligue 1',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:82,shooting:44,passing:70,dribbling:66,defending:70,physical:62}},
-  {n:'Randal Kolo Muani Jr',w:'Bradley Barcola',pos:'LW',nat:'Fransiya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:92,shooting:76,passing:66,dribbling:84,defending:22,physical:60}},
-  {n:'Michael Olise',w:'Michael Olise',pos:'RW',nat:'Fransiya',club:'Bayern Munich',league:'Bundesliga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:82,shooting:76,passing:80,dribbling:84,defending:26,physical:60}},
-  {n:'Manuel Akanji',w:'Manuel Akanji',pos:'CB',nat:'Shveytsariya',club:'Manchester City',league:'Premier League',c1:'#6CABDD',c2:'#F2EFE6',st:{pace:74,shooting:32,passing:68,dribbling:54,defending:82,physical:82}},
-  {n:'Xherdan Shaqiri',w:'Xherdan Shaqiri',pos:'CAM',nat:'Shveytsariya',club:'Chicago Fire',league:'MLS',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:72,passing:76,dribbling:78,defending:32,physical:62}},
-  {n:'Granit Xhaka',w:'Granit Xhaka',pos:'CDM',nat:'Shveytsariya',club:'Sunderland',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:56,shooting:60,passing:80,dribbling:64,defending:76,physical:76}},
-  {n:'Alexis Mac Allister',w:'Alexis Mac Allister',pos:'CM',nat:'Argentina',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:76,passing:84,dribbling:80,defending:60,physical:70}},
-  {n:'Julian Alvarez',w:'Julián Álvarez',pos:'ST',nat:'Argentina',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:84,shooting:86,passing:76,dribbling:86,defending:36,physical:70}},
-  {n:'Rodrigo De Paul',w:'Rodrigo De Paul',pos:'CM',nat:'Argentina',club:'Atletico Madrid',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:70,passing:82,dribbling:76,defending:66,physical:74}},
-  {n:'Nicolas Otamendi',w:'Nicolás Otamendi',pos:'CB',nat:'Argentina',club:'Benfica',league:'Portugaliya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:64,dribbling:50,defending:80,physical:82}},
-  {n:'Lisandro Martinez',w:'Lisandro Martínez',pos:'CB',nat:'Argentina',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:72,shooting:34,passing:74,dribbling:60,defending:82,physical:74}},
-  {n:'Gonzalo Montiel',w:'Gonzalo Montiel',pos:'RB',nat:'Argentina',club:'River Plate',league:'Arjentina Ligasi',c1:'#F2EFE6',c2:'#B23A3A',st:{pace:80,shooting:44,passing:68,dribbling:64,defending:74,physical:70}},
-  {n:'Endrick',w:'Endrick',pos:'ST',nat:'Braziliya',club:'Real Madrid',league:'La Liga',c1:'#F2EFE6',c2:'#D4AF37',st:{pace:86,shooting:78,passing:62,dribbling:80,defending:22,physical:70}},
-  {n:'Estevao Willian',w:'Estêvão',pos:'RW',nat:'Braziliya',club:'Chelsea',league:'Premier League',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:88,shooting:74,passing:74,dribbling:88,defending:24,physical:56}},
-  {n:'Bruno Guimaraes',w:'Bruno Guimarães',pos:'CDM',nat:'Braziliya',club:'Newcastle United',league:'Premier League',c1:'#1B1B1B',c2:'#F2EFE6',st:{pace:74,shooting:64,passing:80,dribbling:76,defending:74,physical:78}},
-  {n:'Ederson',w:'Ederson (footballer)',pos:'GK',nat:'Braziliya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:54,shooting:32,passing:82,dribbling:52,defending:82,physical:80}},
-  {n:'Gabriel Magalhaes',w:'Gabriel Magalhães',pos:'CB',nat:'Braziliya',club:'Arsenal',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:44,passing:66,dribbling:56,defending:84,physical:86}},
-  {n:'Danilo Pereira',w:'Danilo (footballer, born 1988)',pos:'CB',nat:'Portugaliya',club:'Al Ittihad',league:'Saudi Pro League',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:60,shooting:38,passing:66,dribbling:52,defending:78,physical:80}},
-  {n:'Diogo Costa',w:'Diogo Costa',pos:'GK',nat:'Portugaliya',club:'FC Porto',league:'Portugaliya Ligasi',c1:'#1E3A8A',c2:'#F2EFE6',st:{pace:52,shooting:26,passing:70,dribbling:44,defending:80,physical:78}},
-  {n:'Renato Sanches',w:'Renato Sanches',pos:'CM',nat:'Portugaliya',club:'Benfica',league:'Portugaliya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:64,passing:70,dribbling:74,defending:56,physical:74}},
-  {n:'Goncalo Ramos',w:'Gonçalo Ramos',pos:'ST',nat:'Portugaliya',club:'Paris Saint-Germain',league:'Ligue 1',c1:'#1B2A5B',c2:'#B23A3A',st:{pace:78,shooting:82,passing:60,dribbling:76,defending:24,physical:74}},
-  {n:'Piotr Zielinski Jr',w:'Sebastian Szymanski',pos:'CAM',nat:'Polsha',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:74,shooting:70,passing:78,dribbling:76,defending:32,physical:62}},
-  {n:'Kacper Urbanski',w:'Kacper Urbański',pos:'CAM',nat:'Polsha',club:'Bologna',league:'Seriya A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:70,shooting:60,passing:66,dribbling:66,defending:30,physical:56}},
-  {n:'Nemanja Gudelj',w:'Nemanja Gudelj',pos:'CDM',nat:'Serbiya',club:'Sevilla',league:'La Liga',c1:'#F2EFE6',c2:'#B23A3A',st:{pace:52,shooting:44,passing:62,dribbling:52,defending:66,physical:72}},
-  {n:'Aleksandar Mitrovic',w:'Aleksandar Mitrović',pos:'ST',nat:'Serbiya',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:82,passing:52,dribbling:64,defending:24,physical:88}},
-  {n:'Erik Lamela',w:'Erik Lamela',pos:'RM',nat:'Argentina',club:'Fulham',league:'Premier League',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:66,shooting:62,passing:66,dribbling:70,defending:28,physical:56}},
-  {n:'Iurii Zhirkov',w:'Yuri Zhirkov',pos:'LB',nat:'Rossiya',club:'CSKA Moscow',league:'Rossiya Ligasi',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:58,shooting:34,passing:56,dribbling:50,defending:60,physical:62}},
-  {n:'Aleksandr Golovin',w:'Aleksandr Golovin',pos:'CAM',nat:'Rossiya',club:'AS Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:70,shooting:72,passing:80,dribbling:76,defending:34,physical:64}},
-  {n:'Denis Cheryshev',w:'Denis Cheryshev',pos:'LW',nat:'Rossiya',club:'Real Betis',league:'La Liga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:70,shooting:60,passing:56,dribbling:64,defending:22,physical:54}},
-  {n:'Ali Al-Bulaihi',w:'Ali Al-Bulaihi',pos:'CB',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:56,shooting:28,passing:52,dribbling:44,defending:64,physical:68}},
-  {n:'Yasir Al-Shahrani',w:'Yasser Al-Shahrani',pos:'LB',nat:'Saudiya Arabistoni',club:'Al Hilal',league:'Saudi Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:64,shooting:32,passing:56,dribbling:52,defending:62,physical:60}},
-  {n:'Ali Mabkhout',w:'Ali Mabkhout',pos:'ST',nat:'BAA',club:'Al Jazira',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:66,shooting:74,passing:44,dribbling:58,defending:18,physical:66}},
-  {n:'Bassam Al-Rawi',w:'Bassam Al-Rawi',pos:'RB',nat:'Qatar',club:'Al Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:68,shooting:34,passing:52,dribbling:52,defending:58,physical:56}},
-  {n:'Awer Mabil',w:'Awer Mabil',pos:'RW',nat:'Avstraliya',club:'FC Cincinnati',league:'MLS',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:82,shooting:64,passing:56,dribbling:66,defending:22,physical:60}},
-  {n:'Martin Boyle',w:'Martin Boyle',pos:'RW',nat:'Avstraliya',club:'Al Faisaly',league:'Saudi Pro League',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:80,shooting:66,passing:54,dribbling:64,defending:20,physical:56}},
-  {n:'Chris Wood',w:'Chris Wood',pos:'ST',nat:'Yangi Zelandiya',club:'Nottingham Forest',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:60,shooting:74,passing:42,dribbling:56,defending:22,physical:84}},
-  {n:'Alphonso Boyle',w:'Junior Firpo',pos:'LB',nat:'Dominikan Respublikasi',club:'Leeds United',league:'Premier League',c1:'#F2EFE6',c2:'#1B1B1B',st:{pace:78,shooting:36,passing:58,dribbling:60,defending:60,physical:62}},
-  {n:'Jonathan David Jr',w:'Cyle Larin',pos:'ST',nat:'Kanada',club:'Mallorca',league:'La Liga',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:74,shooting:68,passing:44,dribbling:60,defending:18,physical:74}},
-  {n:'Tajon Buchanan',w:'Tajon Buchanan',pos:'RM',nat:'Kanada',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:86,shooting:60,passing:56,dribbling:70,defending:34,physical:64}},
-  {n:'Folarin Balogun',w:'Folarin Balogun',pos:'ST',nat:'AQSH',club:'AS Monaco',league:'Ligue 1',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:82,shooting:72,passing:50,dribbling:70,defending:20,physical:66}},
-  {n:'Ricardo Pepi',w:'Ricardo Pepi',pos:'ST',nat:'AQSH',club:'PSV Eindhoven',league:'Eredivisie',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:76,shooting:74,passing:48,dribbling:66,defending:20,physical:72}},
-  {n:'Matt Turner',w:'Matt Turner (soccer)',pos:'GK',nat:'AQSH',club:'Crystal Palace',league:'Premier League',c1:'#B23A3A',c2:'#1E3A8A',st:{pace:44,shooting:18,passing:52,dribbling:32,defending:66,physical:70}},
-  {n:'Guram Kashia',w:'Guram Kashia',pos:'CB',nat:'Gruziya',club:'Slovan Bratislava',league:'Slovakiya Ligasi',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:52,shooting:24,passing:46,dribbling:38,defending:60,physical:66}},
-  {n:'Giorgi Mamardashvili',w:'Giorgi Mamardashvili',pos:'GK',nat:'Gruziya',club:'Liverpool',league:'Premier League',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:52,shooting:24,passing:64,dribbling:38,defending:78,physical:78}},
-  {n:'Zurab Tsiskaridze',w:'Georges Mikautadze',pos:'ST',nat:'Gruziya',club:'Ajaccio',league:'Ligue 2',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:64,shooting:60,passing:40,dribbling:52,defending:16,physical:60}},
-  {n:'Toma Basic',w:'Toma Bašić',pos:'CM',nat:'Xorvatiya',club:'Villarreal',league:'La Liga',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:56,shooting:48,passing:52,dribbling:50,defending:56,physical:60}},
-  {n:'Marin Pongracic',w:'Marin Pongračić',pos:'CB',nat:'Xorvatiya',club:'Wolfsburg',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:58,shooting:26,passing:46,dribbling:38,defending:56,physical:62}},
-  {n:'Kristijan Jakic',w:'Kristijan Jakić',pos:'CDM',nat:'Xorvatiya',club:'Eintracht Frankfurt',league:'Bundesliga',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:50,shooting:36,passing:44,dribbling:40,defending:52,physical:56}},
-  {n:'Adnan Januzaj',w:'Adnan Januzaj',pos:'LW',nat:'Belgiya',club:'Fenerbahce',league:'Super Lig',c1:'#F0D13B',c2:'#1E3A8A',st:{pace:54,shooting:44,passing:40,dribbling:48,defending:14,physical:44}},
-  {n:'Divock Origi',w:'Divock Origi',pos:'ST',nat:'Belgiya',club:'AC Milan',league:'Seriya A',c1:'#B23A3A',c2:'#1B1B1B',st:{pace:46,shooting:40,passing:32,dribbling:38,defending:12,physical:52}},
-  {n:'Dawid Kownacki',w:'Dawid Kownacki',pos:'ST',nat:'Polsha',club:'Werder Bremen',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:52,shooting:38,passing:30,dribbling:36,defending:10,physical:48}},
-  {n:'Kacper Kozlowski',w:'Kacper Kozłowski',pos:'CAM',nat:'Polsha',club:'Union Saint-Gilloise',league:'Belgiya Ligasi',c1:'#3AA0D4',c2:'#F2EFE6',st:{pace:48,shooting:32,passing:28,dribbling:34,defending:8,physical:40}},
-  {n:'Tomas Ostrak',w:'Tomáš Ostrák',pos:'CB',nat:'Chexiya',club:'Slavia Prague',league:'Chexiya Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:44,shooting:20,passing:26,dribbling:24,defending:44,physical:46}},
-  {n:'Miroslav Stoch Jr',w:'Ondrej Duda',pos:'CAM',nat:'Slovakiya',club:'Werder Bremen',league:'Bundesliga',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:44,shooting:30,passing:24,dribbling:30,defending:6,physical:36}},
-  {n:'Denis Vavro',w:'Dénes Vávro',pos:'CB',nat:'Slovakiya',club:'Anderlecht',league:'Belgiya Ligasi',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:40,shooting:16,passing:22,dribbling:20,defending:38,physical:40}},
-  {n:'Yakup Yildiz',w:'Yakup Yıldız',pos:'CAM',nat:'Turkiya',club:'Manchester United',league:'Premier League',c1:'#B23A3A',c2:'#F0D13B',st:{pace:38,shooting:24,passing:20,dribbling:26,defending:6,physical:32}},
-  {n:'Berat Ozan',w:'Berat Özdemir',pos:'CB',nat:'Turkiya',club:'Trabzonspor',league:'Super Lig',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:34,shooting:14,passing:18,dribbling:18,defending:34,physical:36}},
-  {n:'Amine Harit',w:'Amine Harit',pos:'CAM',nat:'Marokash',club:'Al Wasl',league:'UAE Pro League',c1:'#1E7A46',c2:'#F2EFE6',st:{pace:32,shooting:22,passing:18,dribbling:24,defending:6,physical:30}},
-  {n:'Karim El Ahmadi',w:'Karim El Ahmadi',pos:'CDM',nat:'Marokash',club:'RKC Waalwijk',league:'Eredivisie',c1:'#F0D13B',c2:'#1B1B1B',st:{pace:28,shooting:12,passing:16,dribbling:16,defending:30,physical:28}},
-  {n:'Youssef Msakni',w:'Youssef Msakni',pos:'LW',nat:'Tunis',club:'Al Arabi',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:26,shooting:18,passing:16,dribbling:20,defending:6,physical:26}},
-  {n:'Naim Sliti',w:'Naim Sliti',pos:'RW',nat:'Tunis',club:'Al-Duhail',league:'Qatar Stars League',c1:'#7A2E3A',c2:'#F2EFE6',st:{pace:24,shooting:16,passing:14,dribbling:18,defending:4,physical:24}},
-  {n:'Yassine Meriah',w:'Yassine Meriah',pos:'CB',nat:'Tunis',club:'Esperance Tunis',league:'Tunis Ligasi',c1:'#B23A3A',c2:'#F2EFE6',st:{pace:22,shooting:8,passing:10,dribbling:10,defending:24,physical:22}}
+/* Real first/last-name pools, grouped by naming-culture bucket so generated
+   "lower-tier pro" players get names that fit their nationality. These are common
+   real-world given/family names, not tied to any specific individual. */
+const NAME_POOLS = {
+  IBERO: { first:["Carlos","Javier","Diego","Alejandro","Mateo","Sergio","Pablo","Fernando","Rodrigo","Adrian","Alvaro","Ivan","Marcos","Ruben","Hector","Gonzalo","Nicolas","Emilio","Tomas","Bruno"],
+            last:["Garcia","Martinez","Lopez","Gonzalez","Fernandez","Rodriguez","Perez","Sanchez","Ramirez","Torres","Flores","Ortega","Molina","Delgado","Castro","Vega","Serrano","Nunez","Cano","Reyes"] },
+  BRAZIL: { first:["Joao","Lucas","Gabriel","Rafael","Matheus","Thiago","Bruno","Pedro","Felipe","Vitor","Wesley","Everton","Kaio","Douglas","Anderson","Leandro","Rodrigo","Igor","Wallace","Renato"],
+            last:["Silva","Santos","Oliveira","Souza","Costa","Pereira","Almeida","Ribeiro","Carvalho","Gomes","Barbosa","Rocha","Dias","Nascimento","Teixeira","Correia","Cardoso","Moreira","Machado","Freitas"] },
+  ENGLISH: { first:["James","Jack","Harry","George","Oliver","Charlie","Thomas","Callum","Ryan","Joe","Ben","Daniel","Josh","Connor","Liam","Dominic","Ethan","Reece","Kyle","Owen"],
+             last:["Smith","Johnson","Williams","Brown","Taylor","Wilson","Evans","Thomas","Roberts","Walker","White","Harris","Clarke","Wright","Green","Hall","Cooper","Bennett","Palmer","Fisher"] },
+  FRANCO: { first:["Antoine","Hugo","Lucas","Theo","Mathis","Nathan","Kylian","Enzo","Yanis","Rayan","Amine","Ismael","Bilal","Ousmane","Moussa","Aurelien","Baptiste","Clement","Maxime","Romain"],
+            last:["Dubois","Lefevre","Moreau","Girard","Bernard","Petit","Rousseau","Fontaine","Fournier","Faure","Blanc","Guerin","Muller","Leroy","Simon","Michel","Legrand","Garnier","Chevalier","Robin"] },
+  GERMANIC: { first:["Lukas","Maximilian","Jonas","Leon","Finn","Niklas","Julian","Tobias","Fabian","Sebastian","Erik","Matthias","Marius","Timo","Andre","Kevin","Dennis","Marco","Robin","Felix"],
+              last:["Muller","Schmidt","Schneider","Fischer","Weber","Meyer","Wagner","Becker","Hoffmann","Schulz","Koch","Bauer","Richter","Klein","Wolf","Neumann","Braun","Krause","Zimmermann","Vogel"] },
+  ITALIAN: { first:["Matteo","Andrea","Luca","Marco","Alessandro","Davide","Simone","Federico","Riccardo","Gabriele","Stefano","Lorenzo","Nicolo","Giacomo","Filippo","Emanuele","Salvatore","Cristian","Fabio","Mirko"],
+             last:["Rossi","Russo","Ferrari","Esposito","Bianchi","Romano","Colombo","Ricci","Marino","Greco","Bruno","Gallo","Conti","De Luca","Mancini","Costa","Giordano","Rizzo","Lombardi","Moretti"] },
+  LOWLANDS: { first:["Daan","Sem","Lars","Bram","Tim","Milan","Sven","Jesse","Kevin","Wout","Nordin","Quincy","Justin","Ryan","Denzel","Steven","Mitchell","Kenneth","Marnix","Thijs"],
+              last:["De Jong","Jansen","De Vries","Van den Berg","Bakker","Visser","Smit","Meijer","Mulder","De Boer","Bos","Peters","Hendriks","Van Dijk","Dekker","Brouwer","De Wit","Dijkstra","Verhoeven","Willems"] },
+  SCANDI: { first:["Erik","Anders","Magnus","Oscar","Viktor","Mattias","Emil","Gustav","Sebastian","Filip","Henrik","Rasmus","Kasper","Mads","Jesper","Sander","Fredrik","Nils","Simen","Marius"],
+            last:["Andersson","Johansson","Karlsson","Nilsson","Eriksson","Larsson","Olsen","Hansen","Pedersen","Nielsen","Andersen","Jensen","Berg","Haugen","Solberg","Dahl","Lund","Holm","Strand","Fossum"] },
+  SLAVIC: { first:["Marek","Pavel","Jakub","Tomas","Petr","Michal","Filip","Vojtech","Lukas","Adam","Dario","Ivan","Marko","Nikola","Luka","Josip","Kristijan","Bartosz","Damian","Wojciech"],
+            last:["Novak","Kovac","Horvat","Kowalski","Nowak","Wojcik","Kaminski","Dvorak","Prochazka","Svoboda","Cerny","Kovacevic","Jovanovic","Petrovic","Markovic","Simic","Popovic","Vukovic","Krajnc","Zajac"] },
+  MENA: { first:["Youssef","Karim","Amir","Omar","Hamza","Adil","Rachid","Sami","Nabil","Walid","Tariq","Ziyad","Faisal","Khalid","Anas","Ayman","Marwan","Nassim","Reda","Yassine"],
+          last:["Benali","El Amrani","Cherif","Ziani","Bouzid","Rahmani","Belkacem","Haddad","Mansour","Saidi","Trabelsi","Ait Ali","Boukhris","Naciri","Fassi","Kadri","Zeroual","Amrani","Baraka","Idrissi"] },
+  WAFRICA: { first:["Emmanuel","Samuel","Kwame","Chidi","Ibrahim","Moussa","Sadio","Victor","Daniel","Joseph","Michael","David","Peter","John","Bright","Godwin","Kelechi","Ola","Yusuf","Abdul"],
+             last:["Okafor","Eze","Mensah","Boateng","Diallo","Toure","Traore","Keita","Camara","Adeyemi","Okonkwo","Nwosu","Owusu","Asante","Coulibaly","Sangare","Konate","Diarra","Balde","Sarr"] },
+  EAFRICA: { first:["Ahmed","Mohamed","Karim","Amr","Hassan","Mahmoud","Islam","Tarek","Sherif","Ali","Bilal","Yassin","Adam","Fares","Youssef","Marwan","Nour","Zain","Rami","Fahad"],
+             last:["Salah","Hassan","Ibrahim","Mostafa","Fathy","Sayed","Gaber","Ashour","Ramadan","El Sayed","Abdallah","Farouk","Kamal","Zaki","Amin","Rashad","Nasser","Fawzy","Attia","Gamal"] },
+  EASTASIA: { first:["Yuto","Sota","Kaito","Ren","Haruto","Riku","Daiki","Minjun","Jihoon","Seojun","Doyoon","Junho","Wei","Jun","Hao","Chen","Yifan","Zhi","Kenta","Shota"],
+              last:["Sato","Suzuki","Tanaka","Watanabe","Ito","Yamamoto","Nakamura","Kobayashi","Kato","Yoshida","Kim","Lee","Park","Choi","Jung","Wang","Zhang","Li","Liu","Huang"] },
+  CENTRALASIA: { first:["Diyorbek","Sardorbek","Jasur","Bekzod","Sanjar","Islom","Otabek","Farrux","Aziz","Shoxrux","Nurbek","Damir","Ruslan","Bahodir","Anvar","Ilhom","Umid","Javlon","Sherzod","Alisher"],
+                 last:["Karimov","Yusupov","Tursunov","Rashidov","Ergashev","Umarov","Saidov","Nazarov","Xolmatov","Rustamov","Abdullayev","Yoldashev","Mirzayev","Sultonov","Ismoilov","Nazarov","Xolikov","Toshpulatov","Norqobilov","Yusupov"] }
+};
+const NATION_BUCKET = {
+  "O'zbekiston":"CENTRALASIA","Qozog'iston":"CENTRALASIA","Tojikiston":"CENTRALASIA","Qirg'iziston":"CENTRALASIA","Turkmaniston":"CENTRALASIA",
+  "Ispaniya":"IBERO","Portugaliya":"IBERO","Argentina":"IBERO","Meksika":"IBERO","Kolumbiya":"IBERO","Urugvay":"IBERO","Chili":"IBERO","Peru":"IBERO","Ekvador":"IBERO","Paragvay":"IBERO","Boliviya":"IBERO","Venesuela":"IBERO","Kosta-Rika":"IBERO",
+  "Braziliya":"BRAZIL",
+  "Angliya":"ENGLISH","Shotlandiya":"ENGLISH","Uels":"ENGLISH","Irlandiya":"ENGLISH","AQSH":"ENGLISH","Kanada":"ENGLISH","Avstraliya":"ENGLISH","Yangi Zelandiya":"ENGLISH","Yamayka":"ENGLISH",
+  "Fransiya":"FRANCO","Belgiya":"FRANCO","Shveytsariya":"FRANCO",
+  "Germaniya":"GERMANIC","Avstriya":"GERMANIC",
+  "Italiya":"ITALIAN",
+  "Niderlandiya":"LOWLANDS",
+  "Shvedsiya":"SCANDI","Shvetsiya":"SCANDI","Norvegiya":"SCANDI","Daniya":"SCANDI","Islandiya":"SCANDI","Finlyandiya":"SCANDI",
+  "Turkiya":"SLAVIC","Rossiya":"SLAVIC","Xorvatiya":"SLAVIC","Serbiya":"SLAVIC","Polsha":"SLAVIC","Ukraina":"SLAVIC","Chexiya":"SLAVIC","Ruminiya":"SLAVIC","Vengriya":"SLAVIC","Yunoniston":"SLAVIC","Sloveniya":"SLAVIC","Slovakiya":"SLAVIC","Bosniya":"SLAVIC","Albaniya":"SLAVIC","Gruziya":"SLAVIC","Armaniston":"SLAVIC","Ozarbayjon":"SLAVIC",
+  "Marokash":"MENA","Jazoir":"MENA","Tunis":"MENA","Saudiya Arabistoni":"MENA","Qatar":"MENA","BAA":"MENA","Eron":"MENA","Iroq":"MENA","Isroil":"MENA","Iordaniya":"MENA",
+  "Nigeriya":"WAFRICA","Gana":"WAFRICA","Senegal":"WAFRICA","Kot-d'Ivuar":"WAFRICA","Kamerun":"WAFRICA",
+  "Misr":"EAFRICA","Janubiy Afrika":"EAFRICA",
+  "Yaponiya":"EASTASIA","Janubiy Koreya":"EASTASIA","Xitoy":"EASTASIA","Hindiston":"EASTASIA","Indoneziya":"EASTASIA","Vetnam":"EASTASIA","Tailand":"EASTASIA","Malayziya":"EASTASIA","Filippin":"EASTASIA"
+};
+function namePoolForNation(natName){ return NAME_POOLS[NATION_BUCKET[natName] || "ENGLISH"]; }
+
+function hashColor(str, salt){
+  let h = 0;
+  for(let i=0;i<str.length;i++) h = (h*31 + str.charCodeAt(i) + salt) | 0;
+  const hue = Math.abs(h) % 360;
+  return `hsl(${hue}, ${55 + (Math.abs(h>>3)%25)}%, ${40 + (Math.abs(h>>5)%20)}%)`;
+}
+
+/* Real leagues and real club names (public, factual — text only, no crests/logos). */
+const REAL_LEAGUE_CLUBS = {
+  "Premier League": ["Manchester City","Arsenal","Liverpool","Chelsea","Manchester United","Tottenham Hotspur","Newcastle United","Aston Villa","Brighton & Hove Albion","West Ham United","Everton","Wolverhampton Wanderers","Fulham","Crystal Palace","Brentford"],
+  "La Liga": ["Real Madrid","Barcelona","Atletico Madrid","Real Sociedad","Athletic Bilbao","Real Betis","Villarreal","Valencia","Sevilla","Girona","Celta Vigo","Osasuna","Rayo Vallecano"],
+  "Serie A": ["Inter Milan","AC Milan","Juventus","Napoli","Roma","Lazio","Atalanta","Fiorentina","Bologna","Torino","Udinese","Genoa"],
+  "Bundesliga": ["Bayern Munich","Borussia Dortmund","RB Leipzig","Bayer Leverkusen","Eintracht Frankfurt","VfB Stuttgart","Borussia Monchengladbach","Wolfsburg","Freiburg","Mainz 05"],
+  "Ligue 1": ["Paris Saint-Germain","Marseille","Monaco","Lyon","Lille","Nice","Rennes","Lens","Strasbourg","Toulouse"],
+  "Eredivisie": ["Ajax","PSV Eindhoven","Feyenoord","AZ Alkmaar","FC Utrecht","FC Twente"],
+  "Primeira Liga": ["Benfica","Porto","Sporting CP","Braga","Vitoria Guimaraes"],
+  "MLS": ["Inter Miami","LA Galaxy","LAFC","Seattle Sounders","Atlanta United","New York City FC","Columbus Crew"],
+  "Liga MX": ["Club America","Chivas Guadalajara","Cruz Azul","Monterrey","Tigres UANL","Pumas UNAM"],
+  "Brasileirao": ["Flamengo","Palmeiras","Sao Paulo","Corinthians","Fluminense","Santos","Gremio","Internacional","Botafogo","Vasco da Gama","Atletico Mineiro","Cruzeiro"],
+  "Argentine Primera": ["Boca Juniors","River Plate","Racing Club","Independiente","San Lorenzo","Estudiantes"],
+  "Saudi Pro League": ["Al Hilal","Al Nassr","Al Ittihad","Al Ahli","Al Ettifaq"],
+  "Super Lig": ["Galatasaray","Fenerbahce","Besiktas","Trabzonspor"],
+  "Belgian Pro League": ["Club Brugge","Anderlecht","Genk","Union Saint-Gilloise"],
+  "Scottish Premiership": ["Celtic","Rangers","Aberdeen","Hearts"],
+  "J1 League": ["Yokohama F. Marinos","Kawasaki Frontale","Urawa Red Diamonds","Vissel Kobe"],
+  "K League 1": ["Ulsan HD","Jeonbuk Hyundai Motors","Pohang Steelers"],
+  "Uzbekistan Super League": ["Pakhtakor","Nasaf Qarshi","Bunyodkor","Neftchi Farg'ona","AGMK","Navbahor Namangan"],
+  "Egyptian Premier League": ["Al Ahly","Zamalek"],
+  "Australian A-League": ["Melbourne Victory","Sydney FC","Western Sydney Wanderers"]
+};
+const REAL_CLUBS = (function(){
+  const clubs = [];
+  let idx = 0;
+  Object.keys(REAL_LEAGUE_CLUBS).forEach(league=>{
+    REAL_LEAGUE_CLUBS[league].forEach(name=>{
+      clubs.push({ id:'club'+idx, name, league, c1: hashColor(name,1), c2: hashColor(name,97) });
+      idx++;
+    });
+  });
+  return clubs;
+})();
+function clubById(id){ return REAL_CLUBS.find(c=>c.id===id) || REAL_CLUBS[0]; }
+/* Kept for backwards-compat references elsewhere in the file. */
+const FICTIONAL_CLUBS = REAL_CLUBS;
+
+const POS_ADJACENT = {
+  GK:  [],
+  CB:  ['CDM'],
+  RB:  ['RM','CDM'],
+  LB:  ['LM','CDM'],
+  CDM: ['CB','CM'],
+  CM:  ['CDM','CAM'],
+  CAM: ['CM','RM','LM'],
+  RM:  ['RW','CAM','RB'],
+  LM:  ['LW','CAM','LB'],
+  RW:  ['RM','ST'],
+  LW:  ['LM','ST'],
+  ST:  ['RW','LW']
+};
+const CARD_POSITIONS = ["GK","CB","LB","RB","CDM","CM","CAM","LM","RM","LW","RW","ST"];
+const CARD_POS_GROUP = POS_ROLE_GROUP;
+function isPositionCompatible(def, posNeeded){
+  if(!posNeeded) return true;
+  if(def.position===posNeeded) return true;
+  if((def.secondaryPositions||[]).includes(posNeeded)) return true;
+  if((POS_ADJACENT[posNeeded]||[]).includes(def.position)) return true;
+  return false;
+}
+
+/* rarity distribution weights -> OVR band picked, then jittered within the band */
+const RARITY_WEIGHTS = [
+  ['BRONZE', 38], ['SILVER', 30], ['GOLD', 18], ['ELITE', 8], ['HERO', 4], ['ICON', 1.6], ['LEGENDARY', 0.4]
 ];
+function pickRarityBand(rng){
+  const total = RARITY_WEIGHTS.reduce((s,[,w])=>s+w,0);
+  let r = rng()*total;
+  for(const [id,w] of RARITY_WEIGHTS){ r -= w; if(r<=0) return RARITY_DEFS.find(x=>x.id===id); }
+  return RARITY_DEFS[0];
+}
+function statsFromOvrAndPos(ovr, pos, rng){
+  const w = POS_WEIGHTS[pos];
+  const jitter = ()=> Math.round((rng()-0.5)*14);
+  const clampStat = v => Math.max(20, Math.min(99, v));
+  return {
+    pace: clampStat(Math.round(ovr*Math.min(1.15,w.pace)) + jitter()),
+    shooting: clampStat(Math.round(ovr*Math.min(1.15,w.shooting)) + jitter()),
+    passing: clampStat(Math.round(ovr*Math.min(1.15,w.passing)) + jitter()),
+    dribbling: clampStat(Math.round(ovr*Math.min(1.1, (w.pace+w.passing)/2)) + jitter()),
+    defending: clampStat(Math.round(ovr*Math.min(1.15,w.defending)) + jitter()),
+    physical: clampStat(Math.round(ovr*Math.min(1.15,w.physical)) + jitter())
+  };
+}
+function calculatePlayerPrice(def){
+  const rarityMult = {BRONZE:1, SILVER:1.15, GOLD:1.4, ELITE:2.1, HERO:3.3, ICON:5.2, LEGENDARY:8.2};
+  let base = Math.round(Math.pow(def.overall,3)/280 * (rarityMult[def.rarity]||1));
+  if(def.isIcon) base = Math.round(base*1.6);
+  if(['ST','RW','LW'].includes(def.position)) base = Math.round(base*1.08);
+  return Math.max(150, base);
+}
+function pickSecondaryPositions(pos, rng){
+  const opts = POS_ADJACENT[pos] || [];
+  if(!opts.length) return [];
+  const count = opts.length>1 && rng()>0.5 ? 2 : 1;
+  return opts.slice().sort(()=>rng()-0.5).slice(0,count);
+}
 
-/* ---------- real player -> silhouette / wiki photo system ---------- */
+const NUM_GENERATED_PLAYERS = 10200;
+function generateFictionalPlayer(i){
+  const rng = mulberry32(i*2654435761 + 12345);
+  const rarity = pickRarityBand(rng);
+  const ovrTarget = rarity.min + Math.floor(rng()*(rarity.max-rarity.min+1));
+  const pos = CARD_POSITIONS[Math.floor(rng()*CARD_POSITIONS.length)];
+  const stats = statsFromOvrAndPos(ovrTarget, pos, rng);
+  const overall = overall_calc({position:pos, stats});
+  const finalRarity = rarityForOVR(overall);
+  const nat = NATIONS[Math.floor(rng()*NATIONS.length)];
+  const pool = namePoolForNation(nat.name);
+  const first = pool.first[Math.floor(rng()*pool.first.length)];
+  const last = pool.last[Math.floor(rng()*pool.last.length)];
+  const club = REAL_CLUBS[Math.floor(rng()*REAL_CLUBS.length)];
+  const secondaryPositions = pickSecondaryPositions(pos, rng);
+  const def = {
+    defId: 'g'+i,
+    firstName: first, lastName: last, name: `${first} ${last}`,
+    position: pos, secondaryPositions,
+    nationality: nat.name, flag: nat.flag || '🏳️',
+    club: club.name, clubId: club.id, league: club.league,
+    clubColors: {name:club.name, c1:club.c1, c2:club.c2},
+    stats, overall, ovr: overall,
+    rarity: finalRarity.id, cardType: finalRarity.id, isIcon:false,
+    imageUrl: null, imageSource: 'generated-silhouette'
+  };
+  def.basePrice = calculatePlayerPrice(def);
+  return def;
+}
+
+/* ---------- real retired ICON legends (public historical facts; ratings are our
+   own in-house estimate, not EA/FIFA data; no photos used, silhouette only) ---------- */
+const ICON_LEGENDS = [
+  {n:'Pele', pos:'ST', nat:'Braziliya', ovr:98, st:{pace:92,shooting:96,passing:85,dribbling:96,defending:40,physical:82}, bio:"Uch bor jahon chempioni, futbol tarixidagi eng buyuk hujumchilardan biri (1940-2022)."},
+  {n:'Diego Maradona', pos:'CAM', nat:'Argentina', ovr:97, st:{pace:85,shooting:89,passing:90,dribbling:97,defending:35,physical:70}, bio:"1986 jahon chempioni, dribling san'atining timsoli (1960-2020)."},
+  {n:'Johan Cruyff', pos:'CF', nat:'Niderlandiya', ovr:96, st:{pace:88,shooting:88,passing:91,dribbling:93,defending:45,physical:68}, bio:"Zamonaviy 'total football' g'oyasining otasi, uch karra Oltin to'p sohibi (1947-2016)."},
+  {n:'Zinedine Zidane', pos:'CAM', nat:'Fransiya', ovr:96, st:{pace:78,shooting:85,passing:92,dribbling:93,defending:50,physical:75}, bio:"1998 jahon chempioni, o'z avlodining eng nafis texnikaga ega o'yinchisi."},
+  {n:'Ronaldinho', pos:'LW', nat:'Braziliya', ovr:95, st:{pace:88,shooting:86,passing:88,dribbling:97,defending:32,physical:74}, bio:"2002 jahon chempioni, FIFA yilning eng yaxshi futbolchisi (2x)."},
+  {n:'Ronaldo Nazario', pos:'ST', nat:'Braziliya', ovr:97, st:{pace:96,shooting:94,passing:75,dribbling:92,defending:28,physical:82}, bio:"Ikki karra jahon chempioni, avlodining eng tezkor va samarali markaziy hujumchisi."},
+  {n:'Thierry Henry', pos:'ST', nat:'Fransiya', ovr:94, st:{pace:95,shooting:91,passing:80,dribbling:88,defending:35,physical:76}, bio:"1998 jahon chempioni, Arsenal klub tarixidagi eng ko'p gol muallifi."},
+  {n:'Kaka', pos:'CAM', nat:'Braziliya', ovr:93, st:{pace:88,shooting:85,passing:87,dribbling:90,defending:38,physical:72}, bio:"2007 Oltin to'p sohibi, 2002 jahon chempioni."},
+  {n:'Franz Beckenbauer', pos:'CB', nat:'Germaniya', ovr:95, st:{pace:75,shooting:60,passing:88,dribbling:78,defending:94,physical:82}, bio:"1974 jahon chempioni (o'yinchi va murabbiy sifatida), 'Libero' pozitsiyasi mohiri (1945-2024)."},
+  {n:'Paolo Maldini', pos:'CB', nat:'Italiya', ovr:94, st:{pace:80,shooting:38,passing:78,dribbling:70,defending:96,physical:88}, bio:"Milan klubida 25 fasl o'ynagan, futbol tarixidagi eng buyuk himoyachilardan biri."},
+  {n:'Xavi Hernandez', pos:'CM', nat:'Ispaniya', ovr:93, st:{pace:65,shooting:70,passing:96,dribbling:88,defending:65,physical:62}, bio:"2010 jahon chempioni, o'yin nazoratining ustasi."},
+  {n:'Andres Iniesta', pos:'CAM', nat:'Ispaniya', ovr:93, st:{pace:70,shooting:76,passing:92,dribbling:93,defending:55,physical:64}, bio:"2010 jahon chempionati finalida g'alaba golini urgan afsona."},
+  {n:'Gianluigi Buffon', pos:'GK', nat:'Italiya', ovr:94, st:{pace:55,shooting:20,passing:70,dribbling:40,defending:95,physical:88}, bio:"2006 jahon chempioni, eng ko'p Seriya A o'yini o'tkazgan darvozabon."},
+  {n:'Iker Casillas', pos:'GK', nat:'Ispaniya', ovr:93, st:{pace:58,shooting:18,passing:68,dribbling:38,defending:94,physical:82}, bio:"2010 jahon chempioni, Real Madrid tarixidagi eng ko'p o'ynagan kapitan."},
+  {n:'Eusebio', pos:'ST', nat:'Portugaliya', ovr:95, st:{pace:90,shooting:95,passing:76,dribbling:88,defending:30,physical:80}, bio:"1966 jahon chempionati eng ko'p gol muallifi, 'Qora marvarid' laqabi bilan mashhur (1942-2014)."},
+  {n:'George Best', pos:'RW', nat:'Irlandiya', ovr:93, st:{pace:92,shooting:82,passing:80,dribbling:95,defending:30,physical:68}, bio:"1968 Yevropa Oltin to'pi sohibi, Manchester United afsonasi (1946-2005)."},
+  {n:'Roberto Baggio', pos:'CAM', nat:'Italiya', ovr:93, st:{pace:80,shooting:88,passing:85,dribbling:91,defending:32,physical:66}, bio:"1993 Oltin to'p sohibi, 'Ilohiy kokil' laqabli hujumchi."},
+  {n:'Michael Ballack', pos:'CM', nat:'Germaniya', ovr:91, st:{pace:74,shooting:83,passing:88,dribbling:80,defending:78,physical:86}, bio:"Germaniyaning 2000-yillardagi eng muhim o'rta maydon futbolchisi."},
+  {n:'Alessandro Del Piero', pos:'CF', nat:'Italiya', ovr:92, st:{pace:78,shooting:88,passing:82,dribbling:88,defending:30,physical:68}, bio:"2006 jahon chempioni, Juventus klub tarixidagi eng ko'p gol muallifi."},
+  {n:'Rivaldo', pos:'LW', nat:'Braziliya', ovr:93, st:{pace:85,shooting:89,passing:83,dribbling:92,defending:30,physical:72}, bio:"1999 Oltin to'p sohibi, 2002 jahon chempioni."},
+  {n:'Carles Puyol', pos:'CB', nat:'Ispaniya', ovr:91, st:{pace:78,shooting:42,passing:70,dribbling:60,defending:95,physical:88}, bio:"2010 jahon chempioni, Barcelona kapitani, jangovar himoya uslubi bilan mashhur."},
+  {n:'Luis Figo', pos:'RW', nat:'Portugaliya', ovr:92, st:{pace:88,shooting:80,passing:88,dribbling:90,defending:34,physical:72}, bio:"2000 Oltin to'p sohibi, Real Madrid va Barcelona afsonasi."}
+];
+function buildIconLegends(){
+  return ICON_LEGENDS.map((rp, idx)=>{
+    const stats = { pace:rp.st.pace, shooting:rp.st.shooting, passing:rp.st.passing, defending:rp.st.defending, physical:rp.st.physical };
+    const overall = rp.ovr; // use the designed legend rating directly (flavor stats alone underweight OVR via the generic formula)
+    const nat = NATIONS.find(n=>n.name===rp.nat) || NATIONS[0];
+    const club = { name:'ICON LEGENDS', c1:'#D4AF37', c2:'#8B5CF6' };
+    const legendRarity = overall>=93 ? 'LEGENDARY' : 'ICON';
+    const def = {
+      defId: 'icon'+idx,
+      firstName: rp.n.split(' ')[0], lastName: rp.n.split(' ').slice(1).join(' '), name: rp.n,
+      position: rp.pos, secondaryPositions: POS_ADJACENT[rp.pos]||[],
+      nationality: rp.nat, flag: nat.flag || '🏳️',
+      club: 'ICON LEGENDS', clubId:'icon-club', league:'Hall of Legends',
+      clubColors: club,
+      stats: Object.assign({dribbling: rp.st.dribbling}, stats),
+      overall, ovr: overall,
+      rarity: legendRarity, cardType: legendRarity, isIcon:true, bio: rp.bio,
+      imageUrl: null, imageSource: 'generated-silhouette'
+    };
+    def.basePrice = calculatePlayerPrice(def);
+    return def;
+  });
+}
+
+/* ---------- curated real, currently-active star players ----------
+   Real names/positions/nationalities/clubs are public facts. OVR/stats are an
+   original in-house estimate (not EA Sports FC data) grouped into rough tiers:
+   WORLD_CLASS(90-99) / ELITE(85-89) / STRONG(80-84) / SOLID(74-79).
+   Club affiliations reflect general knowledge and may drift after transfer
+   windows — update the `club` field as rosters change. */
+const STAR_TIERS = {
+  WORLD_CLASS:{min:90,max:98}, ELITE:{min:85,max:89}, STRONG:{min:80,max:84}, SOLID:{min:74,max:79}, BASIC:{min:60,max:73}
+};
+function tierOvr(tier, seedStr){
+  const t = STAR_TIERS[tier];
+  const rng = mulberry32(Array.from(seedStr).reduce((a,c)=>a+c.charCodeAt(0),0)*97+13);
+  return t.min + Math.floor(rng()*(t.max-t.min+1));
+}
+/* [firstName,lastName,pos,nationality,club,league,tier] */
+const REAL_STAR_PLAYERS_RAW = [
+  ["Lionel","Messi","RW","Argentina","Inter Miami","MLS","WORLD_CLASS"],
+  ["Cristiano","Ronaldo","ST","Portugaliya","Al Nassr","Saudi Pro League","ELITE"],
+  ["Kylian","Mbappe","ST","Fransiya","Real Madrid","La Liga","WORLD_CLASS"],
+  ["Erling","Haaland","ST","Norvegiya","Manchester City","Premier League","WORLD_CLASS"],
+  ["Jude","Bellingham","CAM","Angliya","Real Madrid","La Liga","WORLD_CLASS"],
+  ["Vinicius Junior","","LW","Braziliya","Real Madrid","La Liga","WORLD_CLASS"],
+  ["Lamine","Yamal","RW","Ispaniya","Barcelona","La Liga","WORLD_CLASS"],
+  ["Rodri","Hernandez","CDM","Ispaniya","Manchester City","Premier League","WORLD_CLASS"],
+  ["Kevin","De Bruyne","CAM","Belgiya","Napoli","Serie A","ELITE"],
+  ["Harry","Kane","ST","Angliya","Bayern Munich","Bundesliga","WORLD_CLASS"],
+  ["Robert","Lewandowski","ST","Polsha","Barcelona","La Liga","ELITE"],
+  ["Mohamed","Salah","RW","Misr","Liverpool","Premier League","WORLD_CLASS"],
+  ["Virgil","van Dijk","CB","Niderlandiya","Liverpool","Premier League","ELITE"],
+  ["Bukayo","Saka","RW","Angliya","Arsenal","Premier League","ELITE"],
+  ["Phil","Foden","CAM","Angliya","Manchester City","Premier League","ELITE"],
+  ["Declan","Rice","CDM","Angliya","Arsenal","Premier League","ELITE"],
+  ["Martin","Odegaard","CAM","Norvegiya","Arsenal","Premier League","ELITE"],
+  ["Federico","Valverde","CM","Urugvay","Real Madrid","La Liga","ELITE"],
+  ["Pedri","Gonzalez","CM","Ispaniya","Barcelona","La Liga","ELITE"],
+  ["Gavi","","CM","Ispaniya","Barcelona","La Liga","STRONG"],
+  ["Jamal","Musiala","CAM","Germaniya","Bayern Munich","Bundesliga","ELITE"],
+  ["Florian","Wirtz","CAM","Germaniya","Bayer Leverkusen","Bundesliga","ELITE"],
+  ["Xavi","Simons","CAM","Niderlandiya","RB Leipzig","Bundesliga","STRONG"],
+  ["Alexander","Isak","ST","Shvetsiya","Newcastle United","Premier League","ELITE"],
+  ["Victor","Osimhen","ST","Nigeriya","Napoli","Serie A","ELITE"],
+  ["Ousmane","Dembele","RW","Fransiya","Paris Saint-Germain","Ligue 1","ELITE"],
+  ["Bradley","Barcola","LW","Fransiya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Achraf","Hakimi","RB","Marokash","Paris Saint-Germain","Ligue 1","ELITE"],
+  ["Marquinhos","","CB","Braziliya","Paris Saint-Germain","Ligue 1","ELITE"],
+  ["Rafael","Leao","LW","Portugaliya","AC Milan","Serie A","STRONG"],
+  ["Mike","Maignan","GK","Fransiya","AC Milan","Serie A","ELITE"],
+  ["Theo","Hernandez","LB","Fransiya","AC Milan","Serie A","STRONG"],
+  ["Lautaro","Martinez","ST","Argentina","Inter Milan","Serie A","ELITE"],
+  ["Nicolo","Barella","CM","Italiya","Inter Milan","Serie A","STRONG"],
+  ["Alessandro","Bastoni","CB","Italiya","Inter Milan","Serie A","STRONG"],
+  ["Federico","Chiesa","RW","Italiya","Liverpool","Premier League","STRONG"],
+  ["Gianluigi","Donnarumma","GK","Italiya","Manchester City","Premier League","ELITE"],
+  ["Alisson","Becker","GK","Braziliya","Liverpool","Premier League","ELITE"],
+  ["Ederson","Moraes","GK","Braziliya","Manchester City","Premier League","STRONG"],
+  ["Thibaut","Courtois","GK","Belgiya","Real Madrid","La Liga","ELITE"],
+  ["Marc-Andre","ter Stegen","GK","Germaniya","Barcelona","La Liga","ELITE"],
+  ["Manuel","Neuer","GK","Germaniya","Bayern Munich","Bundesliga","STRONG"],
+  ["Jan","Oblak","GK","Sloveniya","Atletico Madrid","La Liga","ELITE"],
+  ["Ruben","Dias","CB","Portugaliya","Manchester City","Premier League","ELITE"],
+  ["William","Saliba","CB","Fransiya","Arsenal","Premier League","ELITE"],
+  ["Antonio","Rudiger","CB","Germaniya","Real Madrid","La Liga","STRONG"],
+  ["Dayot","Upamecano","CB","Fransiya","Bayern Munich","Bundesliga","STRONG"],
+  ["Alphonso","Davies","LB","Kanada","Bayern Munich","Bundesliga","STRONG"],
+  ["Trent","Alexander-Arnold","RB","Angliya","Real Madrid","La Liga","ELITE"],
+  ["Joshua","Kimmich","CDM","Germaniya","Bayern Munich","Bundesliga","ELITE"],
+  ["Toni","Kroos","CM","Germaniya","Real Madrid","La Liga","STRONG"],
+  ["Luka","Modric","CM","Xorvatiya","AC Milan","Serie A","STRONG"],
+  ["Casemiro","","CDM","Braziliya","Manchester United","Premier League","STRONG"],
+  ["Bruno","Fernandes","CAM","Portugaliya","Manchester United","Premier League","ELITE"],
+  ["Marcus","Rashford","LW","Angliya","Barcelona","La Liga","STRONG"],
+  ["Cole","Palmer","CAM","Angliya","Chelsea","Premier League","ELITE"],
+  ["Enzo","Fernandez","CM","Argentina","Chelsea","Premier League","STRONG"],
+  ["Moises","Caicedo","CDM","Ekvador","Chelsea","Premier League","STRONG"],
+  ["Son","Heung-min","LW","Janubiy Koreya","Los Angeles FC","MLS","STRONG"],
+  ["James","Maddison","CAM","Angliya","Tottenham Hotspur","Premier League","STRONG"],
+  ["Dominik","Szoboszlai","CM","Vengriya","Liverpool","Premier League","STRONG"],
+  ["Bernardo","Silva","CAM","Portugaliya","Manchester City","Premier League","ELITE"],
+  ["Julian","Alvarez","ST","Argentina","Atletico Madrid","La Liga","ELITE"],
+  ["Antoine","Griezmann","ST","Fransiya","Atletico Madrid","La Liga","STRONG"],
+  ["Jules","Kounde","CB","Fransiya","Barcelona","La Liga","STRONG"],
+  ["Frenkie","de Jong","CM","Niderlandiya","Barcelona","La Liga","STRONG"],
+  ["Raphinha","","RW","Braziliya","Barcelona","La Liga","ELITE"],
+  ["Khvicha","Kvaratskhelia","LW","Gruziya","Paris Saint-Germain","Ligue 1","ELITE"],
+  ["Ademola","Lookman","LW","Nigeriya","Atalanta","Serie A","STRONG"],
+  ["Teun","Koopmeiners","CM","Niderlandiya","Juventus","Serie A","STRONG"],
+  ["Dusan","Vlahovic","ST","Serbiya","Juventus","Serie A","STRONG"],
+  ["Khephren","Thuram","CM","Fransiya","Juventus","Serie A","STRONG"],
+  ["Nico","Williams","LW","Ispaniya","Athletic Bilbao","La Liga","STRONG"],
+  ["Mikel","Merino","CM","Ispaniya","Arsenal","Premier League","STRONG"],
+  ["Viktor","Gyokeres","ST","Shvetsiya","Arsenal","Premier League","ELITE"],
+  ["Leny","Yoro","CB","Fransiya","Manchester United","Premier League","STRONG"],
+  ["Kobbie","Mainoo","CM","Angliya","Manchester United","Premier League","STRONG"],
+  ["Morgan","Gibbs-White","CAM","Angliya","Nottingham Forest","Premier League","SOLID"],
+  ["Ollie","Watkins","ST","Angliya","Aston Villa","Premier League","STRONG"],
+  ["Youri","Tielemans","CM","Belgiya","Aston Villa","Premier League","SOLID"],
+  ["Bryan","Mbeumo","RW","Kamerun","Manchester United","Premier League","STRONG"],
+  ["Yoane","Wissa","ST","Kongo","Brentford","Premier League","SOLID"],
+  ["Yankuba","Minteh","RW","Gambiya","Brighton & Hove Albion","Premier League","SOLID"],
+  ["Joao","Pedro","ST","Braziliya","Chelsea","Premier League","STRONG"],
+  ["Kai","Havertz","ST","Germaniya","Arsenal","Premier League","STRONG"],
+  ["Leroy","Sane","RW","Germaniya","Galatasaray","Super Lig","STRONG"],
+  ["Serge","Gnabry","RW","Germaniya","Bayern Munich","Bundesliga","STRONG"],
+  ["Michael","Olise","RW","Fransiya","Bayern Munich","Bundesliga","ELITE"],
+  ["Nuno","Mendes","LB","Portugaliya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Warren","Zaire-Emery","CM","Fransiya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Desire","Doue","LW","Fransiya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Randal","Kolo Muani","ST","Fransiya","Juventus","Serie A","STRONG"],
+  ["Scott","McTominay","CM","Shotlandiya","Napoli","Serie A","STRONG"],
+  ["Alessandro","Buongiorno","CB","Italiya","Napoli","Serie A","SOLID"],
+  ["Piotr","Zielinski","CM","Polsha","Inter Milan","Serie A","SOLID"],
+  ["Hakan","Calhanoglu","CDM","Turkiya","Inter Milan","Serie A","STRONG"],
+  ["Denzel","Dumfries","RB","Niderlandiya","Inter Milan","Serie A","STRONG"],
+  ["Mats","Hummels","CB","Germaniya","AS Roma","Serie A","SOLID"],
+  ["Paulo","Dybala","CF","Argentina","AS Roma","Serie A","STRONG"],
+  ["Artem","Dovbyk","ST","Ukraina","AS Roma","Serie A","SOLID"],
+  ["Ciro","Immobile","ST","Italiya","Besiktas","Super Lig","SOLID"],
+  ["Edin","Dzeko","ST","Bosniya","Fenerbahce","Super Lig","SOLID"],
+  ["Dries","Mertens","CAM","Belgiya","Galatasaray","Super Lig","SOLID"],
+  ["Mauro","Icardi","ST","Argentina","Galatasaray","Super Lig","SOLID"],
+  ["Sadio","Mane","LW","Senegal","Al Nassr","Saudi Pro League","STRONG"],
+  ["Karim","Benzema","ST","Fransiya","Al Ittihad","Saudi Pro League","STRONG"],
+  ["N'Golo","Kante","CDM","Fransiya","Al Ittihad","Saudi Pro League","STRONG"],
+  ["Riyad","Mahrez","RW","Jazoir","Al Ahli","Saudi Pro League","SOLID"],
+  ["Roberto","Firmino","ST","Braziliya","Al Ahli","Saudi Pro League","SOLID"],
+  ["Neymar","Junior","LW","Braziliya","Santos","Brasileirao","ELITE"],
+  ["Vinicius","","ST","Braziliya","Flamengo","Brasileirao","SOLID"],
+  ["Gerson","","CM","Braziliya","Flamengo","Brasileirao","SOLID"],
+  ["Endrick","","ST","Braziliya","Real Madrid","La Liga","STRONG"],
+  ["Estevao","Willian","RW","Braziliya","Chelsea","Premier League","STRONG"],
+  ["Rodrygo","Goes","RW","Braziliya","Real Madrid","La Liga","ELITE"],
+  ["Alexis","Mac Allister","CM","Argentina","Liverpool","Premier League","STRONG"],
+  ["Emiliano","Martinez","GK","Argentina","Aston Villa","Premier League","STRONG"],
+  ["Cristian","Romero","CB","Argentina","Tottenham Hotspur","Premier League","STRONG"],
+  ["Enzo","Barrenechea","CDM","Argentina","Aston Villa","Premier League","SOLID"],
+  ["James","Rodriguez","CAM","Kolumbiya","Leon","Liga MX","SOLID"],
+  ["Luis","Diaz","LW","Kolumbiya","Bayern Munich","Bundesliga","ELITE"],
+  ["Darwin","Nunez","ST","Urugvay","Al Hilal","Saudi Pro League","STRONG"],
+  ["Ronald","Araujo","CB","Urugvay","Barcelona","La Liga","STRONG"],
+  ["Alexis","Sanchez","ST","Chili","Udinese","Serie A","SOLID"],
+  ["Hirving","Lozano","RW","Meksika","San Diego FC","MLS","SOLID"],
+  ["Weston","McKennie","CM","AQSH","Juventus","Serie A","SOLID"],
+  ["Christian","Pulisic","RW","AQSH","AC Milan","Serie A","STRONG"],
+  ["Yunus","Musah","CM","AQSH","AC Milan","Serie A","SOLID"],
+  ["Kim","Min-jae","CB","Janubiy Koreya","Bayern Munich","Bundesliga","STRONG"],
+  ["Takefusa","Kubo","RW","Yaponiya","Real Sociedad","La Liga","STRONG"],
+  ["Kaoru","Mitoma","LW","Yaponiya","Brighton & Hove Albion","Premier League","STRONG"],
+  ["Wataru","Endo","CDM","Yaponiya","Liverpool","Premier League","SOLID"],
+  ["Hidemasa","Morita","CDM","Yaponiya","Sporting CP","Primeira Liga","SOLID"],
+  ["Hwang","Hee-chan","ST","Janubiy Koreya","Wolverhampton Wanderers","Premier League","SOLID"],
+  ["Osman","Bukari","LW","Gana","Trabzonspor","Super Lig","SOLID"],
+  ["Mohammed","Kudus","CAM","Gana","West Ham United","Premier League","STRONG"],
+  ["Thomas","Partey","CDM","Gana","Villarreal","La Liga","SOLID"],
+  ["Iñaki","Williams","ST","Gana","Athletic Bilbao","La Liga","SOLID"],
+  ["Andre","Onana","GK","Kamerun","Manchester United","Premier League","SOLID"],
+  ["Eduardo","Camavinga","CM","Fransiya","Real Madrid","La Liga","STRONG"],
+  ["Aurelien","Tchouameni","CDM","Fransiya","Real Madrid","La Liga","STRONG"],
+  ["Arda","Guler","CAM","Turkiya","Real Madrid","La Liga","STRONG"],
+  ["Brahim","Diaz","CAM","Marokash","Real Madrid","La Liga","STRONG"],
+  ["Hakim","Ziyech","RW","Marokash","Galatasaray","Super Lig","SOLID"],
+  ["Achraf","Dari","CB","Marokash","Brest","Ligue 1","SOLID"],
+  ["Youssef","En-Nesyri","ST","Marokash","Fenerbahce","Super Lig","SOLID"],
+  ["Sofyan","Amrabat","CDM","Marokash","Fenerbahce","Super Lig","SOLID"],
+  ["Pedri","Fernandes","LB","Portugaliya","Sporting CP","Primeira Liga","SOLID"],
+  ["Goncalo","Ramos","ST","Portugaliya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Joao","Neves","CM","Portugaliya","Paris Saint-Germain","Ligue 1","STRONG"],
+  ["Pepe","","CB","Portugaliya","Porto","Primeira Liga","SOLID"],
+  ["Diogo","Costa","GK","Portugaliya","Porto","Primeira Liga","STRONG"],
+  ["Otavio","Monteiro","CAM","Portugaliya","Al Nassr","Saudi Pro League","SOLID"],
+  ["Sergej","Milinkovic-Savic","CM","Serbiya","Al Hilal","Saudi Pro League","STRONG"],
+  ["Aleksandar","Mitrovic","ST","Serbiya","Al Hilal","Saudi Pro League","SOLID"],
+  ["Marko","Arnautovic","ST","Avstriya","Inter Milan","Serie A","SOLID"],
+  ["David","Alaba","CB","Avstriya","Real Madrid","La Liga","SOLID"],
+  ["Ivan","Perisic","LM","Xorvatiya","Hajduk Split","Croatian HNL","SOLID"],
+  ["Josip","Stanisic","LB","Xorvatiya","Bayer Leverkusen","Bundesliga","SOLID"],
+  ["Martin","Vitik","CB","Chexiya","Bayer Leverkusen","Bundesliga","SOLID"],
+  ["Granit","Xhaka","CM","Shveytsariya","Sunderland","Premier League","SOLID"],
+  ["Xherdan","Shaqiri","CAM","Shveytsariya","Chicago Fire","MLS","SOLID"],
+  ["Manuel","Akanji","CB","Shveytsariya","Manchester City","Premier League","STRONG"],
+  ["Patrik","Schick","ST","Chexiya","Bayer Leverkusen","Bundesliga","STRONG"],
+  ["Rasmus","Hojlund","ST","Daniya","Napoli","Serie A","STRONG"],
+  ["Christian","Eriksen","CAM","Daniya","Manchester United","Premier League","SOLID"],
+  ["Pierre-Emile","Hojbjerg","CDM","Daniya","Marseille","Ligue 1","SOLID"],
+  ["Joel","Matip","CB","Kamerun","Liverpool","Premier League","SOLID"],
+  ["Nathan","Ake","CB","Niderlandiya","Manchester City","Premier League","SOLID"],
+  ["Cody","Gakpo","LW","Niderlandiya","Liverpool","Premier League","STRONG"],
+  ["Memphis","Depay","ST","Niderlandiya","Corinthians","Brasileirao","SOLID"],
+  ["Matthijs","de Ligt","CB","Niderlandiya","Manchester United","Premier League","STRONG"],
+  ["Georginio","Wijnaldum","CM","Niderlandiya","Girona","La Liga","SOLID"],
+  ["Ivan","Rakitic","CM","Xorvatiya","Hajduk Split","Croatian HNL","SOLID"],
+  ["Marcelo","Brozovic","CDM","Xorvatiya","Al Nassr","Saudi Pro League","SOLID"],
+  ["Sead","Kolasinac","LB","Bosniya","Fenerbahce","Super Lig","SOLID"],
+  ["Edinson","Cavani","ST","Urugvay","Boca Juniors","Argentine Primera","SOLID"],
+  ["Nicolas","Otamendi","CB","Argentina","Benfica","Primeira Liga","SOLID"],
+  ["Angel","Di Maria","RW","Argentina","Rosario Central","Argentine Primera","SOLID"],
+  ["Nahuel","Molina","RB","Argentina","Atletico Madrid","La Liga","SOLID"],
+  ["Rodrigo","De Paul","CM","Argentina","Atletico Madrid","La Liga","STRONG"],
+  ["Marcos","Acuna","LB","Argentina","River Plate","Argentine Primera","SOLID"],
+  /* ---- broader depth roster: lower-profile & lower-rated REAL players (BASIC tier),
+     spanning more leagues/clubs so search results aren't dominated by superstars ---- */
+  ["Eldor","Shomurodov","ST","O'zbekiston","Cagliari","Serie A","SOLID"],
+  ["Abbosbek","Fayzullaev","CAM","O'zbekiston","CSKA Moskva","Russian Premier League","SOLID"],
+  ["Jaloliddin","Masharipov","CAM","O'zbekiston","Pakhtakor","Uzbekistan Super League","BASIC"],
+  ["Sardor","Rashidov","LW","O'zbekiston","Pakhtakor","Uzbekistan Super League","BASIC"],
+  ["Otabek","Shukurov","CB","O'zbekiston","Bunyodkor","Uzbekistan Super League","BASIC"],
+  ["Sanjar","Sharipov","CDM","O'zbekiston","Neftchi","Uzbekistan Super League","BASIC"],
+  ["Farrukh","Sayfiev","CB","O'zbekiston","Pakhtakor","Uzbekistan Super League","BASIC"],
+  ["Ozodbek","Nurmatov","RB","O'zbekiston","AGMK","Uzbekistan Super League","BASIC"],
+  ["Jasur","Yakhshiboev","LW","O'zbekiston","Pakhtakor","Uzbekistan Super League","BASIC"],
+  ["Sardor","Mirzaev","GK","O'zbekiston","Nasaf","Uzbekistan Super League","BASIC"],
+  ["Anthony","Elanga","LW","Shvetsiya","Newcastle United","Premier League","STRONG"],
+  ["Kaoru","Suzuki","GK","Yaponiya","Cerezo Osaka","J1 League","BASIC"],
+  ["Ayase","Ueda","ST","Yaponiya","Feyenoord","Eredivisie","SOLID"],
+  ["Daichi","Kamada","CAM","Yaponiya","Crystal Palace","Premier League","SOLID"],
+  ["Ritsu","Doan","LW","Yaponiya","VfB Stuttgart","Bundesliga","SOLID"],
+  ["Junya","Ito","RW","Yaponiya","Reims","Ligue 1","BASIC"],
+  ["Cho","Gue-sung","ST","Janubiy Koreya","Midtjylland","Danish Superliga","BASIC"],
+  ["Lee","Kang-in","CAM","Janubiy Koreya","Paris Saint-Germain","Ligue 1","SOLID"],
+  ["Deniz","Undav","ST","Germaniya","VfB Stuttgart","Bundesliga","SOLID"],
+  ["Waldemar","Anton","CB","Germaniya","Borussia Dortmund","Bundesliga","SOLID"],
+  ["Maximilian","Beier","ST","Germaniya","Borussia Dortmund","Bundesliga","SOLID"],
+  ["Nadiem","Amiri","CAM","Germaniya","Mainz 05","Bundesliga","BASIC"],
+  ["Robin","Gosens","LB","Germaniya","Union Berlin","Bundesliga","BASIC"],
+  ["Niclas","Fullkrug","ST","Germaniya","West Ham United","Premier League","SOLID"],
+  ["Jonas","Hofmann","RM","Germaniya","Bayer Leverkusen","Bundesliga","BASIC"],
+  ["Kevin","Trapp","GK","Germaniya","Eintracht Frankfurt","Bundesliga","SOLID"],
+  ["Omar","Marmoush","ST","Misr","Manchester City","Premier League","STRONG"],
+  ["Mostafa","Mohamed","ST","Misr","Galatasaray","Super Lig","BASIC"],
+  ["Percy","Tau","LW","Janubiy Afrika","Al-Ahly","Egyptian Premier League","BASIC"],
+  ["Andre","Ayew","LW","Gana","Al-Wasl","UAE Pro League","BASIC"],
+  ["Sadio","Diallo","CB","Gvineya","Nantes","Ligue 1","BASIC"],
+  ["Ismaila","Sarr","RW","Senegal","Crystal Palace","Premier League","SOLID"],
+  ["Nicolas","Jackson","ST","Senegal","Chelsea","Premier League","STRONG"],
+  ["Edouard","Mendy","GK","Senegal","Al Ahli","Saudi Pro League","BASIC"],
+  ["Kalidou","Koulibaly","CB","Senegal","Al Hilal","Saudi Pro League","SOLID"],
+  ["Wilfried","Singo","RB","Cote d'Ivoire","AS Monaco","Ligue 1","SOLID"],
+  ["Simon","Adingra","RW","Cote d'Ivoire","Brighton & Hove Albion","Premier League","SOLID"],
+  ["Franck","Kessie","CM","Cote d'Ivoire","Al Ahli","Saudi Pro League","BASIC"],
+  ["Amadou","Onana","CDM","Belgiya","Aston Villa","Premier League","SOLID"],
+  ["Charles","De Ketelaere","CAM","Belgiya","Atalanta","Serie A","SOLID"],
+  ["Jeremy","Doku","RW","Belgiya","Manchester City","Premier League","STRONG"],
+  ["Leandro","Trossard","LW","Belgiya","Arsenal","Premier League","SOLID"],
+  ["Youri","Regis","CB","Belgiya","Club Brugge","Belgian Pro League","BASIC"],
+  ["Hans","Vanaken","CM","Belgiya","Club Brugge","Belgian Pro League","BASIC"],
+  ["Andi","Zeqiri","ST","Shveytsariya","Basel","Swiss Super League","BASIC"],
+  ["Ruben","Vargas","LW","Shveytsariya","Napoli","Serie A","BASIC"],
+  ["Yann","Sommer","GK","Shveytsariya","Inter Milan","Serie A","SOLID"],
+  ["Kamil","Grabara","GK","Polsha","Wolfsburg","Bundesliga","BASIC"],
+  ["Piotr","Krawczyk","ST","Polsha","Legia Warsaw","Polish Ekstraklasa","BASIC"],
+  ["Sebastian","Szymanski","CAM","Polsha","Fenerbahce","Super Lig","SOLID"],
+  ["Krzysztof","Piatek","ST","Polsha","Basaksehir","Super Lig","BASIC"],
+  ["Lewis","Ferguson","CM","Shotlandiya","Bologna","Serie A","BASIC"],
+  ["Ryan","Christie","CM","Shotlandiya","Bournemouth","Premier League","BASIC"],
+  ["Andy","Robertson","LB","Shotlandiya","Liverpool","Premier League","SOLID"],
+  ["Scott","Banks","RW","Shotlandiya","Plymouth Argyle","EFL Championship","BASIC"],
+  ["Che","Adams","ST","Shotlandiya","Sunderland","Premier League","BASIC"],
+  ["Kieffer","Moore","ST","Uels","Sheffield United","EFL Championship","BASIC"],
+  ["Aaron","Ramsey","CM","Uels","Burnley","Premier League","BASIC"],
+  ["Brennan","Johnson","RW","Uels","Tottenham Hotspur","Premier League","SOLID"],
+  ["Ethan","Ampadu","CDM","Uels","Leeds United","Premier League","BASIC"],
+  ["Evan","Ferguson","ST","Irlandiya","Roma","Serie A","SOLID"],
+  ["Nathan","Collins","CB","Irlandiya","Brentford","Premier League","BASIC"],
+  ["Chiedozie","Ogbene","RW","Irlandiya","Ipswich Town","EFL Championship","BASIC"],
+  ["Rasmus","Kristensen","RB","Daniya","Roma","Serie A","BASIC"],
+  ["Jonas","Wind","ST","Daniya","Wolfsburg","Bundesliga","SOLID"],
+  ["Mikkel","Damsgaard","LW","Daniya","Brentford","Premier League","BASIC"],
+  ["Kasper","Schmeichel","GK","Daniya","Celtic","Scottish Premiership","BASIC"],
+  ["Isak","Hien","CB","Shvetsiya","Atalanta","Serie A","SOLID"],
+  ["Dejan","Kulusevski","RW","Shvetsiya","Tottenham Hotspur","Premier League","STRONG"],
+  ["Anthony","Ralston","RB","Shotlandiya","Celtic","Scottish Premiership","BASIC"],
+  ["Fredrik","Aursnes","CM","Norvegiya","Fenerbahce","Super Lig","BASIC"],
+  ["Antonio","Nusa","RW","Norvegiya","RB Leipzig","Bundesliga","SOLID"],
+  ["Morten","Thorsby","CM","Norvegiya","Genoa","Serie A","BASIC"],
+  ["Aleksander","Sorloth","ST","Norvegiya","Atletico Madrid","La Liga","STRONG"],
+  ["Teemu","Pukki","ST","Finlyandiya","Brondby","Danish Superliga","BASIC"],
+  ["Glen","Kamara","CDM","Finlyandiya","Leeds United","Premier League","BASIC"],
+  ["Lukas","Hradecky","GK","Finlyandiya","Bayer Leverkusen","Bundesliga","BASIC"],
+  ["Dominik","Livakovic","GK","Xorvatiya","Fenerbahce","Super Lig","SOLID"],
+  ["Josko","Gvardiol","CB","Xorvatiya","Manchester City","Premier League","STRONG"],
+  ["Mateo","Kovacic","CDM","Xorvatiya","Manchester City","Premier League","SOLID"],
+  ["Borna","Sosa","LB","Xorvatiya","Ajax","Eredivisie","BASIC"],
+  ["Filip","Kostic","LW","Serbiya","Fenerbahce","Super Lig","SOLID"],
+  ["Dusan","Tadic","CAM","Serbiya","Fenerbahce","Super Lig","BASIC"],
+  ["Nemanja","Gudelj","CDM","Serbiya","Sevilla","La Liga","BASIC"],
+  ["Strahinja","Pavlovic","CB","Serbiya","AC Milan","Serie A","BASIC"],
+  ["Radu","Dragusin","CB","Ruminiya","Tottenham Hotspur","Premier League","BASIC"],
+  ["Nicolae","Stanciu","CAM","Ruminiya","Damac","Saudi Pro League","BASIC"],
+  ["Denis","Dragus","ST","Ruminiya","Standard Liege","Belgian Pro League","BASIC"],
+  ["Georgi","Kostadinov","CM","Bolgariya","Levski Sofia","Bulgarian First League","BASIC"],
+  ["Kiril","Despodov","RW","Bolgariya","PAOK","Greek Super League","BASIC"],
+  ["Anel","Ahmedhodzic","CB","Bosniya","Sevilla","La Liga","BASIC"],
+  ["Rade","Krunic","CM","Bosniya","Fenerbahce","Super Lig","BASIC"],
+  ["Kenan","Yildiz","LW","Turkiya","Juventus","Serie A","STRONG"],
+  ["Ferdi","Kadioglu","LB","Turkiya","Brighton & Hove Albion","Premier League","SOLID"],
+  ["Baris","Alper Yilmaz","RW","Turkiya","Galatasaray","Super Lig","SOLID"],
+  ["Ugurcan","Cakir","GK","Turkiya","Trabzonspor","Super Lig","SOLID"],
+  ["Salih","Ozcan","CDM","Turkiya","Fenerbahce","Super Lig","BASIC"],
+  ["Zeki","Celik","RB","Turkiya","AS Roma","Serie A","BASIC"],
+  ["Orkun","Kokcu","CM","Turkiya","Benfica","Primeira Liga","SOLID"],
+  ["Ahmed","Musa","ST","Nigeriya","Sivasspor","Super Lig","BASIC"],
+  ["Victor","Boniface","ST","Nigeriya","Bayer Leverkusen","Bundesliga","STRONG"],
+  ["Calvin","Bassey","CB","Nigeriya","Fulham","Premier League","BASIC"],
+  ["Wilfred","Ndidi","CDM","Nigeriya","Besiktas","Super Lig","BASIC"],
+  ["Samuel","Chukwueze","RW","Nigeriya","AC Milan","Serie A","BASIC"],
+  ["Taiwo","Awoniyi","ST","Nigeriya","Nottingham Forest","Premier League","BASIC"],
+  ["Naby","Keita","CM","Gvineya","Werder Bremen","Bundesliga","BASIC"],
+  ["Serhou","Guirassy","ST","Gvineya","Borussia Dortmund","Bundesliga","STRONG"],
+  ["Mohamed","Simakan","CB","Fransiya","RB Leipzig","Bundesliga","SOLID"],
+  ["Mathys","Tel","ST","Fransiya","Tottenham Hotspur","Premier League","BASIC"],
+  ["Lucas","Hernandez","CB","Fransiya","Paris Saint-Germain","Ligue 1","SOLID"],
+  ["Kingsley","Coman","LW","Fransiya","Al Nassr","Saudi Pro League","SOLID"],
+  ["Wissam","Ben Yedder","ST","Fransiya","AS Monaco","Ligue 1","BASIC"],
+  ["Youssouf","Fofana","CDM","Fransiya","AC Milan","Serie A","SOLID"],
+  ["Manu","Kone","CDM","Fransiya","AS Roma","Serie A","SOLID"],
+  ["Loic","Bade","CB","Fransiya","Sevilla","La Liga","BASIC"],
+  ["Christopher","Nkunku","CAM","Fransiya","Chelsea","Premier League","SOLID"],
+  ["Malo","Gusto","RB","Fransiya","Chelsea","Premier League","BASIC"],
+  ["Wesley","Fofana","CB","Fransiya","Chelsea","Premier League","BASIC"],
+  ["Axel","Disasi","CB","Fransiya","Aston Villa","Premier League","BASIC"],
+  ["Nathan","Ferran","LW","Fransiya","Rennes","Ligue 1","BASIC"],
+  ["Bafode","Diakite","CB","Fransiya","Bologna","Serie A","BASIC"],
+  ["Riccardo","Calafiori","CB","Italiya","Arsenal","Premier League","SOLID"],
+  ["Gianluca","Scamacca","ST","Italiya","Atalanta","Serie A","SOLID"],
+  ["Nicolo","Fagioli","CM","Italiya","Fiorentina","Serie A","BASIC"],
+  ["Sandro","Tonali","CDM","Italiya","Newcastle United","Premier League","SOLID"],
+  ["Davide","Frattesi","CM","Italiya","Inter Milan","Serie A","SOLID"],
+  ["Giacomo","Raspadori","ST","Italiya","Napoli","Serie A","BASIC"],
+  ["Mateo","Retegui","ST","Italiya","Atalanta","Serie A","SOLID"],
+  ["Matteo","Politano","RW","Italiya","Napoli","Serie A","BASIC"],
+  ["Destiny","Udogie","LB","Italiya","Tottenham Hotspur","Premier League","BASIC"],
+  ["Gleison","Bremer","CB","Braziliya","Juventus","Serie A","SOLID"],
+  ["Bruno","Guimaraes","CDM","Braziliya","Newcastle United","Premier League","STRONG"],
+  ["Douglas","Luiz","CM","Braziliya","Juventus","Serie A","SOLID"],
+  ["Antony","","RW","Braziliya","Real Betis","La Liga","BASIC"],
+  ["Fabinho","Tavares","CDM","Braziliya","Al Ittihad","Saudi Pro League","BASIC"],
+  ["Danilo","Pereira","CB","Portugaliya","Al Hilal","Saudi Pro League","BASIC"],
+  ["Renato","Sanches","CM","Portugaliya","Besiktas","Super Lig","BASIC"],
+  ["Joao","Cancelo","RB","Portugaliya","Al Hilal","Saudi Pro League","SOLID"],
+  ["Ricardo","Horta","LW","Portugaliya","Braga","Primeira Liga","BASIC"],
+  ["Rafa","Silva","LW","Portugaliya","Al Jazira","UAE Pro League","BASIC"],
+  ["Facundo","Pellistri","RW","Urugvay","Manchester United","Premier League","BASIC"],
+  ["Manuel","Ugarte","CDM","Urugvay","Manchester United","Premier League","SOLID"],
+  ["Giorgian","De Arrascaeta","CAM","Urugvay","Flamengo","Brasileirao","SOLID"],
+  ["Alan","Franco","CDM","Argentina","Toluca","Liga MX","BASIC"],
+  ["Nicolas","Gonzalez","LW","Argentina","Juventus","Serie A","SOLID"],
+  ["Leandro","Paredes","CM","Argentina","AS Roma","Serie A","BASIC"],
+  ["Paulo","Diaz","CB","Chili","River Plate","Argentine Primera","BASIC"],
+  ["Ben","Brereton Diaz","ST","Chili","Sunderland","Premier League","BASIC"],
+  ["Eduard","Atuesta","CDM","Kolumbiya","Palmeiras","Brasileirao","BASIC"],
+  ["Yerry","Mina","CB","Kolumbiya","Fenerbahce","Super Lig","BASIC"],
+  ["Daniel","Munoz","RB","Kolumbiya","Crystal Palace","Premier League","SOLID"],
+  ["Gustavo","Puerta","CM","Kolumbiya","Barcelona","La Liga","BASIC"],
+  ["Sergio","Ramos","CB","Ispaniya","Monterrey","Liga MX","SOLID"],
+  ["Isco","Alarcon","CAM","Ispaniya","Real Betis","La Liga","BASIC"],
+  ["Alvaro","Morata","ST","Ispaniya","AC Milan","Serie A","SOLID"],
+  ["Mikel","Oyarzabal","LW","Ispaniya","Real Sociedad","La Liga","SOLID"],
+  ["Fabian","Ruiz","CM","Ispaniya","Paris Saint-Germain","Ligue 1","SOLID"],
+  ["Alex","Baena","CAM","Ispaniya","Villarreal","La Liga","SOLID"],
+  ["Robin","Le Normand","CB","Ispaniya","Atletico Madrid","La Liga","SOLID"],
+  ["Dani","Olmo","CAM","Ispaniya","Barcelona","La Liga","SOLID"],
+  ["Aymeric","Laporte","CB","Fransiya","Al Nassr","Saudi Pro League","SOLID"],
+  ["Mason","Mount","CAM","Angliya","Manchester United","Premier League","BASIC"],
+  ["Conor","Gallagher","CM","Angliya","Atletico Madrid","La Liga","BASIC"],
+  ["Kalvin","Phillips","CDM","Angliya","West Ham United","Premier League","BASIC"],
+  ["Jarrod","Bowen","RW","Angliya","West Ham United","Premier League","SOLID"],
+  ["Anthony","Gordon","LW","Angliya","Newcastle United","Premier League","SOLID"],
+  ["Ivan","Toney","ST","Angliya","Al Ahli","Saudi Pro League","SOLID"],
+  ["Eberechi","Eze","CAM","Angliya","Arsenal","Premier League","SOLID"],
+  ["Morgan","Rogers","CAM","Angliya","Aston Villa","Premier League","SOLID"],
+  ["Marc","Guehi","CB","Angliya","Crystal Palace","Premier League","SOLID"],
+  ["Levi","Colwill","CB","Angliya","Chelsea","Premier League","BASIC"],
+  ["Jarell","Quansah","CB","Angliya","Bayer Leverkusen","Bundesliga","BASIC"],
+  ["Curtis","Jones","CM","Angliya","Liverpool","Premier League","BASIC"],
+  ["Harvey","Elliott","CAM","Angliya","Liverpool","Premier League","BASIC"],
+  ["Jacob","Ramsey","CM","Angliya","Aston Villa","Premier League","BASIC"],
+  ["Emile","Smith Rowe","CAM","Angliya","Fulham","Premier League","BASIC"],
+  ["Noni","Madueke","RW","Angliya","Arsenal","Premier League","SOLID"],
+  ["Tyler","Adams","CDM","AQSH","Bournemouth","Premier League","BASIC"],
+  ["Folarin","Balogun","ST","AQSH","AS Monaco","Ligue 1","BASIC"],
+  ["Gio","Reyna","CAM","AQSH","Borussia Dortmund","Bundesliga","BASIC"],
+  ["Ricardo","Pepi","ST","AQSH","PSV Eindhoven","Eredivisie","BASIC"],
+  ["Sergino","Dest","RB","AQSH","PSV Eindhoven","Eredivisie","BASIC"],
+  ["Antonee","Robinson","LB","AQSH","Fulham","Premier League","BASIC"]
+];
+const REAL_STAR_PLAYERS = REAL_STAR_PLAYERS_RAW.filter(r=>r[2]).map((r,idx)=>{
+  const [first,last,pos,natName,clubName,leagueName,tier] = r;
+  const fullName = last ? `${first} ${last}` : first;
+  const nat = NATIONS.find(n=>n.name===natName) || NATIONS[0];
+  const rng = mulberry32(idx*40503+777);
+  const ovr = tierOvr(tier, fullName+idx);
+  const stats = statsFromOvrAndPos(ovr, ['CF','LM'].includes(pos) ? (pos==='CF'?'ST':'RM') : pos, rng);
+  const rarity = rarityForOVR(ovr);
+  let clubEntry = REAL_CLUBS.find(c=>c.name===clubName);
+  if(!clubEntry) clubEntry = { name:clubName, id:'sclub'+idx, league:leagueName, c1:hashColor(clubName,1), c2:hashColor(clubName,97) };
+  const secondaryPositions = pickSecondaryPositions(pos==='CF'?'ST':(pos==='LM'?'LW':pos), mulberry32(idx*911+3));
+  const def = {
+    defId:'s'+idx, firstName:first, lastName:last||'', name:fullName,
+    position: pos==='CF'?'ST':(pos==='LM'?'LW':pos), secondaryPositions,
+    nationality: nat.name, flag: nat.flag || '🏳️',
+    club: clubEntry.name, clubId: clubEntry.id, league: clubEntry.league,
+    clubColors:{name:clubEntry.name, c1:clubEntry.c1, c2:clubEntry.c2},
+    stats, overall: ovr, ovr,
+    rarity: rarity.id, cardType: rarity.id, isIcon:false,
+    imageUrl:null, imageSource:'generated-silhouette'
+  };
+  def.basePrice = calculatePlayerPrice(def);
+  return def;
+});
+
+/* ---------- lightweight procedural avatar (no real photos, no fetch) ---------- */
 const SILHOUETTE_SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect width="100" height="100" fill="#2a2a26"/>
   <circle cx="50" cy="38" r="20" fill="#54544c"/>
   <path d="M14 96 Q14 62 50 62 Q86 62 86 96 Z" fill="#54544c"/>
 </svg>`);
-const PLAYER_IMAGE_CACHE = {};
-async function ensurePlayerImage(def, imgEl){
-  if(!imgEl) return;
-  imgEl.classList.add('ppic');
-  const cached = PLAYER_IMAGE_CACHE[def.defId];
-  if(cached==='FAILED'){ imgEl.src = SILHOUETTE_SVG; return; }
-  if(cached){ imgEl.src = cached; return; }
-  imgEl.src = SILHOUETTE_SVG;
-  try{
-    const title = encodeURIComponent((def.wikiTitle||def.name).replace(/ /g,'_'));
-    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${title}`);
-    if(!res.ok) throw 0;
-    const data = await res.json();
-    let src = data.thumbnail && data.thumbnail.source;
-    if(!src) throw 0;
-    src = src.replace(/\/\d+px-/, '/300px-');
-    PLAYER_IMAGE_CACHE[def.defId] = src;
-    imgEl.src = src;
-    imgEl.title = 'Manba: Wikipedia (' + (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page ? data.content_urls.desktop.page : 'wikipedia.org') + ')';
-    imgEl.onerror = ()=>{ PLAYER_IMAGE_CACHE[def.defId]='FAILED'; imgEl.src = SILHOUETTE_SVG; };
-  }catch(e){
-    PLAYER_IMAGE_CACHE[def.defId] = 'FAILED';
-    imgEl.src = SILHOUETTE_SVG;
-  }
+function playerAvatarDataUri(def){
+  const c1 = (def.clubColors && def.clubColors.c1) || '#3AA0D4';
+  const c2 = (def.clubColors && def.clubColors.c2) || '#F2EFE6';
+  const glow = def.isIcon ? '<circle cx="50" cy="50" r="48" fill="none" stroke="#8B5CF6" stroke-width="3" opacity="0.6"/>' : '';
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="${c1}" opacity="0.22"/>
+  ${glow}
+  <circle cx="50" cy="37" r="19" fill="${c2}" opacity="0.65"/>
+  <path d="M15 95 Q15 61 50 61 Q85 61 85 95 Z" fill="${c2}" opacity="0.65"/>
+</svg>`);
+}
+function playerPhotoImgTag(def){
+  return `<img class="ppic ppic-pending" loading="lazy" data-defid="${def.defId}" src="${SILHOUETTE_SVG}" alt="${def.name}">`;
 }
 function hydratePlayerImages(container){
   if(!container) return;
@@ -4445,48 +4898,136 @@ function hydratePlayerImages(container){
     const defId = img.getAttribute('data-defid');
     const def = playerDefById(defId);
     img.classList.remove('ppic-pending');
-    if(def) ensurePlayerImage(def, img);
-  });
-}
-function playerPhotoImgTag(def, sizeClass){
-  return `<img class="ppic ppic-pending" data-defid="${def.defId}" src="${SILHOUETTE_SVG}" alt="${def.name}">`;
-}
-
-const CARD_POSITIONS = ["GK","CB","LB","RB","CDM","CM","CAM","LM","RM","LW","RW","ST"];
-const CARD_POS_GROUP = POS_ROLE_GROUP;
-function buildPlayerDB(){
-  return REAL_PLAYERS.map((rp, idx)=>{
-    const stats = { pace:rp.st.pace, shooting:rp.st.shooting, passing:rp.st.passing, defending:rp.st.defending, physical:rp.st.physical };
-    const tmpPlayer = {position:rp.pos, stats};
-    const ovr = overall_calc(tmpPlayer);
-    const rarity = rarityForOVR(ovr);
-    const nat = NATIONS.find(n=>n.name===rp.nat) || NATIONS[0];
-    return {
-      defId: 'p'+idx,
-      name: rp.n,
-      wikiTitle: rp.w,
-      position: rp.pos,
-      nationality: rp.nat,
-      flag: nat.flag || '\ud83c\udff3\ufe0f',
-      club: rp.club,
-      league: rp.league,
-      clubColors: {name:rp.club, c1:rp.c1, c2:rp.c2},
-      stats: Object.assign({dribbling: rp.st.dribbling}, stats),
-      ovr, rarity: rarity.id,
-      basePrice: Math.round(ovr*ovr*1.8 + (rarity.id==='LEGENDARY'?40000:0))
-    };
+    if(def) img.src = playerAvatarDataUri(def);
   });
 }
 
 let PLAYER_DB = [];
-function playerDefById(defId){ return PLAYER_DB.find(p=>p.defId===defId); }
+let PLAYER_DB_INDEX = null;
+let collectionLoadPromise = null;
+function ensureCollectionLoaded(){
+  if(!collectionLoadPromise) collectionLoadPromise = loadCollectionForSlot();
+  return collectionLoadPromise;
+}
+
+/* ---------- importable real-player database architecture ----------
+   Lets a user (or a future automated data source) plug in a genuine
+   real-world player dataset without touching any other system: search,
+   market, squad-building, pricing, card rendering all read from
+   PLAYER_DB / PLAYER_DB_INDEX regardless of where an entry came from.
+   Expected JSON shape: an array of objects with fields
+   id, firstName, lastName, fullName, position, secondaryPositions,
+   overall, pace, shooting, passing, dribbling, defending, physical,
+   nationality, countryCode, club, clubId, league, leagueId, imageUrl,
+   cardType, rarity, basePrice, isIcon.
+   CSV: same field names as a header row. Only firstName/lastName (or
+   fullName), position, overall and nationality are strictly required —
+   everything else is derived with sensible fallbacks. */
+let CUSTOM_IMPORTED_RAW = [];
+async function loadCustomImportedPlayers(){
+  try{
+    const r = await window.storage.get('customPlayerDB', false);
+    if(r && r.value){ CUSTOM_IMPORTED_RAW = JSON.parse(r.value); }
+  }catch(e){ CUSTOM_IMPORTED_RAW = []; }
+}
+async function saveCustomImportedPlayers(){
+  try{ await window.storage.set('customPlayerDB', JSON.stringify(CUSTOM_IMPORTED_RAW), false); }catch(e){}
+}
+function normalizeImportedPlayer(raw, idx){
+  const firstName = raw.firstName || (raw.fullName? raw.fullName.split(' ')[0] : '') || '';
+  const lastName = raw.lastName != null ? raw.lastName : (raw.fullName? raw.fullName.split(' ').slice(1).join(' ') : '');
+  const fullName = raw.fullName || (lastName ? `${firstName} ${lastName}` : firstName) || 'Player';
+  const position = (raw.position || 'CM').toUpperCase();
+  const nat = NATIONS.find(n=>n.name===raw.nationality || n.code===raw.countryCode) || NATIONS[0];
+  const overall = Math.max(40, Math.min(99, parseInt(raw.overall,10) || 65));
+  const stats = {
+    pace: clampStat(raw.pace, overall), shooting: clampStat(raw.shooting, overall),
+    passing: clampStat(raw.passing, overall), dribbling: clampStat(raw.dribbling, overall),
+    defending: clampStat(raw.defending, overall), physical: clampStat(raw.physical, overall)
+  };
+  const rarity = raw.rarity || raw.cardType || rarityForOVR(overall).id;
+  const clubName = raw.club || 'Free Agent';
+  const def = {
+    defId: 'imp'+idx+'_'+(raw.id!=null?String(raw.id):idx),
+    firstName, lastName, name: fullName,
+    position, secondaryPositions: Array.isArray(raw.secondaryPositions)? raw.secondaryPositions : [],
+    nationality: nat.name, flag: nat.flag || '🏳️',
+    club: clubName, clubId: raw.clubId || ('impclub_'+clubName), league: raw.league || '',
+    clubColors: {name:clubName, c1:hashColor(clubName,1), c2:hashColor(clubName,97)},
+    stats, overall, ovr: overall,
+    rarity, cardType: rarity, isIcon: !!raw.isIcon,
+    imageUrl: raw.imageUrl || null, imageSource: raw.imageUrl? 'imported-url' : 'generated-silhouette'
+  };
+  def.basePrice = parseInt(raw.basePrice,10) || calculatePlayerPrice(def);
+  return def;
+}
+function clampStat(v, fallback){
+  const n = parseInt(v,10);
+  return Number.isFinite(n) ? Math.max(1, Math.min(99, n)) : fallback;
+}
+function parsePlayerCSV(text){
+  const lines = text.split(/\r?\n/).filter(l=>l.trim().length);
+  if(!lines.length) return [];
+  const headers = lines[0].split(',').map(h=>h.trim());
+  return lines.slice(1).map(line=>{
+    const cells = line.split(',').map(c=>c.trim());
+    const obj = {};
+    headers.forEach((h,i)=> obj[h] = cells[i]);
+    if(obj.secondaryPositions) obj.secondaryPositions = obj.secondaryPositions.split('|').filter(Boolean);
+    if(obj.isIcon) obj.isIcon = /^(true|1|yes)$/i.test(obj.isIcon);
+    return obj;
+  });
+}
+function importRealPlayerDatabaseFile(file){
+  const reader = new FileReader();
+  reader.onload = async (e)=>{
+    try{
+      const text = e.target.result;
+      let rows;
+      if(/\.csv$/i.test(file.name) || (!text.trim().startsWith('[') && !text.trim().startsWith('{'))){
+        rows = parsePlayerCSV(text);
+      } else {
+        const parsed = JSON.parse(text);
+        rows = Array.isArray(parsed) ? parsed : (parsed.players || []);
+      }
+      if(!Array.isArray(rows) || !rows.length) throw new Error('empty');
+      CUSTOM_IMPORTED_RAW = rows;
+      await saveCustomImportedPlayers();
+      PLAYER_DB = buildPlayerDB();
+      showToast(`🗂 ${rows.length.toLocaleString()} real futbolchi bazaga import qilindi.`, 'ok');
+      if(typeof renderMarketList==='function' && document.getElementById('market-list')) renderMarketList(true);
+      if(typeof renderCollectionGrid==='function' && !document.getElementById('collection-grid')?.classList.contains('hidden')) renderCollectionGrid();
+    }catch(err){
+      showToast("Fayl formatida xatolik: JSON massiv yoki CSV header kutilgan.", 'warn');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function buildPlayerDB(){
+  const icons = buildIconLegends();
+  const stars = REAL_STAR_PLAYERS;
+  const imported = CUSTOM_IMPORTED_RAW.map((raw,idx)=>normalizeImportedPlayer(raw, idx));
+  const generated = [];
+  for(let i=0;i<NUM_GENERATED_PLAYERS;i++) generated.push(generateFictionalPlayer(i));
+  const all = icons.concat(stars).concat(imported).concat(generated);
+  PLAYER_DB_INDEX = new Map(all.map(p=>[p.defId,p]));
+  console.log('PLAYER DATABASE LOADED:', all.length>=10000 ? (Math.floor(all.length/1000)*1000)+'+' : all.length,
+    '| icons:', icons.length, '| curated real stars:', stars.length, '| imported real:', imported.length, '| generated pool:', generated.length,
+    '| PLAYER_DB_INDEX.size:', PLAYER_DB_INDEX.size);
+  return all;
+}
+function playerDefById(defId){
+  if(PLAYER_DB_INDEX) return PLAYER_DB_INDEX.get(defId) || null;
+  return PLAYER_DB.find(p=>p.defId===defId);
+}
 
 /* ---------- collection state ---------- */
-let collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[] };
+let collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[], customFormations:{} };
 let nextOwnedId = 1;
 async function loadCollectionForSlot(){
-  if(!PLAYER_DB.length) PLAYER_DB = buildPlayerDB();
-  collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[] };
+  if(!PLAYER_DB.length){ await loadCustomImportedPlayers(); PLAYER_DB = buildPlayerDB(); }
+  collection = { owned:[], squad:{}, formation:'4-3-3', marketPool:[], customFormations:{} };
   nextOwnedId = 1;
   if(activeSlot===null) return;
   try{
@@ -4533,12 +5074,44 @@ function refreshMarketPool(doSave){
 
 /* ---------- squad ---------- */
 const SQUAD_TEMPLATES = {
-  '4-3-3': ['GK','LB','CB','CB','RB','CM','CM','CM','LW','ST','RW'],
   '4-4-2': ['GK','LB','CB','CB','RB','LM','CM','CM','RM','ST','ST'],
+  '4-3-3': ['GK','LB','CB','CB','RB','CM','CM','CM','LW','ST','RW'],
+  '4-2-3-1': ['GK','LB','CB','CB','RB','CDM','CDM','CAM','LW','RW','ST'],
   '3-5-2': ['GK','CB','CB','CB','LM','CDM','CM','CAM','RM','ST','ST'],
-  '4-2-3-1':['GK','LB','CB','CB','RB','CDM','CDM','CAM','LW','RW','ST']
+  '4-3-2-1': ['GK','LB','CB','CB','RB','CM','CDM','CM','CAM','CAM','ST'],
+  '4-1-2-1-2': ['GK','LB','CB','CB','RB','CDM','CM','CM','CAM','ST','ST'],
+  '4-2-2-2': ['GK','LB','CB','CB','RB','CDM','CDM','CAM','CAM','ST','ST'],
+  '4-2-4': ['GK','LB','CB','CB','RB','CM','CM','LW','RW','ST','ST'],
+  '4-3-1-2': ['GK','LB','CB','CB','RB','CM','CM','CM','CAM','ST','ST'],
+  '4-4-1-1': ['GK','LB','CB','CB','RB','LM','CM','CM','RM','CAM','ST'],
+  '4-5-1': ['GK','LB','CB','CB','RB','LM','CM','CM','CM','RM','ST'],
+  '5-3-2': ['GK','LB','CB','CB','CB','RB','CM','CM','CM','ST','ST'],
+  '5-2-3': ['GK','LB','CB','CB','CB','RB','CDM','CDM','LW','ST','RW'],
+  '5-4-1': ['GK','LB','CB','CB','CB','RB','LM','CM','CM','RM','ST'],
+  '3-4-3': ['GK','CB','CB','CB','LM','CM','CM','RM','LW','ST','RW'],
+  '3-4-2-1': ['GK','CB','CB','CB','LM','CM','CM','RM','CAM','CAM','ST'],
+  '3-4-1-2': ['GK','CB','CB','CB','LM','CM','CM','RM','CAM','ST','ST'],
+  '3-3-4': ['GK','CB','CB','CB','CM','CM','CM','LW','ST','ST','RW'],
+  '4-1-4-1': ['GK','LB','CB','CB','RB','CDM','LM','CM','CM','RM','ST'],
+  '4-2-1-3': ['GK','LB','CB','CB','RB','CDM','CDM','CAM','LW','ST','RW'],
+  '4-1-3-2': ['GK','LB','CB','CB','RB','CDM','LM','CM','RM','ST','ST'],
+  '3-1-4-2': ['GK','CB','CB','CB','CDM','LM','CM','CM','RM','ST','ST'],
+  '3-2-4-1': ['GK','CB','CB','CB','CDM','CDM','LW','CAM','RW','CAM','ST'],
+  '5-1-2-2': ['GK','LB','CB','CB','CB','RB','CDM','CM','CM','ST','ST'],
+  '4-1-2-3': ['GK','LB','CB','CB','RB','CDM','CM','CM','LW','ST','RW'],
+  '5-2-2-1': ['GK','LB','CB','CB','CB','RB','CDM','CDM','LM','RM','ST'],
+  '4-3-3 (Attacking)': ['GK','LB','CB','CB','RB','CDM','CM','CM','LW','ST','RW'],
+  '4-2-3-1 (Wide)': ['GK','LB','CB','CB','RB','CDM','CDM','LM','CAM','RM','ST'],
+  '3-4-3 (Diamond)': ['GK','CB','CB','CB','CDM','LM','RM','CAM','LW','ST','RW'],
+  '4-4-2 (Diamond)': ['GK','LB','CB','CB','RB','CDM','LM','RM','CAM','ST','ST']
 };
-function squadSlotList(){ return SQUAD_TEMPLATES[collection.formation] || SQUAD_TEMPLATES['4-3-3']; }
+function allFormationIds(){
+  return Object.keys(SQUAD_TEMPLATES).concat(Object.keys(collection.customFormations||{}));
+}
+function squadSlotList(){
+  if(collection.customFormations && collection.customFormations[collection.formation]) return collection.customFormations[collection.formation];
+  return SQUAD_TEMPLATES[collection.formation] || SQUAD_TEMPLATES['4-3-3'];
+}
 function computeSquadOVR(){
   const slots = squadSlotList();
   let sum=0, count=0;
@@ -4612,7 +5185,10 @@ function renderSquadPitch(){
   const sub = document.getElementById('squad-sub');
   const chemNote = document.getElementById('squad-chem-note');
   const fsel = document.getElementById('squad-formation-select');
-  if(fsel.value !== collection.formation) fsel.value = collection.formation;
+  const ids = allFormationIds();
+  fsel.innerHTML = ids.map(id=>`<option value="${id}">${id}${collection.customFormations&&collection.customFormations[id]?' ★':''}</option>`).join('');
+  if(!ids.includes(collection.formation)) collection.formation = '4-3-3';
+  fsel.value = collection.formation;
   const info = computeSquadOVR();
   sub.textContent = `FORMATION: ${collection.formation} · TEAM OVR ${info ? info.avg+info.chemBonus : '—'} (${info?info.filled:0}/11)`;
   chemNote.textContent = info ? `Chemistry bonus: +${info.chemBonus} (bir xil millat/klub futbolchilaridan)` : 'Futbolchilarni tanlang.';
@@ -4635,6 +5211,44 @@ function renderSquadPitch(){
       row.appendChild(slot);
     });
     pitch.appendChild(row);
+  });
+}
+/* ---------- custom formation editor ---------- */
+function openFormationEditor(){
+  const body = document.getElementById('formation-editor-body');
+  const current = squadSlotList();
+  const isCustomEdit = !!(collection.customFormations && collection.customFormations[collection.formation]);
+  body.innerHTML = `
+    <div class="hub-head-title" style="margin-bottom:8px;">MY CUSTOM TACTIC</div>
+    <div class="hub-head-sub" style="margin-bottom:10px;">Har bir slot uchun pozitsiya tanlang (GK doim 1-slotda).</div>
+    <input type="text" id="fe-name" class="search-input" placeholder="Taktika nomi (masalan: MY CUSTOM TACTIC)" value="${isCustomEdit?collection.formation:''}" style="margin-bottom:10px;">
+    <div id="fe-slots" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;"></div>
+    <button class="primary" id="fe-save-btn" style="width:100%;">SAQLASH</button>`;
+  const slotsWrap = document.getElementById('fe-slots');
+  current.forEach((pos,i)=>{
+    const sel = document.createElement('select');
+    sel.className = 'sort-select';
+    sel.dataset.slotIndex = i;
+    if(i===0){
+      sel.innerHTML = `<option value="GK">GK</option>`;
+      sel.disabled = true;
+    } else {
+      sel.innerHTML = CARD_POSITIONS.filter(p=>p!=='GK').map(p=>`<option value="${p}"${p===pos?' selected':''}>${p}</option>`).join('');
+    }
+    slotsWrap.appendChild(sel);
+  });
+  openModal('formation-editor-modal');
+  document.getElementById('fe-save-btn').addEventListener('click', ()=>{
+    const name = (document.getElementById('fe-name').value||'').trim() || `MY CUSTOM TACTIC ${Object.keys(collection.customFormations||{}).length+1}`;
+    const slots = ['GK'].concat(Array.from(slotsWrap.querySelectorAll('select')).slice(1).map(s=>s.value));
+    if(!collection.customFormations) collection.customFormations = {};
+    collection.customFormations[name] = slots;
+    collection.formation = name;
+    collection.squad = {};
+    saveCollection();
+    closeModal('formation-editor-modal');
+    renderSquadPitch();
+    showToast(`✎ "${name}" taktikasi saqlandi!`, 'ok');
   });
 }
 
@@ -4670,6 +5284,7 @@ function openPlayerDetail(ownedId){
     if(econ.coins < upgradeCost){ showToast("Tangalar yetarli emas.", 'warn'); return; }
     econ.coins -= upgradeCost; saveEconomy(); renderTopbar(true);
     inst.level += 1; saveCollection();
+    trackMissionEvent('upgrades', 1);
     showToast(`⬆ ${def.name} LEVEL ${inst.level} ga oshdi!`, 'ok');
     openPlayerDetail(ownedId); renderCollectionGrid();
   });
@@ -4694,18 +5309,30 @@ function openPlayerDetail(ownedId){
   });
   openModal('player-modal');
 }
+let squadPickerShowAll = false;
 function openSquadPicker(slotIndex, posNeeded){
+  squadPickerShowAll = false;
+  renderSquadPickerBody(slotIndex, posNeeded);
+  openModal('squadpick-modal');
+}
+function renderSquadPickerBody(slotIndex, posNeeded){
   const body = document.getElementById('squadpick-modal-body');
-  const eligible = collection.owned.map(inst=>({inst,s:statsForOwned(inst)})).filter(x=>x.s);
-  body.innerHTML = `<div class="hub-head-title" style="margin-bottom:10px;">CHANGE PLAYER — ${posNeeded}</div>` +
+  const allEligible = collection.owned.map(inst=>({inst,s:statsForOwned(inst)})).filter(x=>x.s);
+  const compatible = allEligible.filter(x=>isPositionCompatible(x.s.def, posNeeded));
+  const eligible = squadPickerShowAll ? allEligible : compatible;
+  body.innerHTML = `<div class="hub-head-title" style="margin-bottom:6px;">CHANGE PLAYER — ${posNeeded}</div>
+    <div class="hub-head-sub" style="margin-bottom:10px;">${compatible.length} mos futbolchi (${posNeeded} + mos pozitsiyalar)</div>` +
     (eligible.length ? eligible.sort((a,b)=>b.s.ovr-a.s.ovr).map(({inst,s})=>`
       <div class="market-row rarity-${s.rarity}">
         <div class="mr-photo">${playerPhotoImgTag(s.def)}</div>
-        <div class="mr-info"><div class="mr-name">${s.def.name} (${s.ovr})</div><div class="mr-sub">${s.def.position} · ${s.rarity}</div></div>
+        <div class="mr-info"><div class="mr-name">${s.def.name} (${s.ovr})</div><div class="mr-sub">${s.def.position}${(s.def.secondaryPositions&&s.def.secondaryPositions.length)?'/'+s.def.secondaryPositions.join('/'):''} · ${s.rarity}</div></div>
         <button data-pick="${inst.id}">TANLASH</button>
-      </div>`).join('') : `<div class="empty-hint">Kolleksiyada futbolchi yo'q.</div>`) +
+      </div>`).join('') : `<div class="empty-hint">${squadPickerShowAll?"Kolleksiyada futbolchi yo'q.":"Bu pozitsiyaga mos futbolchi yo'q."}</div>`) +
+    (!squadPickerShowAll && compatible.length<allEligible.length ? `<button id="sp-showall-btn" style="width:100%;margin-top:8px;">BARCHA FUTBOLCHILARNI KO'RSATISH</button>` : '') +
     (collection.squad[slotIndex] ? `<button id="sp-remove-btn" style="width:100%;margin-top:8px;">✕ SLOTNI BO'SHATISH</button>` : '');
   hydratePlayerImages(body);
+  const showAllBtn = body.querySelector('#sp-showall-btn');
+  if(showAllBtn) showAllBtn.addEventListener('click', ()=>{ squadPickerShowAll = true; renderSquadPickerBody(slotIndex, posNeeded); });
   body.querySelectorAll('[data-pick]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const ownedId = parseInt(btn.getAttribute('data-pick'));
@@ -4719,7 +5346,6 @@ function openSquadPicker(slotIndex, posNeeded){
   if(rmBtn) rmBtn.addEventListener('click', ()=>{
     delete collection.squad[slotIndex]; saveCollection(); closeModal('squadpick-modal'); renderSquadPitch();
   });
-  openModal('squadpick-modal');
 }
 
 /* ---------- market ---------- */
@@ -4736,20 +5362,46 @@ function renderMarketFilterRow(){
   const groups = [['ALL','ALL'],['ATT','ATTACKERS'],['MID','MIDFIELDERS'],['DEF','DEFENDERS'],['GK','GOALKEEPERS'],['HIGH','HIGHEST OVR'],['LOW','CHEAPEST']];
   row.innerHTML = groups.map(([id,label])=>`<span class="filter-chip${marketPosFilter===id?' active':''}" data-marketfilter="${id}">${label}</span>`).join('');
 }
-function renderMarketList(){
+function queryMatchesPlayer(def, q){
+  q = (q||'').trim().toLowerCase();
+  if(!q) return true;
+  const ovrPlus = q.match(/^(\d{2,3})\+$/);
+  if(ovrPlus) return def.ovr >= parseInt(ovrPlus[1],10);
+  const posUpper = q.toUpperCase();
+  if(CARD_POSITIONS.includes(posUpper)) return def.position===posUpper || (def.secondaryPositions||[]).includes(posUpper);
+  return def.name.toLowerCase().includes(q) || def.club.toLowerCase().includes(q) ||
+         def.nationality.toLowerCase().includes(q) || (def.league||'').toLowerCase().includes(q);
+}
+let marketSearchPage = 1;
+const MARKET_PAGE_SIZE = 60;
+let marketSearchDebounce = null;
+function renderMarketList(resetPage){
+  if(resetPage) marketSearchPage = 1;
   renderMarketFilterRow();
-  const search = (document.getElementById('market-search').value||'').toLowerCase();
-  let items = collection.marketPool.map(defId=>playerDefById(defId)).filter(Boolean);
+  const search = (document.getElementById('market-search').value||'').trim();
+  // With no search: curated rotating market stock (existing behaviour).
+  // With a search term: full 10,000+ player database, searched by name/club/nation/league/position/OVR ("90+").
+  const searching = search.length>0;
+  let items = searching ? PLAYER_DB.slice() : collection.marketPool.map(defId=>playerDefById(defId)).filter(Boolean);
   if(['ATT','MID','DEF','GK'].includes(marketPosFilter)) items = items.filter(p=>CARD_POS_GROUP[p.position]===marketPosFilter);
-  if(search) items = items.filter(p=>p.name.toLowerCase().includes(search));
+  if(searching) items = items.filter(p=>queryMatchesPlayer(p, search));
   if(marketPosFilter==='HIGH') items = items.slice().sort((a,b)=>b.ovr-a.ovr);
   else if(marketPosFilter==='LOW') items = items.slice().sort((a,b)=>a.basePrice-b.basePrice);
   else items = items.slice().sort((a,b)=>b.ovr-a.ovr);
+  const totalCount = items.length;
+  const pageItems = searching ? items.slice(0, marketSearchPage*MARKET_PAGE_SIZE) : items;
   const list = document.getElementById('market-list');
   const empty = document.getElementById('market-empty');
   list.innerHTML = "";
-  empty.classList.toggle('hidden', items.length>0);
-  items.forEach(def=>{
+  empty.classList.toggle('hidden', pageItems.length>0);
+  if(searching){
+    const info = document.createElement('div');
+    info.className = 'hub-head-sub';
+    info.style.marginBottom = '8px';
+    info.textContent = `${totalCount.toLocaleString()} futbolchi topildi (10,000+ bazadan)`;
+    list.appendChild(info);
+  }
+  pageItems.forEach(def=>{
     const rarity = def.rarity;
     const row = document.createElement('div');
     row.className = `market-row rarity-${rarity}`;
@@ -4760,6 +5412,13 @@ function renderMarketList(){
       <button data-buy="${def.defId}">BUY</button>`;
     list.appendChild(row);
   });
+  if(searching && pageItems.length < totalCount){
+    const moreBtn = document.createElement('button');
+    moreBtn.style.width = '100%'; moreBtn.style.marginTop = '8px';
+    moreBtn.textContent = `YANA YUKLASH (${(totalCount-pageItems.length).toLocaleString()} qoldi)`;
+    moreBtn.addEventListener('click', ()=>{ marketSearchPage++; renderMarketList(false); });
+    list.appendChild(moreBtn);
+  }
   hydratePlayerImages(list);
   list.querySelectorAll('[data-buy]').forEach(btn=>{
     btn.addEventListener('click', ()=> openBuyConfirm(btn.getAttribute('data-buy')));
@@ -4803,7 +5462,8 @@ const PACK_DEFS = [
   {id:'silver', name:'SILVER PACK', ic:'🎁', price:3200, currency:'coins', players:1, rarityWeights:{BRONZE:35,SILVER:45,GOLD:18,ELITE:2}},
   {id:'gold',   name:'GOLD PACK',   ic:'🏆', price:5000, currency:'coins', players:1, rarityWeights:{SILVER:30,GOLD:45,ELITE:20,HERO:5}},
   {id:'elite',  name:'ELITE PACK',  ic:'💎', price:80,   currency:'gems',  players:1, rarityWeights:{GOLD:30,ELITE:40,HERO:22,ICON:8}},
-  {id:'special',name:'SPECIAL PACK',ic:'✨', price:150,  currency:'gems',  players:1, rarityWeights:{ELITE:20,HERO:35,ICON:35,LEGENDARY:10}}
+  {id:'special',name:'SPECIAL PACK',ic:'✨', price:150,  currency:'gems',  players:1, rarityWeights:{ELITE:20,HERO:35,ICON:35,LEGENDARY:10}},
+  {id:'icon',   name:'ICON PACK',   ic:'👑', price:500,  currency:'gems',  players:1, onlyIcon:true, rarityWeights:{ICON:100}}
 ];
 function renderPackGrid(){
   const grid = document.getElementById('pack-grid');
@@ -4837,7 +5497,7 @@ function startPackOpen(packId){
   if(pack.currency==='gems') econ.gems -= cost; else econ.coins -= cost;
   saveEconomy(); renderTopbar(true);
   const rarityId = pickWeighted(pack.rarityWeights);
-  const candidates = PLAYER_DB.filter(p=>p.rarity===rarityId);
+  const candidates = pack.onlyIcon ? PLAYER_DB.filter(p=>p.isIcon) : PLAYER_DB.filter(p=>p.rarity===rarityId);
   const def = candidates.length ? candidates[Math.floor(Math.random()*candidates.length)] : PLAYER_DB[Math.floor(Math.random()*PLAYER_DB.length)];
   const body = document.getElementById('pack-modal-body');
   body.innerHTML = `<div class="pack-open-stage" id="pack-open-stage"><span class="pack-anim-icon">${pack.ic}</span><div class="hub-head-sub" style="margin-top:14px;">Ochilmoqda...</div></div>`;
@@ -4862,6 +5522,7 @@ function startPackOpen(packId){
       <button class="primary" id="pack-close-btn" style="margin-top:14px;width:100%;">GREAT!</button>`;
     hydratePlayerImages(stage);
     document.getElementById('pack-close-btn').addEventListener('click', ()=>{ closeModal('pack-modal'); renderCollectionGrid(); });
+    trackMissionEvent('packs', 1);
     showToast(`🎉 ${def.name} (${def.rarity}) qo'lga kiritildi!`, 'ok');
   }, 1500);
 }
@@ -4881,7 +5542,7 @@ document.addEventListener('click', (e)=>{
   const posEl = e.target.closest('[data-posfilter]');
   if(posEl){ posFilter = posEl.getAttribute('data-posfilter'); renderCollectionGrid(); return; }
   const mfEl = e.target.closest('[data-marketfilter]');
-  if(mfEl){ marketPosFilter = mfEl.getAttribute('data-marketfilter'); renderMarketList(); return; }
+  if(mfEl){ marketPosFilter = mfEl.getAttribute('data-marketfilter'); renderMarketList(true); return; }
   const overlay = e.target.closest('.modal-overlay');
   if(overlay && e.target===overlay){ overlay.classList.add('hidden'); return; }
 });
@@ -4889,17 +5550,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const sortSel = document.getElementById('collection-sort');
   if(sortSel) sortSel.addEventListener('change', renderCollectionGrid);
   const searchEl = document.getElementById('market-search');
-  if(searchEl) searchEl.addEventListener('input', renderMarketList);
+  if(searchEl) searchEl.addEventListener('input', ()=>{
+    clearTimeout(marketSearchDebounce);
+    marketSearchDebounce = setTimeout(()=> renderMarketList(true), 250);
+  });
   const formSel = document.getElementById('squad-formation-select');
   if(formSel) formSel.addEventListener('change', ()=>{ collection.formation = formSel.value; collection.squad = {}; saveCollection(); renderSquadPitch(); });
+  const editFormBtn = document.getElementById('edit-formation-btn');
+  if(editFormBtn) editFormBtn.addEventListener('click', openFormationEditor);
 });
-
-/* ---------- hook collection load into the existing career-hub entry ---------- */
-const _origEnterCareerHub = enterCareerHub;
-enterCareerHub = async function(){
-  await _origEnterCareerHub();
-  await loadCollectionForSlot();
-};
 </script>
 </body>
 </html>
