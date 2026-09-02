@@ -422,6 +422,22 @@
   @keyframes ovrPulsePop{ 0%{ transform:scale(.2); opacity:0; } 60%{ transform:scale(1.3); opacity:1; } 100%{ transform:scale(1); } }
   .pack-stat-row{ opacity:0; animation:statSlideFade .4s ease forwards; }
   @keyframes statSlideFade{ from{ opacity:0; transform:translateX(-14px); } to{ opacity:1; transform:translateX(0); } }
+
+  /* ---- card silhouette / back, shown briefly before the cinematic card reveal ---- */
+  .pack-card-back{ width:150px; height:220px; border-radius:14px; position:relative; z-index:2; margin:0 auto;
+    background:linear-gradient(155deg,#1a1a17,#0a0a09 60%,#161613); border:2px solid rgba(201,164,76,0.5);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    animation:cardBackDrop .5s cubic-bezier(.2,1.4,.4,1); box-shadow:0 8px 30px rgba(0,0,0,.55); }
+  .pack-card-back::before{ content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg, rgba(201,164,76,0.08) 0 8px, transparent 8px 16px); }
+  .pack-card-back .pcb-mark{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; color:rgba(201,164,76,0.8); position:relative; z-index:1; text-align:center; }
+  @keyframes cardBackDrop{ from{ transform:translateY(-40px) scale(.7) rotate(-6deg); opacity:0; } to{ transform:translateY(0) scale(1) rotate(0deg); opacity:1; } }
+
+  /* ---- rare card light burst, layered under packRevealCardRare for a stronger premium feel ---- */
+  .rare-burst{ position:absolute; left:50%; top:50%; width:10px; height:10px; border-radius:50%; z-index:1; pointer-events:none;
+    background:radial-gradient(circle, rgba(255,255,255,.9), rgba(201,164,76,.6) 35%, transparent 70%);
+    animation:rareBurstExpand .7s ease-out both; }
+  @keyframes rareBurstExpand{ from{ transform:translate(-50%,-50%) scale(0); opacity:1; } to{ transform:translate(-50%,-50%) scale(22); opacity:0; } }
   .pack-stat-num{ display:inline-block; }
 
   /* ---- draft mode ---- */
@@ -437,6 +453,51 @@
   .draft-progress-dot{ font-family:'IBM Plex Mono',monospace; font-size:9px; padding:3px 8px; border-radius:10px; border:1px solid var(--line); opacity:.55; }
   .draft-progress-dot.done{ background:var(--gold); color:#1b1400; opacity:1; border-color:var(--gold); }
   .draft-progress-dot.current{ border-color:var(--gold); color:var(--gold); opacity:1; }
+
+  /* ---- draft squad football pitch ---- */
+  .draft-pitch-wrap{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.8; text-align:center; margin-top:10px; }
+  .draft-pitch{
+    margin-top:8px; padding:16px 8px; border-radius:14px;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+      linear-gradient(180deg, #1c4a2e, #163a24 55%, #122f1d);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.35);
+    position:relative;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .draft-pitch::before{
+    content:""; position:absolute; left:50%; top:50%; width:78px; height:78px;
+    border:2px solid rgba(255,255,255,0.18); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none;
+  }
+  .draft-pitch::after{
+    content:""; position:absolute; left:8px; right:8px; top:50%; height:0; border-top:2px solid rgba(255,255,255,0.18); pointer-events:none;
+  }
+  .draft-pitch-row{ display:flex; justify-content:space-evenly; align-items:flex-start; gap:8px; flex-wrap:wrap; position:relative; z-index:1; }
+  .draft-pitch-card{
+    width:76px; text-align:center; background:rgba(10,10,9,0.82); border:1.5px solid var(--rc1,var(--line));
+    border-radius:10px; padding:6px 4px 5px; font-family:'IBM Plex Mono',monospace;
+    box-shadow:0 3px 10px rgba(0,0,0,0.4); transition:transform .15s ease;
+  }
+  .draft-pitch-card:hover{ transform:translateY(-3px); }
+  .draft-pitch-card .dpc-ovr{ font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--gold); line-height:1; }
+  .draft-pitch-card .dpc-pos{ font-size:8.5px; opacity:.75; margin-bottom:2px; }
+  .draft-pitch-card .dpc-photo{ width:34px; height:34px; margin:2px auto; border-radius:50%; overflow:hidden; background:#0f0f0d; display:flex; align-items:center; justify-content:center; }
+  .draft-pitch-card .dpc-photo img{ width:100%; height:100%; object-fit:cover; }
+  .draft-pitch-card .dpc-name{ font-size:9px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .draft-pitch-card .dpc-meta{ font-size:7.5px; opacity:.7; display:flex; align-items:center; justify-content:center; gap:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .draft-pitch-card .dpc-flag{ font-size:11px; margin-top:1px; }
+  .draft-tactics-panel{ animation:championChipIn .25s ease both; }
+
+  @media (max-width:520px){
+    .draft-pitch-card{ width:60px; padding:5px 3px 4px; }
+    .draft-pitch-card .dpc-ovr{ font-size:15px; }
+    .draft-pitch-card .dpc-photo{ width:28px; height:28px; }
+    .draft-pitch-card .dpc-name{ font-size:8px; }
+    .draft-pitch-card .dpc-meta{ display:none; }
+    .draft-pitch-row{ gap:5px; }
+    .draft-pitch{ padding:12px 4px; gap:10px; }
+  }
 
   /* ---- confetti / champion celebration ---- */
   .champion-celebrate{ position:relative; text-align:center; padding:24px 10px; overflow:hidden; }
@@ -461,6 +522,30 @@
   .squad-pitch-slot .sq-dot{ width:34px; height:34px; border-radius:50%; background:rgba(15,15,13,0.85); border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
   .squad-pitch-slot.filled .sq-dot{ border-color:var(--gold); background:linear-gradient(135deg,var(--gold),#fff2c8); color:#1b1400; }
   .squad-pitch-slot:hover .sq-dot{ box-shadow:0 0 12px rgba(201,164,76,0.6); }
+
+  /* ---- friends / online (future-ready UI) ---- */
+  .friends-backend-note{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; line-height:1.5; opacity:.85; background:rgba(201,164,76,0.08); border:1px solid rgba(201,164,76,0.3); border-radius:10px; padding:8px 10px; margin-bottom:14px; }
+  .friends-list{ display:flex; flex-direction:column; gap:8px; }
+  .friend-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; background:#0f0f0d; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+  .friend-row-info{ display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; }
+  .friend-status-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; background:#555; }
+  .friend-status-dot.online{ background:#3fcf6a; box-shadow:0 0 8px rgba(63,207,106,0.8); }
+  .friend-status-dot.offline{ background:#555; }
+  .friend-status-label{ opacity:.6; font-size:10px; }
+  .friend-name{ font-weight:700; }
+  .friend-row-actions{ display:flex; gap:6px; }
+  .friend-row-actions .opt-btn{ padding:6px 10px; font-size:10.5px; }
+  .room-code-display{ font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:3px; color:var(--gold); text-align:center; background:#0f0f0d; border:1.5px dashed var(--gold); border-radius:10px; padding:14px; margin-bottom:10px; }
+  .friends-modes-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .friends-mode-card{ background:#0f0f0d; border:1px solid var(--line); border-radius:10px; padding:12px; text-align:center; }
+  .friends-mode-name{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; color:var(--gold); margin:4px 0 2px; }
+  .friends-rank-table{ width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:11.5px; }
+  .friends-rank-table th{ text-align:left; opacity:.6; font-weight:400; padding:6px 8px; border-bottom:1px solid var(--line); }
+  .friends-rank-table td{ padding:8px; border-bottom:1px solid var(--line); }
+  .friends-lobby-row{ display:flex; align-items:center; justify-content:center; gap:16px; margin:14px 0; flex-wrap:wrap; }
+  .friends-lobby-side{ text-align:center; min-width:110px; }
+  .friends-lobby-you{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75; margin-bottom:4px; }
+  .friends-lobby-vs{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
 
   /* toast notifications */
   .toast-wrap{ position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none; }
@@ -504,13 +589,11 @@
             <span id="sound-toggle" style="cursor:pointer;font-size:16px;" title="Ovozni yoqish/o'chirish">🔊</span>
             <span id="stats-toggle" style="cursor:pointer;font-size:16px;display:none;" title="Statistika">📊</span>
           </div>
-          <div style="display:flex;gap:8px;padding-top:6px;border-top:1px solid var(--line);margin-top:6px;">
-            <button id="backup-save-btn" style="flex:1;font-size:10px;padding:6px 4px;">💾 BACKUP</button>
-            <button id="import-save-btn" style="flex:1;font-size:10px;padding:6px 4px;">📥 IMPORT</button>
+          <div style="padding-top:6px;border-top:1px solid var(--line);margin-top:6px;display:flex;gap:6px;">
+            <button id="backup-save-btn" style="flex:1;font-size:13px;font-weight:700;padding:10px 4px;">💾 BACKUP</button>
+            <button id="import-save-btn" style="flex:1;font-size:13px;font-weight:700;padding:10px 4px;">📥 IMPORT</button>
           </div>
-          <div style="display:flex;gap:8px;padding-top:6px;">
-            <button id="import-playerdb-btn" style="flex:1;font-size:10px;padding:6px 4px;" title="Real futbolchi bazasini JSON/CSV orqali import qilish">🗂 PLAYER DB IMPORT</button>
-          </div>
+          <button id="import-playerdb-btn" style="display:none;" title="Real futbolchi bazasini JSON/CSV orqali import qilish">🗂 PLAYER DB IMPORT</button>
           <input type="file" id="import-save-input" accept="application/json" style="display:none;">
           <input type="file" id="import-playerdb-input" accept="application/json,.csv,text/csv" style="display:none;">
         </div>
@@ -529,6 +612,7 @@
     <div class="nav-item" data-nav="market"><span class="nav-ic">🛒</span>MARKET</div>
     <div class="nav-item" data-nav="rewards"><span class="nav-ic">🎁</span>REWARDS</div>
     <div class="nav-item" data-nav="draft"><span class="nav-ic">🎲</span>DRAFT</div>
+    <div class="nav-item" data-nav="friends"><span class="nav-ic">🤝</span>FRIENDS</div>
   </div>
 
   <div id="landing-intro">
@@ -545,8 +629,14 @@
     </details>
   </div>
 
+  <!-- ============ AUTH GATE SCREEN ============ -->
+  <div class="card" id="auth-screen" style="max-width:420px;margin:0 auto;">
+    <h2 style="text-align:center;">👋 XUSH KELIBSIZ</h2>
+    <div id="auth-body"></div>
+  </div>
+
   <!-- ============ SLOT SELECT SCREEN ============ -->
-  <div class="card" id="slot-screen">
+  <div class="card hidden" id="slot-screen">
     <h2 id="profiles-title">PROFILLAR</h2>
     <div id="slot-list" style="display:flex;flex-direction:column;gap:10px;"></div>
     <div id="trash-wrap" style="margin-top:18px;">
@@ -674,6 +764,10 @@
     <div id="draft-content"></div>
   </div>
 
+  <div class="card hidden fade-in-screen" id="friends-screen">
+    <div id="friends-content"></div>
+  </div>
+
   <!-- ============ MODALS ============ -->
   <div class="modal-overlay hidden" id="player-modal">
     <div class="modal-box">
@@ -697,6 +791,18 @@
     <div class="modal-box">
       <span class="modal-close" data-closemodal="squadpick-modal">✕</span>
       <div id="squadpick-modal-body"></div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="trade-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="trade-modal">✕</span>
+      <div id="trade-modal-body"></div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="stars-modal">
+    <div class="modal-box">
+      <span class="modal-close" data-closemodal="stars-modal">✕</span>
+      <div id="stars-modal-body"></div>
     </div>
   </div>
   <div class="toast-wrap" id="toast-wrap"></div>
@@ -1405,10 +1511,11 @@ function startExhibitionKnockout(){
       addLog(`🏆 ${label(st.myTeam)} bilan ${trophyName}da g'olib chiqdingiz!`);
       playFanfare();
       const champCoins = grantTournamentPlacementCoins(st.type, 'champion');
+      const champStars = Math.max(1, Math.round(champCoins/200));
       document.getElementById('week-title').textContent = "🏆 CHEMPION!";
       document.getElementById('event-text').innerHTML = bracketHTML(rounds, rounds.length) +
         `<b>${label(st.myTeam)}</b> ${trophyName}ning g'olibi bo'ldi!` +
-        championCelebrationHTML("CHEMPION!", [`🪙 +${champCoins.toLocaleString()} COINS`]);
+        championCelebrationHTML("CHEMPION!", [`🪙 +${champCoins.toLocaleString()} COINS`, `🌟 +${champStars} STARS`]);
       const actions = document.getElementById('action-buttons');
       actions.innerHTML = "";
       actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback(), true));
@@ -1434,7 +1541,8 @@ function startExhibitionKnockout(){
       grantTournamentMatchCoins('loss', mode);
       const placement = roundNameToPlacement(roundName);
       const placementCoins = placement ? grantTournamentPlacementCoins(st.type, placement) : 0;
-      document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx, st.roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida chetlashtirildingiz.` + (placementCoins ? `<div class="center-note" style="margin-top:8px;">🏅 ${placement.toUpperCase()}: +${placementCoins.toLocaleString()} coins</div>` : '');
+      const placementStars = placementCoins ? Math.max(1, Math.round(placementCoins/200)) : 0;
+      document.getElementById('event-text').innerHTML = bracketHTML(rounds, st.roundIdx, st.roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida chetlashtirildingiz.` + (placementCoins ? `<div class="center-note" style="margin-top:8px;">🏅 ${placement.toUpperCase()}: +${placementCoins.toLocaleString()} coins · 🌟 +${placementStars} stars</div>` : '');
       actions.innerHTML = "";
       actions.appendChild(makeBtn(tC('btn_continue'), ()=>exhibitionReturnCallback(), true));
     }
@@ -1585,21 +1693,21 @@ async function loadEconomyForSlot(){
   missionsState = freshMissionsState();
   dailyState = { streak:0, lastClaimDate:null };
   if(activeSlot===null) return;
-  try{ const r = await window.storage.get('econ:'+activeSlot, false); if(r) econ = Object.assign(econ, JSON.parse(r.value)); }catch(e){}
+  try{ const r = await window.storage.get(acctKey('econ',activeSlot), acctShared()); if(r) econ = Object.assign(econ, JSON.parse(r.value)); }catch(e){}
   try{
-    const r = await window.storage.get('missions:'+activeSlot, false);
+    const r = await window.storage.get(acctKey('missions',activeSlot), acctShared());
     if(r){
       const loaded = JSON.parse(r.value);
       missionsState = Object.assign(freshMissionsState(), loaded, {claimed: Object.assign({play:false,goals:false,win:false,passes:false,upgrades:false,packs:false}, loaded.claimed||{})});
     }
   }catch(e){}
-  try{ const r = await window.storage.get('daily:'+activeSlot, false); if(r) dailyState = Object.assign(dailyState, JSON.parse(r.value)); }catch(e){}
+  try{ const r = await window.storage.get(acctKey('daily',activeSlot), acctShared()); if(r) dailyState = Object.assign(dailyState, JSON.parse(r.value)); }catch(e){}
   if(player){ econ.level = Math.max(1, Math.round((player.age||17) - 16 + Math.floor((player.matches||0)/10))); }
   if(missionsState.date !== todayStr()){ missionsState = freshMissionsState(); saveMissions(); }
 }
-async function saveEconomy(){ if(activeSlot===null) return; try{ await window.storage.set('econ:'+activeSlot, JSON.stringify(econ), false); }catch(e){} }
-async function saveMissions(){ if(activeSlot===null) return; try{ await window.storage.set('missions:'+activeSlot, JSON.stringify(missionsState), false); }catch(e){} }
-async function saveDaily(){ if(activeSlot===null) return; try{ await window.storage.set('daily:'+activeSlot, JSON.stringify(dailyState), false); }catch(e){} }
+async function saveEconomy(){ if(activeSlot===null) return; try{ await window.storage.set(acctKey('econ',activeSlot), JSON.stringify(econ), acctShared()); }catch(e){} }
+async function saveMissions(){ if(activeSlot===null) return; try{ await window.storage.set(acctKey('missions',activeSlot), JSON.stringify(missionsState), acctShared()); }catch(e){} }
+async function saveDaily(){ if(activeSlot===null) return; try{ await window.storage.set(acctKey('daily',activeSlot), JSON.stringify(dailyState), acctShared()); }catch(e){} }
 function flashChip(id){ const el = document.getElementById(id); if(!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
 function grantCoins(amount){ econ.coins += amount; saveEconomy(); renderTopbar(true); }
 function grantGems(amount){ econ.gems += amount; saveEconomy(); renderTopbar(true); }
@@ -1637,6 +1745,23 @@ function careerMatchCoinReward(res, isSkip){
   return coins;
 }
 
+/* ---- Career match Stars reward — mirrors careerMatchCoinReward, smaller scale.
+   FULL MATCH always earns more Stars than SKIP, same rule as coins. ---- */
+const CAREER_MATCH_STARS = {
+  full: { base:2, win:2, draw:1, loss:0, goal:1, cleanSheet:1 },
+  skip: { base:1, win:1, draw:0, loss:0, goal:0, cleanSheet:0 }
+};
+function careerMatchStarsReward(res, isSkip){
+  const t = isSkip ? CAREER_MATCH_STARS.skip : CAREER_MATCH_STARS.full;
+  let stars = t.base;
+  if(res.usScore > res.themScore) stars += t.win;
+  else if(res.usScore === res.themScore) stars += t.draw;
+  else stars += t.loss;
+  stars += Math.min(res.goals||0, 3) * t.goal; // capped so a hat-trick+ doesn't inflate Stars
+  if(res.themScore===0) stars += t.cleanSheet;
+  return stars;
+}
+
 /* ---- Tournament matches (exhibition WC/Euro/Copa/Asia/CL/CWC + in-career continental/CL/WC) ---- */
 const TOURNAMENT_MATCH_COINS = { full:{win:400,draw:200,loss:100}, penalty:{win:300,loss:120}, skip:{win:150,loss:60} };
 const TOURNAMENT_PLACEMENT_COINS = {
@@ -1648,16 +1773,29 @@ const TOURNAMENT_PLACEMENT_COINS = {
   asia:{champion:3000, runnerup:1900, semi:1100, quarter:600},
   default:{champion:3000, runnerup:1900, semi:1100, quarter:600}
 };
+/* Stars scale proportionally off the existing coin tables so the two economies
+   never drift out of sync — no separate table to maintain, no risk of breaking
+   the (unchanged) coin values above. */
 function grantTournamentMatchCoins(outcome, mode){
   const table = TOURNAMENT_MATCH_COINS[mode] || TOURNAMENT_MATCH_COINS.full;
   const amount = table[outcome]!=null ? table[outcome] : 0;
-  if(amount>0){ grantCoins(amount); addLog(`🪙 Turnir o'yini mukofoti: +${amount.toLocaleString()} coins`); }
+  if(amount>0){
+    grantCoins(amount);
+    const stars = Math.max(1, Math.round(amount/150));
+    grantStars(stars);
+    addLog(`🪙 Turnir o'yini mukofoti: +${amount.toLocaleString()} coins · 🌟 +${stars} stars`);
+  }
   return amount;
 }
 function grantTournamentPlacementCoins(type, placement){
   const table = TOURNAMENT_PLACEMENT_COINS[type] || TOURNAMENT_PLACEMENT_COINS.default;
   const amount = table[placement];
-  if(amount){ grantCoins(amount); addLog(`🏆 ${placement.toUpperCase()} mukofoti: +${amount.toLocaleString()} coins`); }
+  if(amount){
+    grantCoins(amount);
+    const stars = Math.max(1, Math.round(amount/200));
+    grantStars(stars);
+    addLog(`🏆 ${placement.toUpperCase()} mukofoti: +${amount.toLocaleString()} coins · 🌟 +${stars} stars`);
+  }
   return amount;
 }
 function roundNameToPlacement(roundName){
@@ -1829,7 +1967,7 @@ function renderHomeMenu(){
 }
 
 /* ---- screen router ---- */
-const APP_SCREEN_IDS = ['slot-screen','setup-screen','home-menu-screen','mycard-card','game-screen','stats-card','log-card','trophy-card','table-card','career-stats-screen','cards-screen','market-screen','rewards-screen','draft-screen'];
+const APP_SCREEN_IDS = ['auth-screen','slot-screen','setup-screen','home-menu-screen','mycard-card','game-screen','stats-card','log-card','trophy-card','table-card','career-stats-screen','cards-screen','market-screen','rewards-screen','draft-screen','friends-screen'];
 function hideAllAppScreens(){
   APP_SCREEN_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.add('hidden'); });
 }
@@ -1845,6 +1983,13 @@ function showAppScreen(name){
   hideAllAppScreens();
   const landing = document.getElementById('landing-intro');
   const nav = document.getElementById('main-nav');
+  if(name==='auth'){
+    document.getElementById('auth-screen').classList.remove('hidden');
+    if(landing) landing.classList.remove('hidden');
+    if(nav) nav.classList.add('hidden');
+    document.body.classList.remove('has-bottom-nav');
+    return;
+  }
   if(name==='slot'){
     document.getElementById('slot-screen').classList.remove('hidden');
     if(landing) landing.classList.remove('hidden');
@@ -1864,6 +2009,7 @@ function showAppScreen(name){
   if(name==='market'){ document.getElementById('market-screen').classList.remove('hidden'); setActiveNav('market'); ensureCollectionLoaded().then(renderMarketHub); return; }
   if(name==='rewards'){ document.getElementById('rewards-screen').classList.remove('hidden'); setActiveNav('rewards'); renderDailyRewards(); renderMissions(); return; }
   if(name==='draft'){ document.getElementById('draft-screen').classList.remove('hidden'); setActiveNav('draft'); ensureCollectionLoaded().then(renderDraftScreen); return; }
+  if(name==='friends'){ document.getElementById('friends-screen').classList.remove('hidden'); setActiveNav('friends'); ensureCollectionLoaded().then(()=>loadFriendsForSlot()).then(renderFriendsScreen); return; }
 }
 function goToMatchScreen(){
   showAppScreen('match');
@@ -1961,11 +2107,199 @@ if(!window.storage){
   window.__usingMemoryStorage = true;
 }
 
+/* ===================== ACCOUNT / LOGIN SYSTEM =====================
+   NOTE: This is a lightweight in-game account system for saving progress
+   under a username+password chosen by the player themselves, so it can be
+   restored on another device/browser. It does NOT use Google or any real
+   email account, and the password is NOT stored securely/encrypted — it is
+   only meant to gate access to a save profile inside this game, not to
+   protect anything sensitive. Accounts are stored in shared game storage
+   (so any device running this game can look them up by username). */
+let currentAccount = null; // {name, surname, login, password, createdAt}
+
+function normLogin(v){ return String(v||'').trim().toLowerCase(); }
+function accountKey(login){ return 'account:'+normLogin(login); }
+
+async function getAccountByLogin(login){
+  try{
+    const res = await window.storage.get(accountKey(login), true);
+    return res ? JSON.parse(res.value) : null;
+  }catch(e){ return null; }
+}
+async function saveAccountRecord(acc){
+  await window.storage.set(accountKey(acc.login), JSON.stringify(acc), true);
+}
+async function setLocalSession(login){
+  try{ await window.storage.set('session', JSON.stringify({login}), false); }catch(e){}
+}
+async function clearLocalSession(){
+  try{ await window.storage.delete('session', false); }catch(e){}
+}
+async function getLocalSession(){
+  try{ const res = await window.storage.get('session', false); return res ? JSON.parse(res.value) : null; }catch(e){ return null; }
+}
+/* Slot/trash storage is namespaced per-account so each player's saves stay separate
+   and can be pulled up again from any device using their login+parol. */
+function acctKey(base, idx){ return currentAccount ? ('acct:'+normLogin(currentAccount.login)+':'+base+':'+idx) : (base+':'+idx); }
+function acctShared(){ return !!currentAccount; }
+function slotStorageKey(i){ return currentAccount ? ('acct:'+normLogin(currentAccount.login)+':slot:'+i) : ('slot:'+i); }
+function trashStorageKey(suffix){ return currentAccount ? ('acct:'+normLogin(currentAccount.login)+':trash:'+suffix) : ('trash:'+suffix); }
+function trashPrefix(){ return currentAccount ? ('acct:'+normLogin(currentAccount.login)+':trash:') : 'trash:'; }
+function accountStorageShared(){ return !!currentAccount; }
+
+function authSetBody(html){ document.getElementById('auth-body').innerHTML = html; }
+
+function renderAuthGate(){
+  authSetBody(`
+    <p style="text-align:center;opacity:.85;font-size:14px;line-height:1.6;">Siz bu o'yinni oynaganmisiz?<br>Va siz yangimisiz?</p>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="primary" id="auth-yes-played-btn">✅ Ha, oldin oynaganman</button>
+      <button id="auth-new-btn">🆕 Yo'q, birinchi marta</button>
+    </div>
+  `);
+  document.getElementById('auth-yes-played-btn').addEventListener('click', renderAuthReturningChoice);
+  document.getElementById('auth-new-btn').addEventListener('click', ()=>renderAuthRegisterForm(false));
+}
+
+function renderAuthReturningChoice(){
+  authSetBody(`
+    <p style="text-align:center;opacity:.85;font-size:14px;">Nima qilmoqchisiz?</p>
+    <div class="btn-row" style="flex-direction:column;margin-top:14px;">
+      <button class="primary" id="auth-old-login-btn" style="width:100%;">1️⃣ Eski login va parolni kiritish</button>
+      <button id="auth-newacc-btn" style="width:100%;">2️⃣ Yangi akkaunt bilan kirish</button>
+    </div>
+    <div class="btn-row" style="margin-top:10px;"><button id="auth-back-1-btn" style="font-size:12px;">◀ Orqaga</button></div>
+  `);
+  document.getElementById('auth-old-login-btn').addEventListener('click', renderAuthLoginForm);
+  document.getElementById('auth-newacc-btn').addEventListener('click', ()=>renderAuthRegisterForm(true));
+  document.getElementById('auth-back-1-btn').addEventListener('click', renderAuthGate);
+}
+
+function renderAuthLoginForm(){
+  authSetBody(`
+    <label for="auth-login-input">Login</label>
+    <input type="text" id="auth-login-input" placeholder="login" autocomplete="username">
+    <label for="auth-pass-input">Maxfiy parol</label>
+    <input type="password" id="auth-pass-input" placeholder="parol" autocomplete="current-password">
+    <div id="auth-login-error" style="color:var(--crimson);font-size:12px;min-height:16px;margin-top:6px;"></div>
+    <div class="btn-row" style="margin-top:10px;">
+      <button class="primary" id="auth-login-submit-btn" style="width:100%;">🔓 KIRISH VA ESKI O'YINNI TIKLASH</button>
+    </div>
+    <div class="btn-row" style="margin-top:6px;"><button id="auth-back-2-btn" style="font-size:12px;">◀ Orqaga</button></div>
+  `);
+  document.getElementById('auth-back-2-btn').addEventListener('click', renderAuthReturningChoice);
+  document.getElementById('auth-login-submit-btn').addEventListener('click', async ()=>{
+    const login = document.getElementById('auth-login-input').value;
+    const pass = document.getElementById('auth-pass-input').value;
+    const errEl = document.getElementById('auth-login-error');
+    const btn = document.getElementById('auth-login-submit-btn');
+    errEl.textContent = '';
+    if(!login.trim() || !pass){ errEl.textContent = "Login va parolni kiriting."; return; }
+    btn.disabled = true; btn.textContent = '⏳ Tekshirilmoqda...';
+    try{
+      const acc = await getAccountByLogin(login);
+      if(!acc || acc.password !== pass){ errEl.textContent = "Login yoki parol noto'g'ri."; return; }
+      currentAccount = acc;
+      await setLocalSession(acc.login);
+      await completeAuthAndEnter();
+    }catch(err){
+      errEl.textContent = "Kirib bo'lmadi — internet aloqasini tekshirib, qayta urinib ko'ring.";
+    }finally{
+      btn.disabled = false; btn.textContent = "🔓 KIRISH VA ESKI O'YINNI TIKLASH";
+    }
+  });
+}
+
+function renderAuthRegisterForm(cameFromReturning){
+  authSetBody(`
+    <label for="auth-reg-name">Ism</label>
+    <input type="text" id="auth-reg-name" placeholder="Ismingiz" maxlength="30">
+    <label for="auth-reg-surname">Familiya</label>
+    <input type="text" id="auth-reg-surname" placeholder="Familiyangiz" maxlength="30">
+    <label for="auth-reg-login">Login</label>
+    <input type="text" id="auth-reg-login" placeholder="login o'ylab toping" maxlength="24" autocomplete="username">
+    <label for="auth-reg-pass">Maxfiy parol</label>
+    <input type="password" id="auth-reg-pass" placeholder="parol o'ylab toping" maxlength="40" autocomplete="new-password">
+    <div style="font-size:11px;opacity:.65;margin-top:4px;">Bu login va parolni eslab qoling — boshqa telefon/kompyuterdan shu orqali kirib, o'yiningizni tiklaysiz.</div>
+    <div id="auth-reg-error" style="color:var(--crimson);font-size:12px;min-height:16px;margin-top:6px;"></div>
+    <div class="btn-row" style="margin-top:10px;">
+      <button class="primary" id="auth-reg-submit-btn" style="width:100%;">✅ AKKAUNT YARATISH</button>
+    </div>
+    <div class="btn-row" style="margin-top:6px;"><button id="auth-back-3-btn" style="font-size:12px;">◀ Orqaga</button></div>
+  `);
+  document.getElementById('auth-back-3-btn').addEventListener('click', cameFromReturning ? renderAuthReturningChoice : renderAuthGate);
+  document.getElementById('auth-reg-submit-btn').addEventListener('click', async ()=>{
+    const name = document.getElementById('auth-reg-name').value.trim();
+    const surname = document.getElementById('auth-reg-surname').value.trim();
+    const login = document.getElementById('auth-reg-login').value.trim();
+    const pass = document.getElementById('auth-reg-pass').value;
+    const errEl = document.getElementById('auth-reg-error');
+    const btn = document.getElementById('auth-reg-submit-btn');
+    errEl.textContent = '';
+    if(!name || !surname || !login || !pass){ errEl.textContent = "Barcha maydonlarni to'ldiring."; return; }
+    if(pass.length < 4){ errEl.textContent = "Parol kamida 4 belgidan iborat bo'lsin."; return; }
+    if(!/^[a-zA-Z0-9_.]+$/.test(login)){ errEl.textContent = "Login faqat lotin harflari, raqam, _ va . dan iborat bo'lsin (bo'shliqsiz)."; return; }
+    /* Guard the whole network round-trip: window.storage calls can genuinely fail
+       (offline, rate limit, transient error) and saveAccountRecord below has no
+       internal try/catch, so a failure here used to throw silently — the button
+       just sat there with no feedback and the account was never created. Now any
+       failure is caught and shown to the player, and the button is disabled while
+       the request is in flight so a double-click can't fire it twice. */
+    btn.disabled = true; btn.textContent = '⏳ Yaratilmoqda...';
+    try{
+      const existing = await getAccountByLogin(login);
+      if(existing){ errEl.textContent = "Bu login band. Boshqa login tanlang."; return; }
+      const acc = {name, surname, login: login, password: pass, createdAt: Date.now()};
+      await saveAccountRecord(acc);
+      currentAccount = acc;
+      await setLocalSession(acc.login);
+      await completeAuthAndEnter();
+    }catch(err){
+      errEl.textContent = "Akkaunt yaratib bo'lmadi — internet aloqasini tekshirib, qayta urinib ko'ring.";
+    }finally{
+      btn.disabled = false; btn.textContent = '✅ AKKAUNT YARATISH';
+    }
+  });
+}
+
+async function completeAuthAndEnter(){
+  document.getElementById('auth-screen').classList.add('hidden');
+  await purgeOldTrash();
+  await loadAllSlots();
+  renderSlotScreen();
+  showAppScreen('slot');
+}
+
+async function initAuthFlow(){
+  const session = await getLocalSession();
+  if(session && session.login){
+    const acc = await getAccountByLogin(session.login);
+    if(acc){
+      currentAccount = acc;
+      await completeAuthAndEnter();
+      return;
+    }
+    await clearLocalSession();
+  }
+  renderAuthGate();
+  showAppScreen('auth');
+}
+
+async function logoutAccount(){
+  await clearLocalSession();
+  currentAccount = null;
+  activeSlot = null; player = null; slotsCache = [];
+  APP_SCREEN_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.add('hidden'); });
+  renderAuthGate();
+  showAppScreen('auth');
+}
+
 async function loadAllSlots(){
   slotsCache = [];
+  const shared = accountStorageShared();
   for(let i=0;i<MAX_SLOTS;i++){
     try{
-      const res = await window.storage.get('slot:'+i, false);
+      const res = await window.storage.get(slotStorageKey(i), shared);
       slotsCache[i] = res ? JSON.parse(res.value) : null;
     }catch(e){ slotsCache[i] = null; }
   }
@@ -1973,43 +2307,50 @@ async function loadAllSlots(){
 async function saveActiveSlot(){
   if(activeSlot===null || !player) return;
   const snapshot = { player, log, trophies, season, seasonWeek, standings, avatarCfg, photoDataUrl, commentaryLang: (typeof commentaryLang!=='undefined'?commentaryLang:'uz'), coach: coachState, seasonHistory, savedAt: Date.now() };
-  try{ await window.storage.set('slot:'+activeSlot, JSON.stringify(snapshot), false); }catch(e){}
+  try{ await window.storage.set(slotStorageKey(activeSlot), JSON.stringify(snapshot), accountStorageShared()); }catch(e){}
 }
 async function deleteSlot(i){
+  const shared = accountStorageShared();
   try{
-    const res = await window.storage.get('slot:'+i, false);
-    if(res) await window.storage.set('trash:'+Date.now()+':'+i, res.value, false);
-    await window.storage.delete('slot:'+i, false);
+    const res = await window.storage.get(slotStorageKey(i), shared);
+    if(res) await window.storage.set(trashStorageKey(Date.now()+':'+i), res.value, shared);
+    await window.storage.delete(slotStorageKey(i), shared);
   }catch(e){}
   await loadAllSlots();
   renderSlotScreen();
 }
 async function purgeOldTrash(){
+  const shared = accountStorageShared();
+  const prefix = trashPrefix();
   try{
-    const list = await window.storage.list('trash:', false);
+    const list = await window.storage.list(prefix, shared);
     if(!list || !list.keys) return;
     const now = Date.now();
     for(const key of list.keys){
-      const ts = parseInt(key.split(':')[1]);
-      if(now - ts > 30*24*60*60*1000){ try{ await window.storage.delete(key, false); }catch(e){} }
+      const suffix = key.startsWith(prefix) ? key.slice(prefix.length) : key;
+      const ts = parseInt(suffix.split(':')[0]);
+      if(now - ts > 30*24*60*60*1000){ try{ await window.storage.delete(key, shared); }catch(e){} }
     }
   }catch(e){}
 }
 async function getTrashList(){
+  const shared = accountStorageShared();
+  const prefix = trashPrefix();
   try{
-    const list = await window.storage.list('trash:', false);
+    const list = await window.storage.list(prefix, shared);
     if(!list || !list.keys) return [];
     const items = [];
     for(const key of list.keys){
-      try{ const res = await window.storage.get(key, false); if(res) items.push({key, data: JSON.parse(res.value)}); }catch(e){}
+      try{ const res = await window.storage.get(key, shared); if(res) items.push({key, data: JSON.parse(res.value)}); }catch(e){}
     }
     return items;
   }catch(e){ return []; }
 }
 async function restoreTrash(key, idx){
+  const shared = accountStorageShared();
   try{
-    const res = await window.storage.get(key, false);
-    if(res){ await window.storage.set('slot:'+idx, res.value, false); await window.storage.delete(key, false); }
+    const res = await window.storage.get(key, shared);
+    if(res){ await window.storage.set(slotStorageKey(idx), res.value, shared); await window.storage.delete(key, shared); }
   }catch(e){}
   await loadAllSlots();
   renderSlotScreen();
@@ -2478,7 +2819,7 @@ function renderCareerStats(){
   });
 }
 
-purgeOldTrash().then(()=> loadAllSlots()).then(renderSlotScreen);
+initAuthFlow();
 
 /* ===================== BACKGROUND REMOVAL ===================== */
 function removeBackground(dataUrl, threshold, callback){
@@ -3041,15 +3382,47 @@ function startInteractiveMatch(){
 
 
 /* ===================== ORIGINAL SOUND ENGINE (no copyrighted audio) ===================== */
-let soundOn = true, audioCtx = null;
+/* Settings: master toggles for SFX / MUSIC / CROWD + a master VOLUME (0..1) */
+let soundOn = true;      // SFX ON/OFF (whistle, kick, ui, etc.)
+let musicOn = true;      // MUSIC ON/OFF (home menu theme)
+let crowdOn = true;      // CROWD ON/OFF (stadium ambience, cheers, celebrations)
+let masterVolume = 0.8;  // VOLUME 0..1
+let audioCtx = null;
 function getAudioCtx(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+function av(v){ return Math.max(0, Math.min(1, (v||0) * masterVolume)); }
+
+async function loadAudioSettings(){
+  try{
+    const r = await window.storage.get('audioSettings', false);
+    if(r && r.value){
+      const s = JSON.parse(r.value);
+      if(typeof s.sfx==='boolean') soundOn = s.sfx;
+      if(typeof s.music==='boolean') musicOn = s.music;
+      if(typeof s.crowd==='boolean') crowdOn = s.crowd;
+      if(typeof s.volume==='number') masterVolume = s.volume;
+    }
+  }catch(e){}
+  syncAudioSettingsUI();
+}
+async function saveAudioSettings(){
+  try{ await window.storage.set('audioSettings', JSON.stringify({sfx:soundOn, music:musicOn, crowd:crowdOn, volume:masterVolume}), false); }catch(e){}
+}
+function syncAudioSettingsUI(){
+  const m = document.getElementById('music-toggle'), s = document.getElementById('sfx-toggle'),
+        c = document.getElementById('crowd-toggle'), v = document.getElementById('volume-slider');
+  if(m) m.textContent = musicOn ? '🎵 MUSIC: ON' : '🎵 MUSIC: OFF';
+  if(s) s.textContent = soundOn ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+  if(c) c.textContent = crowdOn ? '📣 CROWD: ON' : '📣 CROWD: OFF';
+  if(v) v.value = Math.round(masterVolume*100);
+}
+
 function playTone(freq, start, dur, type, vol){
   if(!soundOn) return;
   try{
     const ctx = getAudioCtx();
     const osc = ctx.createOscillator(), gain = ctx.createGain();
     osc.type = type||'sine'; osc.frequency.value = freq;
-    gain.gain.setValueAtTime(vol||0.2, ctx.currentTime+start);
+    gain.gain.setValueAtTime(av(vol||0.2), ctx.currentTime+start);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+start+dur);
     osc.connect(gain); gain.connect(ctx.destination);
     osc.start(ctx.currentTime+start); osc.stop(ctx.currentTime+start+dur);
@@ -3061,19 +3434,94 @@ function playFanfare(){
   notes.forEach((f,i)=> playTone(f, i*0.16, 0.32, 'triangle', 0.16));
   playTone(1046.5, notes.length*0.16, 0.55, 'triangle', 0.14);
 }
-function playSadHorn(){ playTone(220,0,0.4,'sawtooth',0.1); playTone(196,0.35,0.5,'sawtooth',0.1); }
-function playCrowdCheer(){
+/* Dark/tense short cue for bad results or unpleasant events */
+function playSadHorn(){
+  playTone(220,0,0.4,'sawtooth',0.1); playTone(196,0.35,0.5,'sawtooth',0.1);
+  playTone(146.83,0.15,0.5,'sawtooth',0.06);
+}
+function playTenseCue(){ playSadHorn(); }
+
+/* Short percussive "kick" sound for shots/passes */
+function playKickSound(){
   if(!soundOn) return;
   try{
     const ctx = getAudioCtx();
-    const dur = 0.6, bufferSize = Math.floor(ctx.sampleRate*dur);
+    const dur = 0.14, bufferSize = Math.floor(ctx.sampleRate*dur);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
-    for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1) * (1-i/bufferSize) * 0.28;
+    for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1) * (1-i/bufferSize);
     const src = ctx.createBufferSource(); src.buffer = buffer;
-    const gain = ctx.createGain(); gain.gain.value = 0.3;
-    src.connect(gain); gain.connect(ctx.destination); src.start();
+    const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 500;
+    const gain = ctx.createGain(); gain.gain.value = av(0.35);
+    src.connect(filter); filter.connect(gain); gain.connect(ctx.destination); src.start();
   }catch(e){}
+}
+/* Crowd cheer burst — used on goals/wins */
+function playCrowdCheer(){
+  if(!crowdOn) return;
+  try{
+    const ctx = getAudioCtx();
+    const dur = 0.9, bufferSize = Math.floor(ctx.sampleRate*dur);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1) * Math.sin(Math.PI*i/bufferSize) * 0.35;
+    const src = ctx.createBufferSource(); src.buffer = buffer;
+    const filter = ctx.createBiquadFilter(); filter.type='bandpass'; filter.frequency.value = 1200; filter.Q.value = 0.5;
+    const gain = ctx.createGain(); gain.gain.value = av(0.35);
+    src.connect(filter); filter.connect(gain); gain.connect(ctx.destination); src.start();
+  }catch(e){}
+}
+/* Full goal celebration: crowd roar + fanfare + a second delayed cheer swell */
+function playGoalCelebration(){
+  playCrowdCheer();
+  playFanfare();
+  setTimeout(()=>{ if(crowdOn) playCrowdCheer(); }, 300);
+}
+
+/* ---- Continuous stadium crowd ambience (loops while a match screen is open) ---- */
+let crowdAmbience = null;
+function startCrowdAmbience(){
+  if(!crowdOn){ stopCrowdAmbience(); return; }
+  if(crowdAmbience) return; // already running
+  try{
+    const ctx = getAudioCtx();
+    const bufferSize = ctx.sampleRate * 2;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1) * 0.06;
+    const src = ctx.createBufferSource(); src.buffer = buffer; src.loop = true;
+    const filter = ctx.createBiquadFilter(); filter.type='bandpass'; filter.frequency.value = 700; filter.Q.value = 0.5;
+    const gain = ctx.createGain(); gain.gain.value = av(0.14);
+    src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+    src.start();
+    crowdAmbience = {src, gain, filter};
+  }catch(e){}
+}
+function stopCrowdAmbience(){
+  if(crowdAmbience){
+    try{ crowdAmbience.src.stop(); }catch(e){}
+    crowdAmbience = null;
+  }
+}
+
+/* ---- Home menu background music: soft generative football-stadium motif loop ---- */
+let homeMusicTimer = null, homeMusicStep = 0;
+function startHomeMusic(){
+  stopHomeMusic();
+  if(!musicOn) return;
+  const notes = [261.63,329.63,392.00,329.63,293.66,349.23,392.00,440.00];
+  homeMusicStep = 0;
+  function step(){
+    if(!musicOn){ homeMusicTimer = null; return; }
+    playTone(notes[homeMusicStep % notes.length], 0, 1.5, 'triangle', 0.05);
+    if(homeMusicStep % 4 === 0) playTone(notes[homeMusicStep % notes.length]/2, 0, 1.8, 'sine', 0.04);
+    homeMusicStep++;
+    homeMusicTimer = setTimeout(step, 1400);
+  }
+  step();
+}
+function stopHomeMusic(){
+  if(homeMusicTimer){ clearTimeout(homeMusicTimer); homeMusicTimer = null; }
 }
 
 /* ---- Watch mode: commentary reel synced to a precomputed result ---- */
@@ -3159,6 +3607,8 @@ function applyMatchResult(res, isSkip){
   player.money += res.earn; // Career flavor stat only — NOT the real coin balance
   const coinReward = careerMatchCoinReward(res, !!isSkip);
   grantCoins(coinReward); // real account balance — always granted, always saved+rendered
+  const starsReward = careerMatchStarsReward(res, !!isSkip);
+  if(starsReward>0) grantStars(starsReward); // real Stars balance — same rule as coins
 
   if(player.yellowCards===undefined){ player.yellowCards=0; player.redCards=0; player.cleanSheets=0; player.mvps=0; player.ratingSum=0; player.ratedMatches=0; player.winStreak=0; player.achievements={}; }
   if(res.usScore > res.themScore) player.winStreak = (player.winStreak||0)+1; else player.winStreak = 0;
@@ -3176,10 +3626,10 @@ function applyMatchResult(res, isSkip){
   updateLeagueTable(res.usScore, res.themScore);
   if(res.usScore > res.themScore) playCrowdCheer();
 
-  addLog(`${player.club} ${res.usScore} — ${res.themScore} ${currentOpponent.name}: ${res.result}${cardNote}${mvpNote} (Reyting: ${res.performance}/100, +${res.earn}$, 🪙+${coinReward.toLocaleString()})`);
+  addLog(`${player.club} ${res.usScore} — ${res.themScore} ${currentOpponent.name}: ${res.result}${cardNote}${mvpNote} (Reyting: ${res.performance}/100, +${res.earn}$, 🪙+${coinReward.toLocaleString()}${starsReward>0?` · 🌟+${starsReward}`:''})`);
   setLiveScore(`${player.club.toUpperCase()} ${res.usScore} — ${res.themScore} ${currentOpponent.name.toUpperCase()}`);
   document.getElementById('week-title').textContent = `MATCH NATIJASI`;
-  document.getElementById('event-text').innerHTML = `<b>${res.result}</b><br><br>Yakuniy hisob: ${player.club} ${res.usScore} — ${res.themScore} ${currentOpponent.name}<br>Ishlash reytingi: ${res.performance}/100<br>Daromad: +${res.earn}$ · 🪙 +${coinReward.toLocaleString()} coins<br>` + (res.injured ? `<span style="color:var(--crimson)">Jarohat tufayli forma pasaydi.</span>` : `Jamoa a'zolari sizni tabrikladi.`) + (cardNote?`<br><span style="color:${gotRed?'var(--crimson)':'#e8c878'}">${cardNote.trim()}</span>`:'') + (mvpNote?`<br><span style="color:var(--gold);">${mvpNote.trim()}</span>`:'');
+  document.getElementById('event-text').innerHTML = `<b>${res.result}</b><br><br>Yakuniy hisob: ${player.club} ${res.usScore} — ${res.themScore} ${currentOpponent.name}<br>Ishlash reytingi: ${res.performance}/100<br>Daromad: +${res.earn}$ · 🪙 +${coinReward.toLocaleString()} coins${starsReward>0?` · 🌟 +${starsReward} stars`:''}<br>` + (res.injured ? `<span style="color:var(--crimson)">Jarohat tufayli forma pasaydi.</span>` : `Jamoa a'zolari sizni tabrikladi.`) + (cardNote?`<br><span style="color:${gotRed?'var(--crimson)':'#e8c878'}">${cardNote.trim()}</span>`:'') + (mvpNote?`<br><span style="color:var(--gold);">${mvpNote.trim()}</span>`:'');
   renderStats(); renderLiveCard(); renderLeagueTable();
   saveActiveSlot();
   trackMissionProgress({goals:res.goals, won: res.usScore > res.themScore});
@@ -3207,7 +3657,7 @@ function quickSimSeason(){
 
   if(player.yellowCards===undefined){ player.yellowCards=0; player.redCards=0; player.cleanSheets=0; player.mvps=0; player.ratingSum=0; player.ratedMatches=0; player.winStreak=0; player.achievements={}; }
 
-  let totalGoals=0, totalAssists=0, totalMatches=0, wins=0, draws=0, losses=0, totalEarn=0, totalCoinsEarned=0;
+  let totalGoals=0, totalAssists=0, totalMatches=0, wins=0, draws=0, losses=0, totalEarn=0, totalCoinsEarned=0, totalStarsEarned=0;
   const startWeek = seasonWeek;
 
   while(seasonWeek <= SEASON_LENGTH){
@@ -3218,6 +3668,7 @@ function quickSimSeason(){
     player.goals += res.goals; player.assists += res.assists; player.matches += 1;
     totalGoals += res.goals; totalAssists += res.assists; totalMatches++; totalEarn += res.earn;
     totalCoinsEarned += careerMatchCoinReward(res, true); // bulk quick-sim matches count as SKIP tier
+    totalStarsEarned += careerMatchStarsReward(res, true);
     if(res.usScore>res.themScore){ wins++; player.winStreak=(player.winStreak||0)+1; }
     else { player.winStreak=0; if(res.usScore===res.themScore) draws++; else losses++; }
     if(res.injured) player.fitness = clamp(player.fitness-rnd(15,25),0,100);
@@ -3233,6 +3684,7 @@ function quickSimSeason(){
     seasonWeek++;
   }
   if(totalCoinsEarned>0){ grantCoins(totalCoinsEarned); addLog(`🪙 Tezkor yakunlash mukofoti: +${totalCoinsEarned.toLocaleString()} coins (${totalMatches} o'yin)`); }
+  if(totalStarsEarned>0){ grantStars(totalStarsEarned); addLog(`🌟 Tezkor yakunlash mukofoti: +${totalStarsEarned.toLocaleString()} stars (${totalMatches} o'yin)`); }
 
   /* Growth: convert season performance into real stat changes so overall rating
      actually reflects how the season went. Driven mainly by win rate and goal
@@ -3381,9 +3833,10 @@ function runTournament(tournamentName, isWorldCup){
       addLog(`🏆 ${tournamentName} turnirida chempion bo'ldingiz!`);
       player.money += 300; // Career flavor stat only — real reward is the coin grant below
       const champCoins = grantTournamentPlacementCoins(typeKey, 'champion');
+      const champStars = Math.max(1, Math.round(champCoins/200));
       playFanfare();
       document.getElementById('event-text').innerHTML = bracketHTML(rounds, rounds.length) + `<b>Tabriklaymiz!</b> ${tournamentName} finalida g'alaba qozondingiz!` +
-        championCelebrationHTML("CHEMPION!", [`🪙 +${champCoins.toLocaleString()} COINS`]);
+        championCelebrationHTML("CHEMPION!", [`🪙 +${champCoins.toLocaleString()} COINS`, `🌟 +${champStars} STARS`]);
       const actions = document.getElementById('action-buttons');
       actions.innerHTML = "";
       if(ovr>=85 && Math.random()<0.4){
@@ -3414,7 +3867,8 @@ function runTournament(tournamentName, isWorldCup){
       playSadHorn();
       const placement = roundNameToPlacement(roundName);
       const placementCoins = placement ? grantTournamentPlacementCoins(typeKey, placement) : 0;
-      document.getElementById('event-text').innerHTML = bracketHTML(rounds, roundIdx, roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida${roundOpp?` ${roundOpp.name} qo'lida`:''} chetlashtirildingiz.` + (placementCoins ? `<div class="center-note" style="margin-top:8px;">🏅 ${placement.toUpperCase()}: +${placementCoins.toLocaleString()} coins</div>` : '');
+      const placementStars = placementCoins ? Math.max(1, Math.round(placementCoins/200)) : 0;
+      document.getElementById('event-text').innerHTML = bracketHTML(rounds, roundIdx, roundIdx) + `<b>Mag'lubiyat.</b> ${roundName} bosqichida${roundOpp?` ${roundOpp.name} qo'lida`:''} chetlashtirildingiz.` + (placementCoins ? `<div class="center-note" style="margin-top:8px;">🏅 ${placement.toUpperCase()}: +${placementCoins.toLocaleString()} coins · 🌟 +${placementStars} stars</div>` : '');
       actions.innerHTML = "";
       actions.appendChild(makeBtn(tC("btn_continue"), runPostQueue, true));
     }
@@ -4386,20 +4840,20 @@ function rarityForOVR(ovr){
 
 /* ---------- SELL PRICE system (per rarity + OVR, independent of BUY price) ----------
    Requested ranges:
-     BRONZE 600–1,500 | SILVER 1,500–3,000 | GOLD 3,000–5,000 | ELITE 5,000–7,500 | ICON 7,500–12,000
-   HERO and LEGENDARY aren't named in the spec, so HERO reuses the ELITE range and
-   LEGENDARY reuses the ICON range (both are the natural top-of-band neighbors).
+     BRONZE 1,100–1,600 | SILVER 1,600–3,500 | GOLD 3,500–8,000 | ELITE 8,000–10,000 |
+     LEGENDARY 10,000–16,500 | ICON 17,000–25,000
+   HERO isn't named in the spec, so it bridges ELITE and LEGENDARY.
    Within a rarity's own OVR band, price rises with OVR (higher OVR -> higher sell
    price), using a back-loaded curve so most of the band sits near the low end and
    only the top of the band approaches the max. This does NOT touch BUY price. */
 const SELL_PRICE_RANGES = {
-  BRONZE:   {min:600,  max:1500},
-  SILVER:   {min:1500, max:3000},
-  GOLD:     {min:3000, max:5000},
-  ELITE:    {min:5000, max:7500},
-  HERO:     {min:5000, max:7500},
-  ICON:     {min:7500, max:12000},
-  LEGENDARY:{min:7500, max:12000}
+  BRONZE:   {min:1100,  max:1600},
+  SILVER:   {min:1600,  max:3500},
+  GOLD:     {min:3500,  max:8000},
+  ELITE:    {min:8000,  max:10000},
+  HERO:     {min:9000,  max:13000},
+  LEGENDARY:{min:10000, max:16500},
+  ICON:     {min:17000, max:25000}
 };
 function calculateSellPrice(rarityId, ovr){
   const band = RARITY_DEFS.find(r=>r.id===rarityId);
@@ -5234,7 +5688,7 @@ async function loadCollectionForSlot(){
   nextOwnedId = 1;
   if(activeSlot===null) return;
   try{
-    const r = await window.storage.get('collection:'+activeSlot, false);
+    const r = await window.storage.get(acctKey('collection',activeSlot), acctShared());
     if(r) collection = Object.assign(collection, JSON.parse(r.value));
   }catch(e){}
   if(!collection.owned.length){
@@ -5245,7 +5699,7 @@ async function loadCollectionForSlot(){
   nextOwnedId = collection.owned.reduce((m,o)=>Math.max(m, o.id||0), 0) + 1;
   await saveCollection();
 }
-async function saveCollection(){ if(activeSlot===null) return; try{ await window.storage.set('collection:'+activeSlot, JSON.stringify(collection), false); }catch(e){} }
+async function saveCollection(){ if(activeSlot===null) return; try{ await window.storage.set(acctKey('collection',activeSlot), JSON.stringify(collection), acctShared()); }catch(e){} }
 function addOwnedPlayer(defId, doSave){
   const inst = { id: nextOwnedId++, defId, level:1 };
   collection.owned.push(inst);
@@ -5343,8 +5797,41 @@ const DRAFT_ENTRY_COST = 15; // stars
 const DRAFT_FORMATIONS = ['4-3-3','4-2-3-1','4-4-2','3-5-2','5-3-2'];
 const DRAFT_ROUND_NAMES = ["MATCH 1","MATCH 2","MATCH 3","FINAL"];
 const DRAFT_ROUND_WIN_COINS = [800,1200,1800,3000];
+const DRAFT_ROUND_WIN_STARS = [2,3,4,6]; // Draft Champion bonus (below) adds more on top of the FINAL win
 const DRAFT_LOSS_COINS = 100;
 let draftState = null; // null = no active draft (show entry screen)
+
+/* Generic "how forward is this position on the pitch" weight, used to lay any
+   formation out into rows automatically (GK deepest, ST furthest forward) —
+   works for every formation without hardcoding per-formation coordinates. */
+const DRAFT_POS_ROW_WEIGHT = {GK:0, CB:1, LB:1, RB:1, CDM:2, CM:3, LM:3, RM:3, CAM:4, LW:5, RW:5, ST:6};
+
+/* ---- Draft Tactics: separate from Career's player.tactic, applies only to Draft matches ---- */
+const DRAFT_ATTACK_STYLES = [
+  {id:"Hujumkor", attBonus:8, defBonus:-5},
+  {id:"Muvozanatli", attBonus:0, defBonus:0},
+  {id:"Himoyaviy", attBonus:-5, defBonus:8},
+  {id:"Pressing", attBonus:4, defBonus:4}
+];
+const DRAFT_PASSING_STYLES = [
+  {id:"Qisqa pas", bonus:2},
+  {id:"Aralash", bonus:0},
+  {id:"Uzun pas", bonus:2}
+];
+const DRAFT_DEFENSIVE_LINES = [
+  {id:"Yuqori chiziq", attBonus:3, defBonus:-3},
+  {id:"O'rtacha", attBonus:0, defBonus:0},
+  {id:"Past chiziq", attBonus:-3, defBonus:3}
+];
+function defaultDraftTactics(){ return {style:"Muvozanatli", passing:"Aralash", line:"O'rtacha"}; }
+function draftTacticBonus(){
+  if(!draftState || !draftState.tactics) return 0;
+  const style = DRAFT_ATTACK_STYLES.find(s=>s.id===draftState.tactics.style) || DRAFT_ATTACK_STYLES[1];
+  const line = DRAFT_DEFENSIVE_LINES.find(l=>l.id===draftState.tactics.line) || DRAFT_DEFENSIVE_LINES[1];
+  const passing = DRAFT_PASSING_STYLES.find(p=>p.id===draftState.tactics.passing) || DRAFT_PASSING_STYLES[1];
+  // Balanced overall bonus: average of attack/defense swings plus a flat passing bonus — simple and never wildly swingy.
+  return Math.round(((style.attBonus+style.defBonus)/2) + ((line.attBonus+line.defBonus)/2) + passing.bonus);
+}
 
 function draftPositionCandidates(pos){
   const pool = PLAYER_DB.filter(p=> p.position===pos || (p.secondaryPositions||[]).includes(pos));
@@ -5372,6 +5859,8 @@ function selectDraftFormation(formationId){
   draftState.slots = (SQUAD_TEMPLATES[formationId] || SQUAD_TEMPLATES['4-3-3']).slice();
   draftState.pickIdx = 0;
   draftState.squad = [];
+  draftState.tactics = defaultDraftTactics();
+  draftState.showTactics = false;
   draftState.stage = 'picks';
   draftState.candidates = draftPositionCandidates(draftState.slots[0]);
   renderDraftScreen();
@@ -5403,14 +5892,15 @@ function playDraftMatch(){
   if(!draftState || draftState.stage!=='squad' && draftState.stage!=='matchresult') return;
   const {avgOvr} = draftSquadSummary();
   const oppStrength = clamp(avgOvr + rnd(-12, 12 + draftState.round*4), 40, 99);
-  const perf = clamp(avgOvr + rnd(-15,15), 0, 100);
+  const perf = clamp(avgOvr + rnd(-15,15) + draftTacticBonus(), 0, 100);
   const diff = perf - oppStrength;
   let outcome = diff>4 ? 'win' : diff<-4 ? 'loss' : (Math.random()<0.5?'win':'draw');
   const roundName = DRAFT_ROUND_NAMES[draftState.round];
   if(outcome==='win'){
     if(!draftState.roundRewardGiven[draftState.round]){
       grantCoins(DRAFT_ROUND_WIN_COINS[draftState.round]);
-      addLog(`🎲 DRAFT ${roundName} — G'ALABA! 🪙 +${DRAFT_ROUND_WIN_COINS[draftState.round].toLocaleString()} coins`);
+      grantStars(DRAFT_ROUND_WIN_STARS[draftState.round]);
+      addLog(`🎲 DRAFT ${roundName} — G'ALABA! 🪙 +${DRAFT_ROUND_WIN_COINS[draftState.round].toLocaleString()} coins · 🌟 +${DRAFT_ROUND_WIN_STARS[draftState.round]} stars`);
       draftState.roundRewardGiven[draftState.round] = true;
     }
     draftState.round++;
@@ -5430,6 +5920,32 @@ function playDraftMatch(){
 function draftReset(){
   draftState = null;
   renderDraftScreen();
+}
+/* ---- Draft Squad football pitch — lays any formation out into rows automatically
+   using DRAFT_POS_ROW_WEIGHT (GK deepest, ST furthest forward), so 4-3-3, 4-2-3-1,
+   4-4-2, 3-5-2 and 5-3-2 all render correctly without per-formation coordinates. ---- */
+function draftPitchCardHTML(def){
+  const clubObj = def.clubId ? clubById(def.clubId) : null;
+  return `
+    <div class="draft-pitch-card rarity-${def.rarity}">
+      <div class="dpc-ovr">${def.ovr}</div>
+      <div class="dpc-pos">${def.position}</div>
+      <div class="dpc-photo">${playerPhotoImgTag(def)}</div>
+      <div class="dpc-name">${(def.name||'').split(' ').pop()}</div>
+      <div class="dpc-meta">${clubObj?clubBadgeSVG(clubObj,12):''}<span>${def.club||''}</span></div>
+      <div class="dpc-flag">${def.flag||''}</div>
+    </div>`;
+}
+function renderDraftPitchHTML(squad){
+  const rows = {};
+  squad.forEach(def=>{
+    const w = DRAFT_POS_ROW_WEIGHT[def.position]!=null ? DRAFT_POS_ROW_WEIGHT[def.position] : 3;
+    (rows[w] = rows[w] || []).push(def);
+  });
+  const weights = Object.keys(rows).map(Number).sort((a,b)=>b-a);
+  return `<div class="draft-pitch">
+    ${weights.map(w=>`<div class="draft-pitch-row">${rows[w].map(draftPitchCardHTML).join('')}</div>`).join('')}
+  </div>`;
 }
 function renderDraftScreen(){
   const el = document.getElementById('draft-content');
@@ -5471,17 +5987,21 @@ function renderDraftScreen(){
   }
   if(draftState.stage==='squad'){
     const {avgOvr, chemistry} = draftSquadSummary();
+    const t = draftState.tactics || (draftState.tactics = defaultDraftTactics());
     el.innerHTML = `
       <div class="hub-head-title" style="text-align:center;">⚔️ DRAFT SQUAD</div>
       <div class="center-note" style="margin:8px 0 14px;">FORMATSIYA: <b>${draftState.formation}</b> · TEAM OVR: <b>${avgOvr}</b> · CHEMISTRY: <b>${chemistry}%</b></div>
-      <div class="draft-pick-grid">
-        ${draftState.squad.map(def=>`
-          <div class="pdetail-card rarity-${def.rarity}" style="background:#0f0f0d;border:1.5px solid var(--rc1,var(--line));border-radius:10px;padding:8px 4px;">
-            <div class="pc-photo" style="width:44px;height:44px;font-size:16px;margin:0 auto 4px;">${playerPhotoImgTag(def)}</div>
-            <div class="pdetail-ovr" style="font-size:20px;">${def.ovr}</div>
-            <div class="pdetail-meta" style="font-size:9.5px;">${def.position} · ${def.name}</div>
-          </div>`).join('')}
-      </div>
+      <div class="draft-pitch-wrap">🏟️ ${renderDraftPitchHTML(draftState.squad)}</div>
+      <button class="opt-btn" style="width:100%;text-align:center;margin-top:12px;" data-draftaction="toggletactics">⚙️ TACTICS ${draftState.showTactics?'▲':'▼'}</button>
+      ${draftState.showTactics ? `
+      <div class="draft-tactics-panel">
+        <div class="field-label" style="margin-top:10px;">HUJUM USLUBI</div>
+        <div class="opt-row">${DRAFT_ATTACK_STYLES.map(s=>`<div class="opt-btn${t.style===s.id?' active':''}" data-drafttactic="style:${s.id}">${s.id}</div>`).join('')}</div>
+        <div class="field-label">PAS USLUBI</div>
+        <div class="opt-row">${DRAFT_PASSING_STYLES.map(s=>`<div class="opt-btn${t.passing===s.id?' active':''}" data-drafttactic="passing:${s.id}">${s.id}</div>`).join('')}</div>
+        <div class="field-label">HIMOYA CHIZIG'I</div>
+        <div class="opt-row">${DRAFT_DEFENSIVE_LINES.map(s=>`<div class="opt-btn${t.line===s.id?' active':''}" data-drafttactic="line:${s.id}">${s.id}</div>`).join('')}</div>
+      </div>` : ''}
       <button class="primary draft-hero-btn" style="margin-top:16px;" data-draftaction="playmatch">⚔️ PLAY DRAFT MATCH</button>`;
     hydratePlayerImages(el);
     return;
@@ -5490,7 +6010,7 @@ function renderDraftScreen(){
     const r = draftState.lastResult;
     el.innerHTML = `
       <div class="hub-head-title" style="text-align:center;">${r.roundName} — G'ALABA!</div>
-      <div class="center-note" style="margin:10px 0;">Natija: ${r.perf} vs ${r.oppStrength}<br>🪙 +${DRAFT_ROUND_WIN_COINS[draftState.round-1].toLocaleString()} coins qo'lga kiritdingiz.</div>
+      <div class="center-note" style="margin:10px 0;">Natija: ${r.perf} vs ${r.oppStrength}<br>🪙 +${DRAFT_ROUND_WIN_COINS[draftState.round-1].toLocaleString()} coins · 🌟 +${DRAFT_ROUND_WIN_STARS[draftState.round-1]} stars qo'lga kiritdingiz.</div>
       <button class="primary draft-hero-btn" data-draftaction="playmatch">KEYINGI BOSQICH: ${DRAFT_ROUND_NAMES[draftState.round]}</button>`;
     return;
   }
@@ -5508,7 +6028,7 @@ function renderDraftScreen(){
       grantStars(5);
       grantGems(10);
     }
-    el.innerHTML = championCelebrationHTML("🏆 DRAFT CHAMPION!", [`🪙 +${DRAFT_ROUND_WIN_COINS[3].toLocaleString()} COINS`, `🌟 +5 STARS`, `💎 +10 GEMS`]) +
+    el.innerHTML = championCelebrationHTML("🏆 DRAFT CHAMPION!", [`🪙 +${DRAFT_ROUND_WIN_COINS[3].toLocaleString()} COINS`, `🌟 +${DRAFT_ROUND_WIN_STARS[3]+5} STARS`, `💎 +10 GEMS`]) +
       `<div style="text-align:center;"><button class="primary draft-hero-btn" data-draftaction="reset">YANGI DRAFT BOSHLASH</button></div>`;
     return;
   }
@@ -5517,6 +6037,612 @@ function renderDraftScreen(){
 /* ---------- rendering: cards hub ---------- */
 let cardsHubTab = 'collection';
 let posFilter = 'ALL';
+/* =====================================================================
+   FRIENDS / ONLINE — future-ready UI + local architecture.
+   There is no real multiplayer backend in this build. Every piece here
+   (friends list, rooms, lobbies, ranking) is wired against local
+   functions only, and every action that would need a live server says
+   so explicitly instead of faking a result. When a backend exists, only
+   the bodies of loadFriendsForSlot/friendsCreateRoom/friendsJoinRoom/
+   friendsInvite/friendsPlay/friendsStartMatch need to change to real
+   network calls — the screens, state shape and click wiring stay as-is.
+===================================================================== */
+const FRIENDS_ONLINE_MODES = [
+  {id:'1v1', ic:'⚔️', name:'1v1 FRIEND MATCH', desc:"Siz vs Do'stingiz — bevosita duel."},
+  {id:'draft', ic:'🎲', name:'DRAFT VS FRIEND', desc:"Ikkalangiz Draft squad tuzasiz, keyin bir-biringizga qarshi o'ynaysiz."},
+  {id:'penalty', ic:'🥅', name:'PENALTY SHOOTOUT', desc:"Do'stingiz bilan penalti seriyasi."},
+  {id:'tournament', ic:'🏆', name:'FRIEND TOURNAMENT', desc:"4 yoki 8 kishilik do'stlar o'rtasida knockout turnir."}
+];
+let friendsState = null;
+function freshFriendsState(){
+  return {
+    tab: 'list',
+    friends: [],
+    ownedRoomCode: null,
+    myWins: 0, myLosses: 0, myDraws: 0,
+    lobby: null, // {mode, friend}
+    searchOpen: false, searchQuery: '', searchResult: null, searchError: ''
+  };
+}
+/* Small HTML-escape helper — real account names/logins are player-chosen free
+   text, so they must be escaped before landing in innerHTML (unlike the fixed
+   friend list starts empty and is only ever populated by real search results). */
+function escHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+/* Deterministic-ish card strength for a friend (seeded from their name so it stays
+   stable between renders), used only to power the LOCAL 1v1 / penalty simulation
+   below — it is not a real opponent's real squad. */
+function friendBaseOvr(friend){
+  if(friend.ovr==null){
+    let h=0; for(let i=0;i<friend.name.length;i++) h = (h*31 + friend.name.charCodeAt(i))>>>0;
+    friend.ovr = 62 + (h % 31); // 62..92
+  }
+  return friend.ovr;
+}
+/* Loads (or creates) the local friends record for this save slot. Online/offline
+   status is re-rolled on every open because it is DEMO data only — a real backend
+   would push live presence here instead. Nothing about this pretends to be a real
+   opponent connection. */
+async function loadFriendsForSlot(){
+  if(activeSlot===null){ friendsState = freshFriendsState(); return; }
+  try{
+    const r = await window.storage.get(acctKey('friends',activeSlot), acctShared());
+    friendsState = r ? JSON.parse(r.value) : freshFriendsState();
+  }catch(e){ friendsState = freshFriendsState(); }
+  if(!friendsState.friends) friendsState.friends = [];
+  if(friendsState.myWins===undefined){ friendsState.myWins=0; friendsState.myLosses=0; friendsState.myDraws=0; }
+  if(friendsState.searchOpen===undefined){ friendsState.searchOpen=false; friendsState.searchQuery=''; friendsState.searchResult=null; friendsState.searchError=''; }
+  friendsState.friends.forEach(f=>{
+    if(f.wins===undefined){ f.wins=0; f.losses=0; f.draws=0; }
+    friendBaseOvr(f); // ensure a persisted strength exists
+  });
+}
+/* =====================================================================
+   REAL FRIEND SEARCH — looks a player up by the login they registered
+   with (same account store as the login/register screens) and, once
+   found, adds them as a real friend entry (marked `real:true`, keyed by
+   their login). This is what makes "PLAY FRIEND" actually mean a friend
+   the user chose and searched for, not a placeholder. Presence/matchmaking
+   is still local-only (see the
+   backend note in renderFriendsScreen) — this only fixes *who* is on
+   the list.
+===================================================================== */
+function friendsToggleSearch(){
+  friendsState.searchOpen = !friendsState.searchOpen;
+  if(!friendsState.searchOpen){ friendsState.searchResult=null; friendsState.searchError=''; friendsState.searchQuery=''; }
+  renderFriendsScreen();
+  if(friendsState.searchOpen){ const inp=document.getElementById('friends-search-input'); if(inp) inp.focus(); }
+}
+async function friendsDoSearch(){
+  const input = document.getElementById('friends-search-input');
+  const query = (input ? input.value : '').trim();
+  friendsState.searchQuery = query;
+  friendsState.searchResult = null;
+  if(!query){ friendsState.searchError = "Do'stingizning loginini kiriting."; renderFriendsScreen(); return; }
+  if(currentAccount && normLogin(query)===normLogin(currentAccount.login)){
+    friendsState.searchError = "Bu — sizning o'z loginingiz.";
+    renderFriendsScreen(); return;
+  }
+  friendsState.searchError = '🔎 Qidirilmoqda...';
+  renderFriendsScreen();
+  let acc = null;
+  try{ acc = await getAccountByLogin(query); }catch(e){ acc = null; }
+  if(!acc){
+    friendsState.searchError = "Bunday login bilan o'yinchi topilmadi. Login to'g'ri yozilganini tekshiring.";
+    friendsState.searchResult = null;
+  }else if(friendsState.friends.some(f=>f.login && normLogin(f.login)===normLogin(acc.login))){
+    friendsState.searchError = "Bu o'yinchi allaqachon do'stlar ro'yxatida.";
+    friendsState.searchResult = null;
+  }else{
+    friendsState.searchError = '';
+    friendsState.searchResult = {name:acc.name, surname:acc.surname, login:acc.login};
+  }
+  renderFriendsScreen();
+}
+function friendsAddFriendByLogin(login){
+  const r = friendsState.searchResult;
+  if(!r || normLogin(r.login)!==normLogin(login)) return;
+  const id = 'acc:'+normLogin(r.login);
+  if(friendsState.friends.some(f=>f.id===id)){ showToast("Bu o'yinchi allaqachon do'stlar ro'yxatida.", 'warn'); return; }
+  friendsState.friends.push({id, name:r.name, surname:r.surname, login:r.login, real:true, ovr:null, wins:0, losses:0, draws:0, online:true});
+  friendsState.searchResult = null;
+  friendsState.searchQuery = '';
+  friendsState.searchError = '';
+  friendsState.searchOpen = false;
+  saveFriends();
+  showToast(`✅ ${r.name} do'stlar ro'yxatiga qo'shildi!`, 'ok');
+  renderFriendsScreen();
+}
+async function saveFriends(){ if(activeSlot===null) return; try{ await window.storage.set('friends:'+activeSlot, JSON.stringify(friendsState), false); }catch(e){} }
+function genRoomCode(){ return 'SC-' + (10000+Math.floor(Math.random()*90000)); }
+function friendsCreateRoom(){
+  friendsState.ownedRoomCode = genRoomCode();
+  saveFriends();
+  showToast(`Xona yaratildi: ${friendsState.ownedRoomCode}`, 'ok');
+  renderFriendsScreen();
+}
+function friendsJoinRoom(){
+  const input = document.getElementById('friends-join-input');
+  const code = (input ? input.value : '').trim().toUpperCase();
+  if(!/^SC-\d{5}$/.test(code)){ showToast("Xona kodi noto'g'ri formatda (masalan SC-48291).", 'warn'); return; }
+  showToast("Onlayn backend hali ulanmagan — xonaga real qo'shilish uchun server kerak. UI va tuzilma tayyor.", 'warn');
+}
+function friendsInvite(friendId){
+  const f = friendsState.friends.find(x=>x.id===friendId); if(!f) return;
+  showToast(`${f.name}ga taklif yuborish uchun onlayn backend kerak. Interfeys tayyor — backend ulanganda ishlaydi.`, 'warn');
+}
+
+/* =====================================================================
+   CARD TRADING — real cross-account exchange, built on the same shared
+   window.storage used by the account/login system. A trade item lives in
+   the RECIPIENT's tradebox (tradebox:<login>) until they accept (card is
+   added to their collection) or decline (item is moved back into the
+   SENDER's tradebox so they can reclaim the card). Requires a real
+   logged-in account on both sides — guests have no login to key on.
+===================================================================== */
+function tradeboxKey(login){ return 'tradebox:' + normLogin(login); }
+async function loadTradebox(login){
+  try{
+    const r = await window.storage.get(tradeboxKey(login), true);
+    return r ? JSON.parse(r.value) : [];
+  }catch(e){ return []; }
+}
+async function saveTradebox(login, items){
+  try{ await window.storage.set(tradeboxKey(login), JSON.stringify(items), true); }catch(e){}
+}
+function friendsOpenTradePicker(friendId){
+  const f = friendsState.friends.find(x=>x.id===friendId); if(!f || !f.real) return;
+  if(!currentAccount){ showToast("Ayirboshlash uchun hisobingizga kiring.", 'warn'); return; }
+  const items = collection.owned.map(inst=>{
+    const s = statsForOwned(inst); if(!s) return null;
+    return {id:inst.id, label:`${s.ovr} OVR · ${s.def.name} · ${s.rarity} · LVL ${inst.level}`};
+  }).filter(Boolean);
+  const body = document.getElementById('trade-modal-body');
+  body.innerHTML = `
+    <div class="hub-head-title" style="text-align:center;">🔄 ${escHtml(f.name)}GA KARTA YUBORISH</div>
+    ${items.length ? `
+      <div class="field-label">QAYSI KARTANGIZNI YUBORASIZ?</div>
+      <select id="trade-card-select" style="width:100%;background:#0f0f0d;color:var(--gold);border:1px solid var(--line);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px;">
+        ${items.map(it=>`<option value="${it.id}">${escHtml(it.label)}</option>`).join('')}
+      </select>
+      <div class="field-label" style="margin-top:10px;">IZOH (nimaga almashtirmoqchisiz, ixtiyoriy)</div>
+      <input id="trade-note-input" class="search-input" style="width:100%;" placeholder="Masalan: Legendary hujumchiga almashtiraman">
+      <button class="primary draft-hero-btn" style="width:100%;margin-top:14px;" id="trade-send-btn">📤 YUBORISH</button>
+    ` : `<div class="pdetail-meta" style="text-align:center;padding:14px 0;">Yuboradigan kartangiz yo'q.</div>`}`;
+  openModal('trade-modal');
+  const sendBtn = document.getElementById('trade-send-btn');
+  if(sendBtn) sendBtn.addEventListener('click', ()=> friendsSendTrade(f));
+}
+async function friendsSendTrade(f){
+  const sel = document.getElementById('trade-card-select');
+  const noteInp = document.getElementById('trade-note-input');
+  if(!sel) return;
+  const ownedId = Number(sel.value);
+  const inst = ownedById(ownedId);
+  const s = inst ? statsForOwned(inst) : null;
+  if(!inst || !s){ showToast("Karta topilmadi.", 'warn'); return; }
+  const btn = document.getElementById('trade-send-btn');
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ YUBORILMOQDA...'; }
+  // remove from my own collection (it's now in transit / escrow with the friend)
+  collection.owned = collection.owned.filter(o=>o.id!==ownedId);
+  Object.keys(collection.squad||{}).forEach(pos=>{ if(collection.squad[pos]===ownedId) delete collection.squad[pos]; });
+  await saveCollection();
+  const inbox = await loadTradebox(f.login);
+  inbox.push({
+    id: 'tr_' + Date.now() + '_' + Math.floor(Math.random()*1e6),
+    fromLogin: currentAccount.login, fromName: currentAccount.name,
+    toLogin: f.login, toName: f.name,
+    card: {defId: inst.defId, level: inst.level, ovr: s.ovr, name: s.def.name, rarity: s.rarity},
+    note: (noteInp ? noteInp.value : '').trim().slice(0,120),
+    status: 'pending', ts: Date.now()
+  });
+  await saveTradebox(f.login, inbox);
+  closeModal('trade-modal');
+  renderCollectionGrid();
+  showToast(`✅ ${s.def.name} ${f.name}ga yuborildi. Javobini kutmoqda.`, 'ok');
+}
+async function loadAndRenderTradebox(){
+  const wrap = document.getElementById('trades-inbox-wrap');
+  if(!wrap) return;
+  if(!currentAccount){
+    wrap.innerHTML = `<div class="pdetail-meta" style="text-align:center;padding:14px 0;">Ayirboshlashdan foydalanish uchun hisobingizga kiring.</div>`;
+    return;
+  }
+  const items = await loadTradebox(currentAccount.login);
+  if(friendsState.tab!=='trades') return; // user navigated away while loading
+  const incoming = items.filter(it=>it.status==='pending' && normLogin(it.toLogin)===normLogin(currentAccount.login));
+  const returned = items.filter(it=>it.status==='declined-return' && normLogin(it.toLogin)===normLogin(currentAccount.login));
+  if(!incoming.length && !returned.length){
+    wrap.innerHTML = `<div class="pdetail-meta" style="text-align:center;padding:14px 0;">Hozircha kelgan taklif yo'q.</div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    ${incoming.length ? `<div class="field-label">KELGAN TAKLIFLAR</div>` + incoming.map(it=>`
+      <div class="friend-row">
+        <div class="friend-row-info">
+          <span class="friend-name">${escHtml(it.card.name)} · ${it.card.ovr} OVR · ${escHtml(it.card.rarity)}</span>
+          <span class="friend-status-label">${escHtml(it.fromName)}dan${it.note?' · "'+escHtml(it.note)+'"':''}</span>
+        </div>
+        <div class="friend-row-actions">
+          <button class="opt-btn primary" data-tradeaction="accept:${it.id}">✅ QABUL</button>
+          <button class="opt-btn" data-tradeaction="decline:${it.id}">✕ RAD ETISH</button>
+        </div>
+      </div>`).join('') : ''}
+    ${returned.length ? `<div class="field-label" style="margin-top:10px;">RAD ETILGAN — QAYTARIB OLING</div>` + returned.map(it=>`
+      <div class="friend-row">
+        <div class="friend-row-info">
+          <span class="friend-name">${escHtml(it.card.name)} · ${it.card.ovr} OVR · ${escHtml(it.card.rarity)}</span>
+          <span class="friend-status-label">${escHtml(it.toName)} rad etdi</span>
+        </div>
+        <div class="friend-row-actions">
+          <button class="opt-btn primary" data-tradeaction="claim:${it.id}">📥 QAYTARIB OLISH</button>
+        </div>
+      </div>`).join('') : ''}`;
+}
+async function tradeRespond(itemId, action){
+  if(!currentAccount) return;
+  const myLogin = currentAccount.login;
+  const items = await loadTradebox(myLogin);
+  const idx = items.findIndex(it=>it.id===itemId);
+  if(idx<0) return;
+  const it = items[idx];
+  if(action==='accept'){
+    addOwnedPlayer(it.card.defId, false);
+    const inst = collection.owned[collection.owned.length-1];
+    inst.level = it.card.level || 1;
+    await saveCollection();
+    items.splice(idx,1);
+    await saveTradebox(myLogin, items);
+    showToast(`✅ ${it.card.name} to'plamingizga qo'shildi!`, 'ok');
+  } else if(action==='decline'){
+    items.splice(idx,1);
+    await saveTradebox(myLogin, items);
+    const senderBox = await loadTradebox(it.fromLogin);
+    senderBox.push(Object.assign({}, it, {status:'declined-return', ts:Date.now()}));
+    await saveTradebox(it.fromLogin, senderBox);
+    showToast("Taklif rad etildi.", 'ok');
+  } else if(action==='claim'){
+    addOwnedPlayer(it.card.defId, false);
+    const inst = collection.owned[collection.owned.length-1];
+    inst.level = it.card.level || 1;
+    await saveCollection();
+    items.splice(idx,1);
+    await saveTradebox(myLogin, items);
+    showToast(`📥 ${it.card.name} qaytarib olindi.`, 'ok');
+  }
+  loadAndRenderTradebox();
+  renderCollectionGrid();
+}
+function friendsOpenLobby(mode, friendId){
+  const f = friendsState.friends.find(x=>x.id===friendId) || null;
+  friendsState.lobby = {mode, friend: f};
+  renderFriendsScreen();
+}
+function friendsCloseLobby(){ friendsState.lobby = null; renderFriendsScreen(); }
+function friendsMyOvr(){
+  const info = computeSquadOVR();
+  if(info) return info.avg + info.chemBonus;
+  return player ? overall_calc(player) : 60;
+}
+function friendsStartMatch(){
+  if(!friendsState.lobby) return;
+  const {mode, friend} = friendsState.lobby;
+  if(!friend){ showToast("Avval ro'yxatdan do'stingizni tanlang.", 'warn'); return; }
+  if(mode==='draft' || mode==='tournament'){
+    showToast("Bu format hozircha faqat asosiy DRAFT bo'limida (bitta qurilmada almashib o'ynash) mavjud. Hozir 1v1 yoki Penalti orqali do'stingiz bilan o'ynashingiz mumkin.", 'warn');
+    return;
+  }
+  if(mode==='penalty'){ friendsRunPenaltyShootout(friend); return; }
+  friendsRunOneOnOne(friend);
+}
+function friendsTab(tab){ friendsState.tab = tab; renderFriendsScreen(); }
+
+/* =====================================================================
+   LOCAL "PLAY FRIEND" MATCH ENGINE — no live backend, no assumed second
+   device: your squad OVR is simulated against the friend's saved card
+   strength (friendBaseOvr), right here, right now. Real cross-device
+   sync is a separate, still-unbuilt feature (see backend note in UI).
+===================================================================== */
+let friendsMatchLive = null;
+function friendsRunOneOnOne(friend){
+  const myOvr = friendsMyOvr();
+  const fOvr = friendBaseOvr(friend);
+  const diff = myOvr - fOvr;
+  const usScore = clamp(Math.round(rnd(0,3) + diff/14), 0, 7);
+  const themScore = clamp(Math.round(rnd(0,3) - diff/14), 0, 7);
+  const usGoalMins = []; for(let i=0;i<usScore;i++) usGoalMins.push(rnd(3,90));
+  const themGoalMins = []; for(let i=0;i<themScore;i++) themGoalMins.push(rnd(3,90));
+  const timeline = usGoalMins.map(m=>({m,us:true})).concat(themGoalMins.map(m=>({m,us:false}))).sort((a,b)=>a.m-b.m);
+  friendsMatchLive = { friend, myOvr, fOvr, usScore, themScore, timeline, uLive:0, tLive:0, log:[], step:0, steps:[15,30,45,60,75,90], finished:false };
+  friendsRenderMatchStep();
+}
+function friendsRenderMatchStep(){
+  const el = document.getElementById('friends-content');
+  const st = friendsMatchLive;
+  if(!el || !st) return;
+  el.innerHTML = `
+    <div class="hub-head-title" style="text-align:center;">⚔️ 1v1 FRIEND MATCH</div>
+    <div class="friends-lobby-row">
+      <div class="friends-lobby-side">
+        <div class="friends-lobby-you">SIZ</div>
+        <div class="pdetail-ovr" style="font-size:32px;">${st.myOvr}</div>
+        <div class="pdetail-meta">OVR</div>
+      </div>
+      <div class="friends-lobby-vs" id="fm-score">${st.uLive} — ${st.tLive}</div>
+      <div class="friends-lobby-side">
+        <div class="friends-lobby-you">${st.friend.name.toUpperCase()}</div>
+        <div class="pdetail-ovr" style="font-size:32px;">${st.fOvr}</div>
+        <div class="pdetail-meta">OVR</div>
+      </div>
+    </div>
+    <div class="log" id="fm-log">${st.log.length ? st.log.map(l=>`<div class="${l.new?'new':''}">${l.text}</div>`).join('') : `<div style="opacity:.6;">O'yin boshlanishi uchun DAVOM ETISH tugmasini bosing…</div>`}</div>
+    <div class="btn-row" id="fm-actions" style="margin-top:14px;"></div>`;
+  const actions = document.getElementById('fm-actions');
+  const btn = document.createElement('button');
+  btn.className='primary draft-hero-btn';
+  btn.style.width='100%';
+  btn.textContent = st.step>=st.steps.length ? "NATIJANI KO'RISH ▶" : `DAVOM ETISH (${st.steps[st.step]}') ▶`;
+  btn.addEventListener('click', friendsAdvanceMatch);
+  actions.appendChild(btn);
+}
+function friendsAdvanceMatch(){
+  const st = friendsMatchLive; if(!st) return;
+  if(st.step>=st.steps.length){ friendsFinishMatch(); return; }
+  const target = st.steps[st.step];
+  while(st.timeline.length && st.timeline[0].m<=target){
+    const ev = st.timeline.shift();
+    if(ev.us){ st.uLive++; st.log.unshift({text:`⚽ ${ev.m}' — Siz gol urdingiz!`, new:true}); playCrowdCheer(); }
+    else { st.tLive++; st.log.unshift({text:`⚽ ${ev.m}' — ${st.friend.name} gol urdi.`, new:true}); }
+  }
+  st.log.forEach(l=> l.new=false);
+  st.step++;
+  friendsRenderMatchStep();
+}
+function friendsFinishMatch(){
+  const st = friendsMatchLive; if(!st) return;
+  st.finished = true;
+  const won = st.uLive>st.tLive, draw = st.uLive===st.tLive;
+  st.friend.wins = st.friend.wins||0; st.friend.losses = st.friend.losses||0; st.friend.draws = st.friend.draws||0;
+  if(won) st.friend.losses++; else if(draw) st.friend.draws++; else st.friend.wins++;
+  friendsState.myWins = friendsState.myWins||0; friendsState.myLosses = friendsState.myLosses||0; friendsState.myDraws = friendsState.myDraws||0;
+  if(won) friendsState.myWins++; else if(draw) friendsState.myDraws++; else friendsState.myLosses++;
+  const coinReward = 20 + Math.round(st.myOvr/2) + (won?40:draw?15:0);
+  const starsReward = won ? 2 : 0;
+  grantCoins(coinReward);
+  if(starsReward) grantStars(starsReward);
+  saveFriends();
+  if(won) playFanfare(); else if(!draw) playSadHorn();
+  const el = document.getElementById('friends-content');
+  el.innerHTML = `
+    <div class="hub-head-title" style="text-align:center;">${won?"🏆 G'ALABA!":draw?"🤝 DURANG":"😔 MAG'LUBIYAT"}</div>
+    <div class="friends-lobby-row">
+      <div class="friends-lobby-side"><div class="friends-lobby-you">SIZ</div><div class="pdetail-ovr" style="font-size:32px;">${st.uLive}</div></div>
+      <div class="friends-lobby-vs">FINAL</div>
+      <div class="friends-lobby-side"><div class="friends-lobby-you">${st.friend.name.toUpperCase()}</div><div class="pdetail-ovr" style="font-size:32px;">${st.tLive}</div></div>
+    </div>
+    <div class="center-note">🪙 +${coinReward} coins${starsReward?` · 🌟 +${starsReward} stars`:''}</div>
+    <div class="btn-row" style="margin-top:14px;"><button class="primary draft-hero-btn" style="width:100%;" id="fm-close-btn">TAYYOR</button></div>`;
+  document.getElementById('fm-close-btn').addEventListener('click', ()=>{
+    friendsMatchLive = null; friendsState.lobby = null; renderFriendsScreen();
+  });
+}
+
+let friendsPenaltyLive = null;
+function friendsRunPenaltyShootout(friend){
+  friendsPenaltyLive = { friend, myOvr: friendsMyOvr(), fOvr: friendBaseOvr(friend), us:0, them:0, kicks:0, maxKicks:5, log:[], finished:false, suddenDeath:false };
+  friendsRenderPenaltyStep();
+}
+function friendsRenderPenaltyStep(){
+  const el = document.getElementById('friends-content');
+  const st = friendsPenaltyLive;
+  if(!el || !st) return;
+  el.innerHTML = `
+    <div class="hub-head-title" style="text-align:center;">🥅 PENALTI SERIYASI</div>
+    <div class="friends-lobby-row">
+      <div class="friends-lobby-side"><div class="friends-lobby-you">SIZ</div><div class="pdetail-ovr" style="font-size:32px;">${st.us}</div></div>
+      <div class="friends-lobby-vs">${st.kicks}/${st.maxKicks}${st.suddenDeath?' · SD':''}</div>
+      <div class="friends-lobby-side"><div class="friends-lobby-you">${st.friend.name.toUpperCase()}</div><div class="pdetail-ovr" style="font-size:32px;">${st.them}</div></div>
+    </div>
+    <div class="log">${st.log.length ? st.log.map(l=>`<div>${l.text}</div>`).join('') : `<div style="opacity:.6;">Birinchi zarbani boshlash uchun tugmani bosing…</div>`}</div>
+    <div class="btn-row" id="fp-actions" style="margin-top:14px;"></div>`;
+  const actions = document.getElementById('fp-actions');
+  const btn = document.createElement('button');
+  btn.className='primary draft-hero-btn'; btn.style.width='100%';
+  btn.textContent = "⚽ UR! (PENALTI)";
+  btn.addEventListener('click', friendsPenaltyKick);
+  actions.appendChild(btn);
+}
+function friendsPenaltyKick(){
+  const st = friendsPenaltyLive; if(!st) return;
+  st.kicks++;
+  const myChance = clamp(0.55 + (st.myOvr-70)/220, 0.35, 0.9);
+  const scored = Math.random() < myChance;
+  if(scored){ st.us++; st.log.unshift({text:`⚽ Siz realizatsiya qildingiz! (${st.us}-${st.them})`}); playCrowdCheer(); }
+  else { st.log.unshift({text:`❌ Siz o'tkazib yubordingiz. (${st.us}-${st.them})`}); }
+  const themChance = clamp(0.55 + (st.fOvr-70)/220, 0.35, 0.9);
+  const themScored = Math.random() < themChance;
+  if(themScored){ st.them++; st.log.unshift({text:`⚽ ${st.friend.name} realizatsiya qildi. (${st.us}-${st.them})`}); }
+  else { st.log.unshift({text:`❌ ${st.friend.name} o'tkazib yubordi. (${st.us}-${st.them})`}); playCrowdCheer(); }
+  const kicksLeft = st.maxKicks - st.kicks;
+  let ended=false, won=null;
+  if(!st.suddenDeath && st.kicks>=st.maxKicks){
+    if(st.us>st.them){ ended=true; won=true; }
+    else if(st.us<st.them){ ended=true; won=false; }
+    else { st.suddenDeath = true; }
+  } else if(!st.suddenDeath){
+    if(st.us>st.them+kicksLeft){ ended=true; won=true; }
+    else if(st.them>st.us+kicksLeft){ ended=true; won=false; }
+  } else if(st.suddenDeath && st.us!==st.them){
+    ended=true; won = st.us>st.them;
+  }
+  if(ended){ friendsFinishPenalty(won); return; }
+  friendsRenderPenaltyStep();
+}
+function friendsFinishPenalty(won){
+  const st = friendsPenaltyLive; st.finished = true;
+  st.friend.wins = st.friend.wins||0; st.friend.losses = st.friend.losses||0;
+  if(won) st.friend.losses++; else st.friend.wins++;
+  friendsState.myWins = friendsState.myWins||0; friendsState.myLosses = friendsState.myLosses||0;
+  if(won) friendsState.myWins++; else friendsState.myLosses++;
+  const coinReward = 15 + Math.round(st.myOvr/2) + (won?30:0);
+  grantCoins(coinReward);
+  if(won) grantStars(1);
+  saveFriends();
+  if(won) playFanfare(); else playSadHorn();
+  const el = document.getElementById('friends-content');
+  el.innerHTML = `
+    <div class="hub-head-title" style="text-align:center;">${won?"🏆 G'ALABA!":"😔 MAG'LUBIYAT"}</div>
+    <div class="center-note">Penalti hisobi: ${st.us} — ${st.them}</div>
+    <div class="center-note">🪙 +${coinReward} coins${won?' · 🌟 +1 star':''}</div>
+    <div class="btn-row" style="margin-top:14px;"><button class="primary draft-hero-btn" style="width:100%;" id="fp-close-btn">TAYYOR</button></div>`;
+  document.getElementById('fp-close-btn').addEventListener('click', ()=>{
+    friendsPenaltyLive = null; friendsState.lobby = null; renderFriendsScreen();
+  });
+}
+function renderFriendsScreen(){
+  const el = document.getElementById('friends-content');
+  if(!el || !friendsState) return;
+  const tabs = [['list','👥 DO\'STLAR'],['trades','🔄 ALMASHINUV'],['room','🚪 XONA'],['modes','🎮 REJIMLAR'],['ranking','🏆 REYTING']];
+  const tabRow = `<div class="opt-row" style="justify-content:center;margin-bottom:14px;">
+    ${tabs.map(([id,label])=>`<div class="opt-btn${friendsState.tab===id?' active':''}" data-friendstab="${id}">${label}</div>`).join('')}
+  </div>`;
+  const backendNote = `<div class="friends-backend-note">✅ <b>1v1 FRIEND MATCH</b> va <b>PENALTI SERIYASI</b> shu qurilmada mahalliy simulyatsiya orqali to'liq o'ynaladi — backend shart emas. ⚠️ Faqat <b>XONA</b> orqali boshqa qurilmaga real ulanish, hamda <b>DRAFT/TURNIR vs do'st</b> — bular hali backend talab qiladigan future-ready qismlar.</div>`;
+
+  if(friendsState.lobby){
+    const {mode, friend} = friendsState.lobby;
+    const modeDef = FRIENDS_ONLINE_MODES.find(m=>m.id===mode) || FRIENDS_ONLINE_MODES[0];
+    const myOvr = friendsMyOvr();
+    const isPlayable = (mode==='1v1' || mode==='penalty');
+    const fOvr = friend ? friendBaseOvr(friend) : null;
+    const record = friend ? `${friend.wins||0}G / ${friend.draws||0}D / ${friend.losses||0}M (sizga nisbatan)` : '';
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;">${modeDef.ic} ${modeDef.name}</div>
+      ${isPlayable ? '' : backendNote}
+      <div class="friends-lobby-row">
+        <div class="friends-lobby-side">
+          <div class="friends-lobby-you">SIZ</div>
+          <div class="pdetail-ovr" style="font-size:32px;">${myOvr}</div>
+          <div class="pdetail-meta">OVR · FORMATSIYA ${collection.formation||'—'}</div>
+        </div>
+        <div class="friends-lobby-vs">VS</div>
+        <div class="friends-lobby-side">
+          <div class="friends-lobby-you">${friend ? friend.name.toUpperCase() : "DO'ST"}</div>
+          <div class="pdetail-ovr" style="font-size:32px;">${fOvr!=null ? fOvr : '—'}</div>
+          <div class="pdetail-meta">${friend ? record : "Do'stingizni tanlang"}</div>
+        </div>
+      </div>
+      ${isPlayable
+        ? `<button class="primary draft-hero-btn" style="width:100%;margin-top:16px;" data-friendsaction="startmatch">⚽ START MATCH</button>`
+        : `<button class="opt-btn" style="width:100%;margin-top:16px;text-align:center;opacity:.7;" data-friendsaction="startmatch">Bu format hali mavjud emas</button>`}
+      <button class="opt-btn" style="width:100%;text-align:center;margin-top:8px;" data-friendsaction="closelobby">◀ ORQAGA</button>`;
+    return;
+  }
+
+  if(friendsState.tab==='list'){
+    const searchBox = friendsState.searchOpen ? `
+      <div class="friends-search-box" style="margin:0 0 14px;">
+        <div style="display:flex;gap:8px;">
+          <input id="friends-search-input" class="search-input" style="flex:1;" placeholder="Do'stingizning loginini kiriting" value="${escHtml(friendsState.searchQuery||'')}" autocomplete="off">
+          <button class="opt-btn" data-friendsaction="dosearch">🔎 QIDIRISH</button>
+        </div>
+        ${friendsState.searchError ? `<div style="color:${friendsState.searchError.startsWith('🔎')?'var(--gold)':'var(--crimson)'};font-size:12px;margin-top:6px;">${escHtml(friendsState.searchError)}</div>` : ''}
+        ${friendsState.searchResult ? `
+          <div class="friend-row" style="margin-top:10px;">
+            <div class="friend-row-info">
+              <span class="friend-status-dot online"></span>
+              <span class="friend-name">${escHtml(friendsState.searchResult.name)} ${escHtml(friendsState.searchResult.surname||'')}</span>
+              <span class="friend-status-label">@${escHtml(friendsState.searchResult.login)}</span>
+            </div>
+            <div class="friend-row-actions">
+              <button class="opt-btn primary" data-friendsaction="addfriend:${encodeURIComponent(friendsState.searchResult.login)}">➕ QO'SHISH</button>
+            </div>
+          </div>` : ''}
+      </div>` : '';
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;position:relative;">
+        👥 FRIENDS
+        <span class="friends-search-toggle${friendsState.searchOpen?' active':''}" data-friendsaction="togglesearch" title="Do'stni login orqali qidirish" style="position:absolute;right:0;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;line-height:1;">🔍</span>
+      </div>
+      ${tabRow}${searchBox}${backendNote}
+      <div class="friends-list">
+        ${friendsState.friends.length ? friendsState.friends.map(f=>`
+          <div class="friend-row">
+            <div class="friend-row-info">
+              <span class="friend-status-dot ${f.online?'online':'offline'}"></span>
+              <span class="friend-name">${escHtml(f.name)}${f.real?' <span style="opacity:.55;font-size:11px;">@'+escHtml(f.login)+'</span>':''}</span>
+              <span class="friend-status-label">${f.online?'ONLINE':'OFFLINE'} · ${friendBaseOvr(f)} OVR</span>
+            </div>
+            <div class="friend-row-actions">
+              <button class="opt-btn" data-friendsaction="invite:${f.id}">INVITE</button>
+              <button class="opt-btn" data-friendsaction="play:${f.id}">PLAY FRIEND</button>
+              ${f.real ? `<button class="opt-btn" data-friendsaction="opentrade:${f.id}">🔄 AYIRBOSHLASH</button>` : ''}
+            </div>
+          </div>`).join('') : `<div class="pdetail-meta" style="text-align:center;padding:18px 0;">Hali do'stlaringiz yo'q. Yuqoridagi 🔍 tugmasini bosib, do'stingizning loginini kiriting va uni qo'shing.</div>`}
+      </div>`;
+    return;
+  }
+  if(friendsState.tab==='trades'){
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;">🔄 KARTALAR ALMASHINUVI</div>
+      ${tabRow}
+      <div class="friends-backend-note">✅ Bu — <b>real</b> ayirboshlash: karta haqiqatan ham do'stingizning hisobiga o'tadi (umumiy serverga saqlanadi). Do'stlar ro'yxatidagi <b>🔄 AYIRBOSHLASH</b> tugmasi orqali kartangizni yuboring; qabul qiluvchi shu yerda ko'radi va qabul/rad qiladi.</div>
+      <div id="trades-inbox-wrap"><div class="pdetail-meta" style="text-align:center;padding:14px 0;">⏳ Yuklanmoqda...</div></div>`;
+    loadAndRenderTradebox();
+    return;
+  }
+  if(friendsState.tab==='room'){
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;">🚪 CREATE / JOIN ROOM</div>
+      ${tabRow}
+      <div class="friends-backend-note">⚠️ XONA orqali boshqa qurilmaga real ulanish hali backend talab qiladi. Do'stingiz bilan hoziroq o'ynash uchun <b>DO'STLAR</b> bo'limidan <b>PLAY FRIEND</b> tugmasini bosing (1v1 yoki Penalti — mahalliy simulyatsiya).</div>
+      <div class="field-label">CREATE ROOM</div>
+      ${friendsState.ownedRoomCode
+        ? `<div class="room-code-display">${friendsState.ownedRoomCode}</div><div class="pdetail-meta" style="text-align:center;">Xona kodini do'stingizga yuboring.</div>`
+        : `<button class="primary draft-hero-btn" style="width:100%;" data-friendsaction="createroom">🚪 XONA YARATISH</button>`}
+      <div class="field-label">JOIN ROOM</div>
+      <div style="display:flex;gap:8px;">
+        <input id="friends-join-input" class="search-input" placeholder="Masalan: SC-48291" style="flex:1;">
+        <button class="opt-btn" data-friendsaction="joinroom">QO'SHILISH</button>
+      </div>`;
+    return;
+  }
+  if(friendsState.tab==='modes'){
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;">🎮 ONLINE GAME MODES</div>
+      ${tabRow}${backendNote}
+      <div class="friends-modes-grid">
+        ${FRIENDS_ONLINE_MODES.map(m=>`
+          <div class="friends-mode-card">
+            <div style="font-size:26px;">${m.ic}</div>
+            <div class="friends-mode-name">${m.name}${(m.id==='1v1'||m.id==='penalty')?' ✅':''}</div>
+            <div class="pdetail-meta">${m.desc}</div>
+            <button class="opt-btn" style="width:100%;margin-top:8px;" data-friendsaction="lobby:${m.id}:${friendsState.friends[0]?friendsState.friends[0].id:''}">LOBBY KO'RISH</button>
+          </div>`).join('')}
+      </div>`;
+    return;
+  }
+  if(friendsState.tab==='ranking'){
+    const myMatches = friendsState.myWins + friendsState.myDraws + friendsState.myLosses;
+    el.innerHTML = `
+      <div class="hub-head-title" style="text-align:center;">🏆 ONLINE RANKING</div>
+      ${tabRow}
+      <div class="friends-backend-note">⚠️ Bu — faqat sizning <b>lokal</b> do'stlar bilan o'ynagan match statistikangiz. Real onlayn reyting emas: backend ulanmaguncha boshqa o'yinchilar bilan solishtirilmaydi.</div>
+      <table class="friends-rank-table">
+        <thead><tr><th>RANK</th><th>PLAYER</th><th>G/D/M</th><th>OVR</th></tr></thead>
+        <tbody><tr>
+          <td>1 (local)</td><td>${player?player.name:'SIZ'}</td><td>${friendsState.myWins}/${friendsState.myDraws}/${friendsState.myLosses}</td><td>${friendsMyOvr()}</td>
+        </tr>
+        ${friendsState.friends.slice().sort((a,b)=>(b.wins||0)-(a.wins||0)).map((f,i)=>`
+          <tr><td>${i+2}</td><td>${f.name}</td><td>${f.wins||0}/${f.draws||0}/${f.losses||0}</td><td>${friendBaseOvr(f)}</td></tr>
+        `).join('')}
+        </tbody>
+      </table>
+      <div class="center-note">Jami do'stlar bilan o'ynalgan match: ${myMatches}</div>`;
+    return;
+  }
+}
+
 function renderCardsHub(){
   document.querySelectorAll('#cards-hub-tabs .hub-tab').forEach(t=> t.classList.toggle('active', t.getAttribute('data-cardstab')===cardsHubTab));
   document.getElementById('cards-collection-view').classList.toggle('hidden', cardsHubTab!=='collection');
@@ -5945,7 +7071,7 @@ function startPackOpen(packId){
     const statKeys = ['pace','shooting','passing','dribbling','defending','physical'].filter(k=>def.stats[k]!=null);
     return `
       <div class="pack-reveal-card${isRare?' rare-card':''} pdetail-card rarity-${def.rarity}">
-        ${isRare ? `<div class="pack-light-rays"></div>` : ''}
+        ${isRare ? `<div class="pack-light-rays"></div><div class="rare-burst"></div>` : ''}
         <div class="pc-photo" style="width:84px;height:84px;font-size:28px;margin:0 auto 10px;position:relative;z-index:2;">${playerPhotoImgTag(def)}</div>
         <div class="pdetail-ovr ovr-pop" style="position:relative;z-index:2;">${def.ovr}</div>
         <div class="pdetail-name" style="position:relative;z-index:2;">${def.name}</div>
@@ -5998,8 +7124,15 @@ function startPackOpen(packId){
       <div class="reveal-club">${clubBadgeSVG(club, 90)}</div>${skipBtn()}`;
     wireSkip(finish);
   }, 1600));
-  // STAGE 4: PLAYER CARD + STAGE 5/6: OVR + STATS (staged reveal within the card via CSS delays)
-  timers.push(setTimeout(finish, 2300));
+  // STAGE 4: CARD SILHOUETTE / BACK — brief beat before the cinematic reveal (rare packs get more particles)
+  timers.push(setTimeout(()=>{
+    const stage = document.getElementById('pack-open-stage'); if(!stage) return;
+    stage.innerHTML = `${packParticlesHTML(isRare?14:8)}${isRare?'<div class="pack-light-rays"></div>':''}
+      <div class="pack-card-back"><div class="pcb-mark">SOCCER<br>CARD</div></div>${skipBtn()}`;
+    wireSkip(finish);
+  }, 2150));
+  // STAGE 5: PLAYER CARD + OVR + STATS (staged reveal within the card via CSS delays)
+  timers.push(setTimeout(finish, 2750));
 }
 
 /* ---------- modal helpers ---------- */
@@ -6022,16 +7155,56 @@ document.addEventListener('click', (e)=>{
   if(draftFormEl){ selectDraftFormation(draftFormEl.getAttribute('data-draftformation')); return; }
   const draftPickEl = e.target.closest('[data-draftpick]');
   if(draftPickEl){ pickDraftPlayer(draftPickEl.getAttribute('data-draftpick')); return; }
+  const draftTacticEl = e.target.closest('[data-drafttactic]');
+  if(draftTacticEl){
+    const [cat, val] = draftTacticEl.getAttribute('data-drafttactic').split(':');
+    if(draftState && draftState.tactics){ draftState.tactics[cat] = val; renderDraftScreen(); }
+    return;
+  }
+  const friendsTabEl = e.target.closest('[data-friendstab]');
+  if(friendsTabEl){ friendsTab(friendsTabEl.getAttribute('data-friendstab')); return; }
+  const friendsActionEl = e.target.closest('[data-friendsaction]');
+  if(friendsActionEl){
+    const [act, a1, a2] = friendsActionEl.getAttribute('data-friendsaction').split(':');
+    if(act==='createroom') friendsCreateRoom();
+    else if(act==='joinroom') friendsJoinRoom();
+    else if(act==='invite') friendsInvite(a1);
+    else if(act==='play') friendsOpenLobby('1v1', a1);
+    else if(act==='lobby') friendsOpenLobby(a1, a2);
+    else if(act==='startmatch') friendsStartMatch();
+    else if(act==='closelobby') friendsCloseLobby();
+    else if(act==='togglesearch') friendsToggleSearch();
+    else if(act==='dosearch') friendsDoSearch();
+    else if(act==='addfriend'){
+      const login = decodeURIComponent(friendsActionEl.getAttribute('data-friendsaction').slice('addfriend:'.length));
+      friendsAddFriendByLogin(login);
+    }
+    else if(act==='opentrade') friendsOpenTradePicker(a1);
+    return;
+  }
+  const tradeActionEl = e.target.closest('[data-tradeaction]');
+  if(tradeActionEl){
+    const [act, id] = tradeActionEl.getAttribute('data-tradeaction').split(':');
+    tradeRespond(id, act);
+    return;
+  }
   const draftActionEl = e.target.closest('[data-draftaction]');
   if(draftActionEl){
     const act = draftActionEl.getAttribute('data-draftaction');
     if(act==='entry') startDraftEntry();
     else if(act==='playmatch') playDraftMatch();
     else if(act==='reset') draftReset();
+    else if(act==='toggletactics'){ if(draftState){ draftState.showTactics = !draftState.showTactics; renderDraftScreen(); } }
     return;
   }
   const overlay = e.target.closest('.modal-overlay');
   if(overlay && e.target===overlay){ overlay.classList.add('hidden'); return; }
+});
+/* Enter key submits the friends-search / room-join inputs, same as clicking their buttons */
+document.addEventListener('keydown', (e)=>{
+  if(e.key!=='Enter') return;
+  if(e.target && e.target.id==='friends-search-input'){ e.preventDefault(); friendsDoSearch(); }
+  else if(e.target && e.target.id==='friends-join-input'){ e.preventDefault(); friendsJoinRoom(); }
 });
 document.addEventListener('DOMContentLoaded', ()=>{
   const sortSel = document.getElementById('collection-sort');
